@@ -9,15 +9,18 @@ namespace P_032_SpicyInvaders
 {
     class Shoot
     {
-        /// <summary>
-        /// Attributs
-        /// </summary>
         private int _posX;
         private int _posY;
         private int _tempPosX;
         private int _tempPosY;
         private static int _speed;
         private Thread missileLaunch;
+
+        public int PosX
+        {
+            get { return _posX; }
+            set { _posX = value; }
+        }
 
         public int PosY
         {
@@ -26,12 +29,6 @@ namespace P_032_SpicyInvaders
         }
 
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="speed"></param>
         public Shoot(int x, int y, int speed)
         {
             this._posX = x;
@@ -41,29 +38,30 @@ namespace P_032_SpicyInvaders
             missileLaunch.Start();
         }
 
-        /// <summary>
-        /// Methods
-        /// </summary>
         private void LaunchMissile()
         {
-            while (_posY != Console.WindowTop+1)
+            while (_posY != 40)
             {
-                _posY--;
+                _posY++;
                 _tempPosX = _posX;
                 _tempPosY = _posY;
                 Console.SetCursorPosition(_posX, _posY);
-                Console.Write("¦");
+                Console.Write("■");
                 WaitToFire();
-                Console.SetCursorPosition(_tempPosX--, _tempPosY++);
+                Console.SetCursorPosition(_tempPosX--, _tempPosY--);
                 Console.Write(" ");
             }
-            Program.canShoot = true;
             GC.Collect();
         }
 
         private static void WaitToFire()
         {
             Thread.Sleep(_speed);
+        }
+
+        public void DestroyBullet()
+        {
+            GC.Collect();
         }
     }
 }

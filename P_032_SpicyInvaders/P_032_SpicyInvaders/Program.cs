@@ -8,10 +8,12 @@ namespace P_032_SpicyInvaders
 {
     class Program
     {
+        public static Player ship = new Player();
         public static bool canShoot = true;
+
+
         static void Main(string[] args)
         {
-            Player ship = new Player();
             
             bool gameOver = false;
             ConsoleKeyInfo keyEnterred;
@@ -37,6 +39,21 @@ namespace P_032_SpicyInvaders
                         break;
                 }
             } while (gameOver == false);
+        }
+
+
+
+        public static void ShootBulletFromEnemy(int x, int y)
+        {
+            Shoot shoot = new Shoot(x, y, 200);
+            while (shoot != null)
+            {
+                if (ship.PosX == shoot.PosX && ship.PosY == shoot.PosY)
+                {
+                    shoot.DestroyBullet();
+                    ship.Life -= 1;
+                }
+            }
         }
     }
 }
