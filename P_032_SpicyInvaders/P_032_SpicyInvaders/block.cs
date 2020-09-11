@@ -2,6 +2,11 @@
  * Auteur:   Clément Sartoni
  * Date:     04.09.2020
  * Description: Classe "block" du projet Spicy Invaders, représente les bunkers derrière lesquels le vaisseau peut se cacher
+ * 
+ * Modifications:
+ * Auteur:      CSI
+ * Date:        11.09.2020
+ * Description: remplacement de la méthode de test de la localisation pour quelque chose de plus propre.
  */
 using System;
 using System.Collections.Generic;
@@ -87,7 +92,7 @@ namespace P_032_SpicyInvaders
             foreach(LittleBlock block in elements)
             {
                 //la méthode Array.Equals ne fonctionnait pas, donc retour à la bonne vielle méthode
-                if(location[0]==block.Location[0] && location[1] == block.Location[1] && block.IsAlive)
+                if(location.SequenceEqual(block.Location))
                 {
                     block.Delete();
                     return true;
@@ -104,7 +109,7 @@ namespace P_032_SpicyInvaders
             /// <summary>
             /// attributs
             /// </summary>
-            private char _charDesign = '▀';            //le caractère utilisé pour dessiner le bloc
+            private char _charDesign = '█';            //le caractère utilisé pour dessiner le bloc
 
             private int[] _location;                   //la position en x,y
 
