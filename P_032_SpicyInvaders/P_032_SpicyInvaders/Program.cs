@@ -10,6 +10,27 @@ namespace P_032_SpicyInvaders
     {
         static void Main(string[] args)
         {
+            Player ship = new Player();
+            bool gameOver = false;
+            ConsoleKeyInfo keyEnterred;
+            do
+            {
+                keyEnterred = Console.ReadKey(true);
+                switch (keyEnterred.Key)
+                {
+                    case ConsoleKey.RightArrow:
+                        ship.moveRight();
+                        break;
+
+                    case ConsoleKey.LeftArrow:
+                        ship.moveLeft();
+                        break;
+
+                    case ConsoleKey.Spacebar:
+
+                        break;
+                }
+            } while (gameOver == false);
         }
     }
 }
