@@ -13,11 +13,26 @@ namespace P_032_SpicyInvaders
         /// </summary>
         const char player = 'x';
         private int _posX = 20;
-
+        private int _posY = 20;
+        private bool _canShoot = true;
         /// <summary>
         /// Properties
         /// </summary>
+        
+        public int PosX
+        {
+            get { return _posX; }
+        }
+        public int PosY
+        {
+            get { return _posY; }
+        }
 
+        public bool CanShoot
+        {
+            get { return _canShoot; }
+            set { _canShoot = value; }
+        }
 
         /// <summary>
         /// Constructor
@@ -29,25 +44,25 @@ namespace P_032_SpicyInvaders
         /// </summary>
         public void moveRight()
         {
-            Console.SetCursorPosition(_posX, 20);
+            Console.SetCursorPosition(_posX, _posY);
             Console.Write(" ");
-            if (_posX != 79)
+            if (_posX != Console.WindowWidth-1)
             {
                 _posX++;
             }
-            Console.SetCursorPosition(_posX, 20);
+            Console.SetCursorPosition(_posX, _posY);
             Console.Write(player);
         }
 
         public void moveLeft()
         {
-            Console.SetCursorPosition(_posX, 20);
+            Console.SetCursorPosition(_posX, _posY);
             Console.Write(" ");
             if (_posX != 0)
             {
                 _posX--;
             }
-            Console.SetCursorPosition(_posX, 20);
+            Console.SetCursorPosition(_posX, _posY);
             Console.Write(player);
         }
     }

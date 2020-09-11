@@ -8,9 +8,11 @@ namespace P_032_SpicyInvaders
 {
     class Program
     {
+        public static bool canShoot = true;
         static void Main(string[] args)
         {
             Player ship = new Player();
+            
             bool gameOver = false;
             ConsoleKeyInfo keyEnterred;
             do
@@ -27,7 +29,11 @@ namespace P_032_SpicyInvaders
                         break;
 
                     case ConsoleKey.Spacebar:
-
+                        if(canShoot)
+                        {
+                            Shoot bullet = new Shoot(ship.PosX, ship.PosY - 1, 200);
+                            canShoot = false;
+                        }
                         break;
                 }
             } while (gameOver == false);
