@@ -12,13 +12,19 @@ namespace P_032_SpicyInvaders
         /// Attributs
         /// </summary>
         const char player = 'x';
+        private int _life = 3;
         private int _posX = 20;
         private int _posY = 20;
         private bool _canShoot = true;
         /// <summary>
         /// Properties
         /// </summary>
-        
+        public int Life
+        {
+            get { return _life; }
+            set { _life = value; }
+        }
+
         public int PosX
         {
             get { return _posX; }
