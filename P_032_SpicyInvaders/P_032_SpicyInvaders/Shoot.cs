@@ -29,28 +29,46 @@ namespace P_032_SpicyInvaders
         }
 
 
-        public Shoot(int x, int y, int speed)
+        public Shoot(int x, int y, int speed, int direction)
         {
             this._posX = x;
             this._posY = y;
             _speed = speed;
-            missileLaunch = new Thread(LaunchMissile);
+            missileLaunch = new Thread(delegate() { LaunchMissile(direction); });
             missileLaunch.Start();
         }
 
-        private void LaunchMissile()
+        private void LaunchMissile(int direction)
         {
-            while (_posY != 40)
+            if(direction == 0)
             {
-                _posY++;
-                _tempPosX = _posX;
-                _tempPosY = _posY;
-                Console.SetCursorPosition(_posX, _posY);
-                Console.Write("■");
-                WaitToFire();
-                Console.SetCursorPosition(_tempPosX--, _tempPosY--);
-                Console.Write(" ");
+                while (_posY != Console.WindowHeight - 5)
+                {
+                    _posY++;
+                    _tempPosX = _posX;
+                    _tempPosY = _posY;
+                    Console.SetCursorPosition(_posX, _posY);
+                    Console.Write("■");
+                    WaitToFire();
+                    Console.SetCursorPosition(_tempPosX--, _tempPosY--);
+                    Console.Write(" ");
+                }
             }
+            else if(direction == 1)
+            {
+                while (_posY != Console.WindowTop + 10)
+                {
+                    _posY--;
+                    _tempPosX = _posX;
+                    _tempPosY = _posY;
+                    Console.SetCursorPosition(_posX, _posY);
+                    Console.Write("■");
+                    WaitToFire();
+                    Console.SetCursorPosition(_tempPosX++, _tempPosY++);
+                    Console.Write(" ");
+                }
+            }
+            Program.canShoot = true;
             GC.Collect();
         }
 
