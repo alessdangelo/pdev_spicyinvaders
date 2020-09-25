@@ -14,6 +14,7 @@ namespace P_032_SpicyInvaders
         private int _posX;
         private int _posY;
         private int _speed;
+        private int _shootProbability = 30;
         private Random _randomizer = new Random();
         private bool _goToLeft = true;
         private bool _isAlive = true;
@@ -40,6 +41,11 @@ namespace P_032_SpicyInvaders
             set { _posY = value; }
         }
 
+        public int ShootProbability
+        {
+            get { return _shootProbability; }
+            set { _shootProbability = value; }
+        }
 
         /// <summary>
         /// Custom constructor
@@ -66,7 +72,7 @@ namespace P_032_SpicyInvaders
         {
             while (_isAlive)
             {
-                if (_randomizer.Next(30) == 1)
+                if (_randomizer.Next(ShootProbability) == 1)
                 {
                     Program.ShootBulletFromEnemy(_posX, _posY);
                 }
