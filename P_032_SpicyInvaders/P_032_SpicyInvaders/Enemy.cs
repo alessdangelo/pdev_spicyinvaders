@@ -76,7 +76,7 @@ namespace P_032_SpicyInvaders
                 {
                     Program.ShootBulletFromEnemy(_posX, _posY);
                 }
-                if (_posX != 10)
+                if (_posX != Console.WindowLeft + 5)
                 {
                     if (_goToLeft == true)
                     {
@@ -92,7 +92,7 @@ namespace P_032_SpicyInvaders
                     _goToLeft = false;
                 }
 
-                if (_posX != 70)
+                if (_posX != Console.WindowWidth - 5)
                 {
                     if (_goToLeft != true)
                     {

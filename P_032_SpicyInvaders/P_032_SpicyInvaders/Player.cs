@@ -43,7 +43,12 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Constructor
         /// </summary>
-        public Player() { }
+        public Player(int x, int y, int life)
+        {
+            this._posX = x;
+            this._posY = y;
+            this._life = life;
+        }
 
         /// <summary>
         /// Methods
