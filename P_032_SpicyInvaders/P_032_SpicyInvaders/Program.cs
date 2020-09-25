@@ -9,6 +9,8 @@ namespace P_032_SpicyInvaders
 {
     class Program
     {
+        static string musicFile = "song";
+        static string fileToPlay = Environment.CurrentDirectory + $@"\{musicFile}.wav";
         public static Player ship = new Player(39, 45, 3);
         public static bool canShoot = true;
 
@@ -40,6 +42,11 @@ namespace P_032_SpicyInvaders
 
         static void Main(string[] args)
         {
+            var music = new System.Media.SoundPlayer();
+            music.SoundLocation = fileToPlay; // Breakpoint here to see what fileToPlay is
+            //music.SoundLocation = @"F:\01-projets\032-p_spicey\P_032_SpicyInvaders\song.wav";
+            music.PlayLooping();
+
             Hud();
             Enemy enemy = new Enemy(25, 40, 1000);
 
