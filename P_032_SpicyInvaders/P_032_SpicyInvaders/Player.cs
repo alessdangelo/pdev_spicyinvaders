@@ -13,6 +13,7 @@ namespace P_032_SpicyInvaders
         /// </summary>
         const char player = 'x';
         private int _life = 3;
+        private int _score = 0;
         private int _posX = 20;
         private int _posY = 20;
         private bool _canShoot = true;
@@ -24,7 +25,11 @@ namespace P_032_SpicyInvaders
             get { return _life; }
             set { _life = value; }
         }
-
+        public int Score
+        {
+            get { return _score; }
+            set { _score = value; }
+        }
         public int PosX
         {
             get { return _posX; }

@@ -12,35 +12,10 @@ namespace P_032_SpicyInvaders
         public static Player ship = new Player(39, 45, 3);
         public static bool canShoot = true;
 
-        static void Hud()
+        public static void RunAll()
         {
-            int score = 0000;
+            Hud hud = new Hud(80, 50);
 
-            Console.SetWindowSize(80, 50);
-            Console.SetBufferSize(80, 50);
-            Console.CursorVisible = false;
-            Console.ForegroundColor = ConsoleColor.White;
-
-            Console.SetCursorPosition(3, 3);
-            Console.Write("<: Gauche");
-            Console.SetCursorPosition(3, 4);
-            Console.Write(">: Droite");
-            Console.SetCursorPosition(3, 5);
-            Console.Write("Espace: Tir");
-
-            Console.SetCursorPosition(35, 3);
-            for (int i = 0; i < ship.Life; i++)
-            {
-                Console.Write("♥ ");
-            }
-
-            Console.SetCursorPosition(65, 3);
-            Console.WriteLine("Score: {0}", score);
-        }
-
-        static void Main(string[] args)
-        {
-            Hud();
             Enemy enemy = new Enemy(25, 40, 1000);
 
             bool gameOver = false;
@@ -59,7 +34,7 @@ namespace P_032_SpicyInvaders
                         break;
 
                     case ConsoleKey.Spacebar:
-                        if(canShoot)
+                        if (canShoot)
                         {
                             Shoot bullet = new Shoot(ship.PosX, ship.PosY - 1, 200, 1);
                             canShoot = false;
@@ -68,10 +43,14 @@ namespace P_032_SpicyInvaders
                 }
             } while (gameOver == false);
         }
+        static void Main(string[] args)
+        {
+            Menu menu = new Menu();
+        }
 
         public static void ShootBulletFromEnemy(int x, int y)
         {
-            Shoot shoot = new Shoot(x, y, 200, 0);
+            Shoot shoot = new Shoot(x, y, 50, 0);
             while (shoot != null)
             {
                 if (ship.PosX == shoot.PosX && ship.PosY == shoot.PosY)
