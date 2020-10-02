@@ -11,6 +11,8 @@ namespace P_032_SpicyInvaders
     {
         public static Player ship = new Player(39, 45, 3);
         public static bool canShoot = true;
+        public static bool soundOn = true;
+        public static int difficulty = 0;
 
         public static void RunAll()
         {

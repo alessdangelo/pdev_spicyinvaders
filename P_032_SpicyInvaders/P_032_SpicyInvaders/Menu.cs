@@ -213,6 +213,7 @@ namespace P_032_SpicyInvaders
             const string OPTIONSLINEFIVE = " ██████  ██         ██    ██  ██████  ██   ████ ███████ ";
 
             int optionsYAxeTitle = 1;
+            int index = 0;
 
             ConsoleKeyInfo keyPressed;
             bool continueKey = false;
@@ -248,6 +249,9 @@ namespace P_032_SpicyInvaders
 
             }
 
+            WriteOptions(index);
+
+
             Console.SetCursorPosition(21, 30);
             Console.Write("Appuyez sur ESC pour revenir au menu principal...");
 
@@ -257,6 +261,44 @@ namespace P_032_SpicyInvaders
                 //Sub menu movement
                 switch (keyPressed.Key)
                 {
+                    case ConsoleKey.UpArrow:
+                        index = 0;
+                        WriteOptions(index);
+                        break;
+
+                    case ConsoleKey.DownArrow:
+                        index = 1;
+                        WriteOptions(index);
+                        break;
+
+                    case ConsoleKey.Enter:
+                        if(index == 0)
+                        {
+                            if (Program.soundOn)
+                            {
+                                Program.soundOn = false;
+                                WriteOptions(index);
+                            }
+                            else
+                            {
+                                Program.soundOn = true;
+                                WriteOptions(index);
+                            }
+                        }
+                        else if (index == 1)
+                        {
+                            if(Program.difficulty == 0)
+                            {
+                                Program.difficulty = 1;
+                                WriteOptions(index);
+                            }
+                            else
+                            {
+                                Program.difficulty = 0;
+                                WriteOptions(index);
+                            }
+                        }
+                        break;
 
                     case ConsoleKey.Escape:
                         MainMenu();
@@ -269,6 +311,40 @@ namespace P_032_SpicyInvaders
                         break;
                 }
             }
+        }
+
+        public static void WriteOptions(int index)
+        {
+            Console.SetCursorPosition(35, 15);
+            if(index == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+            }
+            if (Program.soundOn)
+            {
+                Console.Write("Son actif: Oui");
+            }
+            else
+            {
+                Console.Write("Son actif: Non");
+            }
+
+            Console.ResetColor();
+
+            if (index == 1)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+            }
+            Console.SetCursorPosition(35, 18);
+            if(Program.difficulty == 0)
+            {
+                Console.WriteLine("Difficulté: Facile   ");
+            }
+            else
+            {
+                Console.WriteLine("Difficulté: Difficile");
+            }
+            Console.ResetColor();
         }
         /// <summary>
         /// Show the highscore
