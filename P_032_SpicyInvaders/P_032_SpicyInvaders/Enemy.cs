@@ -18,7 +18,7 @@ namespace P_032_SpicyInvaders
         private Random _randomizer = new Random();
         private bool _goToLeft = true;
         private bool _isAlive = true;
-        private Thread _moveEnemy;
+        //private Thread _moveEnemy;
 
         /// <summary>
         /// Properties
@@ -41,6 +41,12 @@ namespace P_032_SpicyInvaders
             set { _posY = value; }
         }
 
+        public bool IsAlive
+        {
+            get { return _isAlive; }
+            set { _isAlive = value; }
+        }
+
         public int ShootProbability
         {
             get { return _shootProbability; }
@@ -58,14 +64,24 @@ namespace P_032_SpicyInvaders
             _posX = posX;
             _posY = posY;
             _speed = speed;
-            _moveEnemy = new Thread(Cycle);
-            _moveEnemy.Start();
+            /*_moveEnemy = new Thread(Cycle);
+            _moveEnemy.Start();*/
         }
 
 
-        private static void WaitToMove(int speed)
+        public void WaitToMove(int speed)
         {
             Thread.Sleep(speed);
+        }
+
+        public void Move(int[] direction)
+        {
+            Console.SetCursorPosition(_posX, _posY);
+            Console.Write(" ");
+            _posX += direction[0];
+            _posY += direction[1];
+            Console.SetCursorPosition(_posX, _posY);
+            Console.Write("*");
         }
 
         public void Cycle()
