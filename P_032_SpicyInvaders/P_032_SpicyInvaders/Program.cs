@@ -11,7 +11,7 @@ namespace P_032_SpicyInvaders
     {
         static string musicFile = "song";
         static string fileToPlay = Environment.CurrentDirectory + $@"\{musicFile}.wav";
-        public static Player ship = new Player(39, 45, 3);
+        public static Player ship;
         public static Enemy[,] enemiesArray = new Enemy[5, 2];
         public static Thread moveEnnemys;
         public static int[] enemiesSpawnPoint = {Console.WindowWidth/2-enemiesArray.GetLength(0)/2, Console.WindowHeight/2- enemiesArray.GetLength(1)/2 };
@@ -24,7 +24,10 @@ namespace P_032_SpicyInvaders
 
         public static void RunAll()
         {
+            Console.SetWindowSize(80, 80);
+            ship = new Player(39, 45, 3);
             Hud hud = new Hud(80, 50);
+
             //Music
             var music = new System.Media.SoundPlayer();
             music.SoundLocation = fileToPlay; // Breakpoint here to see what fileToPlay is
@@ -38,6 +41,12 @@ namespace P_032_SpicyInvaders
                     enemiesArray[x, y] = new Enemy(enemiesSpawnPoint[0] + (5 * x), enemiesSpawnPoint[1] + (1 * y), 200);
                 }
             }
+            if (soundOn)
+            {
+                music.SoundLocation = fileToPlay; // Breakpoint here to see what fileToPlay is
+                music.PlayLooping();
+            }
+
 
             moveEnnemys = new Thread(MoveEnnemys);
             moveEnnemys.Start();

@@ -313,12 +313,16 @@ namespace P_032_SpicyInvaders
             }
         }
 
+        /// <summary>
+        /// Write sound and difficulty options
+        /// </summary>
+        /// <param name="index">Get selected options (sound or difficulty)</param>
         public static void WriteOptions(int index)
         {
             Console.SetCursorPosition(35, 15);
             if(index == 0)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.Yellow;
             }
             if (Program.soundOn)
             {
@@ -333,7 +337,7 @@ namespace P_032_SpicyInvaders
 
             if (index == 1)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.Yellow;
             }
             Console.SetCursorPosition(35, 18);
             if(Program.difficulty == 0)
