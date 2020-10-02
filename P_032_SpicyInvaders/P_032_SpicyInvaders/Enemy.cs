@@ -13,22 +13,12 @@ namespace P_032_SpicyInvaders
         /// </summary>
         private int _posX;
         private int _posY;
-        private int _speed;
-        private int _shootProbability = 30;
-        private Random _randomizer = new Random();
-        private bool _goToLeft = true;
         private bool _isAlive = true;
         //private Thread _moveEnemy;
 
         /// <summary>
         /// Properties
         /// </summary>
-        public int Speed
-        {
-            get { return _speed; }
-            set { _speed = value; }
-        }
-
         public int PosX
         {
             get { return _posX; }
@@ -47,31 +37,18 @@ namespace P_032_SpicyInvaders
             set { _isAlive = value; }
         }
 
-        public int ShootProbability
-        {
-            get { return _shootProbability; }
-            set { _shootProbability = value; }
-        }
-
         /// <summary>
         /// Custom constructor
         /// </summary>
         /// <param name="posX">Spawn enemy at position x</param>
         /// <param name="posY">Spawn enemy at position y</param>
         /// <param name="speed">Set enemy speed</param>
-        public Enemy(int posX, int posY, int speed)
+        public Enemy(int posX, int posY)
         {
             _posX = posX;
             _posY = posY;
-            _speed = speed;
             /*_moveEnemy = new Thread(Cycle);
             _moveEnemy.Start();*/
-        }
-
-
-        public void WaitToMove(int speed)
-        {
-            Thread.Sleep(speed);
         }
 
         public void Move(int[] direction)
@@ -82,11 +59,6 @@ namespace P_032_SpicyInvaders
             _posY += direction[1];
             Console.SetCursorPosition(_posX, _posY);
             Console.Write("*");
-        }
-
-        private static void WaitToFire()
-        {
-            Thread.Sleep(200);
         }
 
         public void DestroyEntity()

@@ -15,6 +15,7 @@ namespace P_032_SpicyInvaders
         public static Enemy[,] enemiesArray = new Enemy[5, 2];
         public static Thread moveEnnemys;
         public static int[] enemiesSpawnPoint = {Console.WindowWidth/2-enemiesArray.GetLength(0)/2, Console.WindowHeight/2- enemiesArray.GetLength(1)/2 };
+        public static int enemiesSpeed = 100;
         public static bool gameOver = false;
         public static bool canShoot = true;
         public static bool soundOn = true;
@@ -32,13 +33,12 @@ namespace P_032_SpicyInvaders
             var music = new System.Media.SoundPlayer();
             music.SoundLocation = fileToPlay; // Breakpoint here to see what fileToPlay is
             music.PlayLooping();
-            Enemy enemy = new Enemy(25, 40, 1000);
             //initialisation des ennemis
             for (int y = 0; y < enemiesArray.GetLength(1); y++)
             {
                 for (int x = 0; x < enemiesArray.GetLength(0); x++)
                 {
-                    enemiesArray[x, y] = new Enemy(enemiesSpawnPoint[0] + (5 * x), enemiesSpawnPoint[1] + (1 * y), 200);
+                    enemiesArray[x, y] = new Enemy(enemiesSpawnPoint[0] + (5 * x), enemiesSpawnPoint[1] + (1 * y));
                 }
             }
             if (soundOn)
@@ -127,7 +127,7 @@ namespace P_032_SpicyInvaders
                 {
                     direction = new int[] { 1, 0 };
                 }
-                Thread.Sleep(100);
+                Thread.Sleep(enemiesSpeed);
             }
         }
     }
