@@ -9,18 +9,27 @@ namespace P_032_SpicyInvaders
 {
     class Program
     {
+        static string musicFile = "song";
+        static string fileToPlay = Environment.CurrentDirectory + $@"\{musicFile}.wav";
         public static Player ship = new Player(39, 45, 3);
         public static Enemy[,] enemiesArray = new Enemy[5, 2];
         public static Thread moveEnnemys;
         public static int[] enemiesSpawnPoint = {Console.WindowWidth/2-enemiesArray.GetLength(0)/2, Console.WindowHeight/2- enemiesArray.GetLength(1)/2 };
         public static bool gameOver = false;
         public static bool canShoot = true;
+        public static bool soundOn = true;
+        public static int difficulty = 0;
         public static Random random = new Random();
 
-        static void RunAll()
-        {
-            int score = 0000;
 
+        public static void RunAll()
+        {
+            Hud hud = new Hud(80, 50);
+            //Music
+            var music = new System.Media.SoundPlayer();
+            music.SoundLocation = fileToPlay; // Breakpoint here to see what fileToPlay is
+            music.PlayLooping();
+            Enemy enemy = new Enemy(25, 40, 1000);
             //initialisation des ennemis
             for (int y = 0; y < enemiesArray.GetLength(1); y++)
             {
@@ -58,11 +67,9 @@ namespace P_032_SpicyInvaders
                 }
             } while (gameOver == false);
         }
-
         static void Main(string[] args)
         {
-
-            
+            Menu menu = new Menu();
         }
 
         public static void ShootBulletFromEnemy(int x, int y)
