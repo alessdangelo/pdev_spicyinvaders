@@ -9,10 +9,10 @@ namespace P_032_SpicyInvaders
 {
     class Program
     {
-        public static Player ship = new Player(39, 45, 3);
-        public static bool canShoot = true;
         static string musicFile = "song";
         static string fileToPlay = Environment.CurrentDirectory + $@"\{musicFile}.wav";
+        public static Player ship = new Player(39, 45, 3);
+        public static bool canShoot = true;
 
 
         public static void RunAll()
