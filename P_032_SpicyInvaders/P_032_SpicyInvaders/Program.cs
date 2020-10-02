@@ -11,7 +11,7 @@ namespace P_032_SpicyInvaders
     {
         static string musicFile = "song";
         static string fileToPlay = Environment.CurrentDirectory + $@"\{musicFile}.wav";
-        public static Player ship = new Player(39, 45, 3);
+        public static Player ship;
         public static bool canShoot = true;
         public static bool soundOn = true;
         public static int difficulty = 0;
@@ -19,12 +19,19 @@ namespace P_032_SpicyInvaders
 
         public static void RunAll()
         {
+            Console.SetWindowSize(80, 80);
+            ship = new Player(39, 45, 3);
             Hud hud = new Hud(80, 50);
+
             //Music
             var music = new System.Media.SoundPlayer();
-            music.SoundLocation = fileToPlay; // Breakpoint here to see what fileToPlay is
-            music.PlayLooping();
-            Enemy enemy = new Enemy(25, 40, 1000);
+            if (soundOn)
+            {
+                music.SoundLocation = fileToPlay; // Breakpoint here to see what fileToPlay is
+                music.PlayLooping();
+            }
+
+            Enemy enemy = new Enemy(25, 10, 1000);
 
             bool gameOver = false;
             ConsoleKeyInfo keyEnterred;

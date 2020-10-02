@@ -53,6 +53,9 @@ namespace P_032_SpicyInvaders
             this._posX = x;
             this._posY = y;
             this._life = life;
+
+            Console.SetCursorPosition(_posX, _posY);
+            Console.Write(player);
         }
 
         /// <summary>
