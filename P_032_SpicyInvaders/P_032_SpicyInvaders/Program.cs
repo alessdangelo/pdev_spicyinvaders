@@ -17,38 +17,12 @@ namespace P_032_SpicyInvaders
         public static bool canShoot = true;
         public static Random random = new Random();
 
-        static void Hud()
+        static void RunAll()
         {
             int score = 0000;
 
-            Console.SetWindowSize(80, 50);
-            Console.SetBufferSize(80, 50);
-            Console.CursorVisible = false;
-            Console.ForegroundColor = ConsoleColor.White;
-
-            Console.SetCursorPosition(3, 3);
-            Console.Write("<: Gauche");
-            Console.SetCursorPosition(3, 4);
-            Console.Write(">: Droite");
-            Console.SetCursorPosition(3, 5);
-            Console.Write("Espace: Tir");
-
-            Console.SetCursorPosition(35, 3);
-            for (int i = 0; i < ship.Life; i++)
-            {
-                Console.Write("♥ ");
-            }
-
-            Console.SetCursorPosition(65, 3);
-            Console.WriteLine("Score: {0}", score);
-        }
-
-        static void Main(string[] args)
-        {
-            Hud();
-
             //initialisation des ennemis
-            for(int y = 0; y<enemiesArray.GetLength(1);y++)
+            for (int y = 0; y < enemiesArray.GetLength(1); y++)
             {
                 for (int x = 0; x < enemiesArray.GetLength(0); x++)
                 {
@@ -75,7 +49,7 @@ namespace P_032_SpicyInvaders
                         break;
 
                     case ConsoleKey.Spacebar:
-                        if(canShoot)
+                        if (canShoot)
                         {
                             Shoot bullet = new Shoot(ship.PosX, ship.PosY - 1, 100, 1);
                             canShoot = false;
@@ -83,6 +57,12 @@ namespace P_032_SpicyInvaders
                         break;
                 }
             } while (gameOver == false);
+        }
+
+        static void Main(string[] args)
+        {
+
+            
         }
 
         public static void ShootBulletFromEnemy(int x, int y)

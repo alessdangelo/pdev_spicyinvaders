@@ -84,53 +84,6 @@ namespace P_032_SpicyInvaders
             Console.Write("*");
         }
 
-        public void Cycle()
-        {
-            while (_isAlive)
-            {
-                if (_randomizer.Next(ShootProbability) == 1)
-                {
-                    Program.ShootBulletFromEnemy(_posX, _posY);
-                }
-                if (_posX != Console.WindowLeft + 5)
-                {
-                    if (_goToLeft == true)
-                    {
-                        Console.SetCursorPosition(_posX, _posY);
-                        Console.Write(" ");
-                        _posX -= 2;
-                        Console.SetCursorPosition(_posX, _posY);
-                        Console.Write("*");
-                    }
-                }
-                else
-                {
-                    _goToLeft = false;
-                }
-
-                if (_posX != Console.WindowWidth - 5)
-                {
-                    if (_goToLeft != true)
-                    {
-                        Console.SetCursorPosition(_posX, _posY);
-                        Console.Write(" ");
-                        _posX += 2;
-                        Console.SetCursorPosition(_posX, _posY);
-                        Console.Write("*");
-                    }
-                }
-                else
-                {
-                    _goToLeft = true;
-                }
-                WaitToMove(_speed);
-            }
-            if (!_isAlive)
-            {
-                GC.Collect();
-            }
-        }
-
         private static void WaitToFire()
         {
             Thread.Sleep(200);
