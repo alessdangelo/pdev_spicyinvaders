@@ -13,22 +13,12 @@ namespace P_032_SpicyInvaders
         /// </summary>
         private int _posX;
         private int _posY;
-        private int _speed;
-        private int _shootProbability = 30;
-        private Random _randomizer = new Random();
-        private bool _goToLeft = true;
         private bool _isAlive = true;
-        private Thread _moveEnemy;
+        //private Thread _moveEnemy;
 
         /// <summary>
         /// Properties
         /// </summary>
-        public int Speed
-        {
-            get { return _speed; }
-            set { _speed = value; }
-        }
-
         public int PosX
         {
             get { return _posX; }
@@ -41,10 +31,10 @@ namespace P_032_SpicyInvaders
             set { _posY = value; }
         }
 
-        public int ShootProbability
+        public bool IsAlive
         {
-            get { return _shootProbability; }
-            set { _shootProbability = value; }
+            get { return _isAlive; }
+            set { _isAlive = value; }
         }
 
         /// <summary>
@@ -53,71 +43,22 @@ namespace P_032_SpicyInvaders
         /// <param name="posX">Spawn enemy at position x</param>
         /// <param name="posY">Spawn enemy at position y</param>
         /// <param name="speed">Set enemy speed</param>
-        public Enemy(int posX, int posY, int speed)
+        public Enemy(int posX, int posY)
         {
             _posX = posX;
             _posY = posY;
-            _speed = speed;
-            _moveEnemy = new Thread(Cycle);
-            _moveEnemy.Start();
+            /*_moveEnemy = new Thread(Cycle);
+            _moveEnemy.Start();*/
         }
 
-
-        private static void WaitToMove(int speed)
+        public void Move(int[] direction)
         {
-            Thread.Sleep(speed);
-        }
-
-        public void Cycle()
-        {
-            while (_isAlive)
-            {
-                if (_randomizer.Next(ShootProbability) == 1)
-                {
-                    Program.ShootBulletFromEnemy(_posX, _posY);
-                }
-                if (_posX != Console.WindowLeft + 5)
-                {
-                    if (_goToLeft == true)
-                    {
-                        Console.SetCursorPosition(_posX, _posY);
-                        Console.Write(" ");
-                        _posX -= 2;
-                        Console.SetCursorPosition(_posX, _posY);
-                        Console.Write("*");
-                    }
-                }
-                else
-                {
-                    _goToLeft = false;
-                }
-
-                if (_posX != Console.WindowWidth - 5)
-                {
-                    if (_goToLeft != true)
-                    {
-                        Console.SetCursorPosition(_posX, _posY);
-                        Console.Write(" ");
-                        _posX += 2;
-                        Console.SetCursorPosition(_posX, _posY);
-                        Console.Write("*");
-                    }
-                }
-                else
-                {
-                    _goToLeft = true;
-                }
-                WaitToMove(_speed);
-            }
-            if (!_isAlive)
-            {
-                GC.Collect();
-            }
-        }
-
-        private static void WaitToFire()
-        {
-            Thread.Sleep(200);
+            Console.SetCursorPosition(_posX, _posY);
+            Console.Write(" ");
+            _posX += direction[0];
+            _posY += direction[1];
+            Console.SetCursorPosition(_posX, _posY);
+            Console.Write("*");
         }
 
         public void DestroyEntity()

@@ -12,9 +12,15 @@ namespace P_032_SpicyInvaders
         static string musicFile = "song";
         static string fileToPlay = Environment.CurrentDirectory + $@"\{musicFile}.wav";
         public static Player ship;
+        public static Enemy[,] enemiesArray = new Enemy[5, 2];
+        public static Thread moveEnnemys;
+        public static int[] enemiesSpawnPoint = {Console.WindowWidth/2-enemiesArray.GetLength(0)/2, Console.WindowHeight/2- enemiesArray.GetLength(1)/2 };
+        public static int enemiesSpeed = 100;
+        public static bool gameOver = false;
         public static bool canShoot = true;
         public static bool soundOn = true;
         public static int difficulty = 0;
+        public static Random random = new Random();
 
 
         public static void RunAll()
@@ -25,15 +31,27 @@ namespace P_032_SpicyInvaders
 
             //Music
             var music = new System.Media.SoundPlayer();
+            music.SoundLocation = fileToPlay; // Breakpoint here to see what fileToPlay is
+            music.PlayLooping();
+            //initialisation des ennemis
+            for (int y = 0; y < enemiesArray.GetLength(1); y++)
+            {
+                for (int x = 0; x < enemiesArray.GetLength(0); x++)
+                {
+                    enemiesArray[x, y] = new Enemy(enemiesSpawnPoint[0] + (5 * x), enemiesSpawnPoint[1] + (1 * y));
+                }
+            }
             if (soundOn)
             {
                 music.SoundLocation = fileToPlay; // Breakpoint here to see what fileToPlay is
                 music.PlayLooping();
             }
 
-            Enemy enemy = new Enemy(25, 10, 1000);
 
-            bool gameOver = false;
+            moveEnnemys = new Thread(MoveEnnemys);
+            moveEnnemys.Start();
+
+
             ConsoleKeyInfo keyEnterred;
             do
             {
@@ -51,7 +69,7 @@ namespace P_032_SpicyInvaders
                     case ConsoleKey.Spacebar:
                         if (canShoot)
                         {
-                            Shoot bullet = new Shoot(ship.PosX, ship.PosY - 1, 200, 1);
+                            Shoot bullet = new Shoot(ship.PosX, ship.PosY - 1, 100, 1);
                             canShoot = false;
                         }
                         break;
@@ -73,6 +91,43 @@ namespace P_032_SpicyInvaders
                     shoot.DestroyBullet();
                     ship.Life -= 1;
                 }
+            }
+        }
+
+        static public void MoveEnnemys()
+        {
+            int[] direction = new int[] { -1, 0 }; //la direction du pack en [x,y]
+            int[] enemiesLimits = { 5, Console.WindowWidth - 5, enemiesSpawnPoint[1] - 6, enemiesSpawnPoint[1] + 6 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
+            while (!gameOver)
+            {
+                foreach (Enemy ennemy in enemiesArray)
+                {
+                    if(ennemy.IsAlive)
+                    {
+                        /*if (random.Next(ennemy.ShootProbability) == 1)
+                        {
+                            ShootBulletFromEnemy(ennemy.PosX, ennemy.PosY);
+                        }*/
+                        ennemy.Move(direction);
+                    } 
+                }
+                if (enemiesArray[0, 0].PosX + direction[0] <= enemiesLimits[0])
+                {
+                    direction = new int[] { 0, 1 };
+                }
+                if (enemiesArray[enemiesArray.GetLength(0) - 1, 0].PosX + direction[0] >= enemiesLimits[1])
+                {
+                    direction = new int[] { 0, -1 };
+                }
+                if (enemiesArray[0, 0].PosY + direction[1] <= enemiesLimits[2])
+                {
+                    direction = new int[] { -1, 0 };
+                }
+                if (enemiesArray[0, enemiesArray.GetLength(1) - 1].PosY + direction[1] >= enemiesLimits[3])
+                {
+                    direction = new int[] { 1, 0 };
+                }
+                Thread.Sleep(enemiesSpeed);
             }
         }
     }
