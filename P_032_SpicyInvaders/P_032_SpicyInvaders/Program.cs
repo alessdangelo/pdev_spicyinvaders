@@ -1,37 +1,49 @@
-﻿using System;
+﻿/*
+ * ETML
+ * Auteurs: Bruno Martins Constantino, Manuel Oro, Alessandro D'Angelo, Clément Sartoni
+ * Description: Classe program du projet Spiciy Invaders, contient l'architecture globale du jeu et le thread de jeu contenant les checks
+ */
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace P_032_SpicyInvaders
 {
+    /// <summary>
+    /// Class Program
+    /// </summary>
     class Program
     {
-        static readonly string musicFile = "song";
-        static readonly string fileToPlay = Environment.CurrentDirectory + $@"\{musicFile}.wav";
+        /// <summary>
+        /// Class variables
+        /// </summary>
+        public static readonly string musicFile = "song";
+        public static readonly string fileToPlay = Environment.CurrentDirectory + $@"\{musicFile}.wav";
+        private static readonly Random random = new Random();
         public static Player ship;
 
         public static Enemy[,] enemiesArray = new Enemy[10, 4];
         public static List<Shoot> bullets = new List<Shoot>();
-        public static Thread Global;
+        private static Thread Global;
 
         public static int[] enemiesSpawnPoint = {Console.WindowWidth/2-enemiesArray.GetLength(0)/2, Console.WindowHeight/1 - 5 - enemiesArray.GetLength(1)/2 };
 
-        public static int enemiesSpeed = 400;
-        public static bool gameOver = false;
+        private static int enemiesSpeed = 400;
+        private static bool gameOver = false;
         public static bool canShoot = true;
         public static bool soundOn = true;
         public static int difficulty = 0;
-        public static Random random = new Random();
 
         private static DateTime one;
         private static DateTime two;
 
-        public static int[] direction = new int[] { -1, 0 }; //la direction du pack en [x,y]
-        public static int[] enemiesLimits = { 5, Console.WindowWidth - 5, enemiesSpawnPoint[1] - 6, enemiesSpawnPoint[1] + 6 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
+        private static int[] direction = new int[] { -1, 0 }; //la direction du pack en [x,y]
+        private static int[] enemiesLimits = { 5, Console.WindowWidth - 5, enemiesSpawnPoint[1] - 6, enemiesSpawnPoint[1] + 6 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
         public static List<Block> blockList = new List<Block>();
 
         public static void RunAll()
@@ -41,7 +53,7 @@ namespace P_032_SpicyInvaders
             Hud hud = new Hud(80, 50);
 
             //Music
-            var music = new System.Media.SoundPlayer();
+            SoundPlayer music = new SoundPlayer();
             music.SoundLocation = fileToPlay; // Breakpoint here to see what fileToPlay is
             music.PlayLooping();
 
