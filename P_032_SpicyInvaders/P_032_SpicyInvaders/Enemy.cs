@@ -14,6 +14,7 @@ namespace P_032_SpicyInvaders
         private int _posX;
         private int _posY;
         private bool _isAlive = true;
+        //private int _shootProbability = 2;
         //private Thread _moveEnemy;
 
         /// <summary>
@@ -36,6 +37,12 @@ namespace P_032_SpicyInvaders
             get { return _isAlive; }
             set { _isAlive = value; }
         }
+
+        /*public int ShootProbability
+        {
+            get { return _shootProbability; }
+            set { _shootProbability = value; }
+        }*/
 
         /// <summary>
         /// Custom constructor
@@ -61,9 +68,10 @@ namespace P_032_SpicyInvaders
             Console.Write("*");
         }
 
-        public void DestroyEntity()
+        public void DestroyEnemy()
         {
-            GC.Collect();
+            Console.SetCursorPosition(_posX, _posY);
+            Console.Write(" ");
         }
 
         ~Enemy()

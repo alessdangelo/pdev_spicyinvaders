@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -9,19 +10,28 @@ namespace P_032_SpicyInvaders
 {
     class Program
     {
-        static string musicFile = "song";
-        static string fileToPlay = Environment.CurrentDirectory + $@"\{musicFile}.wav";
+        static readonly string musicFile = "song";
+        static readonly string fileToPlay = Environment.CurrentDirectory + $@"\{musicFile}.wav";
         public static Player ship;
-        public static Enemy[,] enemiesArray = new Enemy[5, 2];
-        public static Thread moveEnnemys;
-        public static int[] enemiesSpawnPoint = {Console.WindowWidth/2-enemiesArray.GetLength(0)/2, Console.WindowHeight/2- enemiesArray.GetLength(1)/2 };
-        public static int enemiesSpeed = 100;
+
+        public static Enemy[,] enemiesArray = new Enemy[10, 4];
+        public static List<Shoot> bullets = new List<Shoot>();
+        public static Thread Global;
+
+        public static int[] enemiesSpawnPoint = {Console.WindowWidth/2-enemiesArray.GetLength(0)/2, Console.WindowHeight/1 - 5 - enemiesArray.GetLength(1)/2 };
+
+        public static int enemiesSpeed = 400;
         public static bool gameOver = false;
         public static bool canShoot = true;
         public static bool soundOn = true;
         public static int difficulty = 0;
         public static Random random = new Random();
 
+        private static DateTime one;
+        private static DateTime two;
+
+        public static int[] direction = new int[] { -1, 0 }; //la direction du pack en [x,y]
+        public static int[] enemiesLimits = { 5, Console.WindowWidth - 5, enemiesSpawnPoint[1] - 6, enemiesSpawnPoint[1] + 6 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
 
         public static void RunAll()
         {
@@ -33,12 +43,13 @@ namespace P_032_SpicyInvaders
             var music = new System.Media.SoundPlayer();
             music.SoundLocation = fileToPlay; // Breakpoint here to see what fileToPlay is
             music.PlayLooping();
+
             //initialisation des ennemis
             for (int y = 0; y < enemiesArray.GetLength(1); y++)
             {
                 for (int x = 0; x < enemiesArray.GetLength(0); x++)
                 {
-                    enemiesArray[x, y] = new Enemy(enemiesSpawnPoint[0] + (5 * x), enemiesSpawnPoint[1] + (1 * y));
+                    enemiesArray[x, y] = new Enemy(enemiesSpawnPoint[0] + (2 * x), enemiesSpawnPoint[1] + (1 * y));
                 }
             }
             if (soundOn)
@@ -47,10 +58,8 @@ namespace P_032_SpicyInvaders
                 music.PlayLooping();
             }
 
-
-            moveEnnemys = new Thread(MoveEnnemys);
-            moveEnnemys.Start();
-
+            Global = new Thread(GlobalMoves);
+            Global.Start();
 
             ConsoleKeyInfo keyEnterred;
             do
@@ -69,47 +78,65 @@ namespace P_032_SpicyInvaders
                     case ConsoleKey.Spacebar:
                         if (canShoot)
                         {
-                            Shoot bullet = new Shoot(ship.PosX, ship.PosY - 1, 100, 1);
+                            bullets.Add(new Shoot(ship.PosX, ship.PosY - 1, -1));
                             canShoot = false;
                         }
                         break;
                 }
-            } while (gameOver == false);
+            }
+            while (gameOver == false);
         }
+
+
         static void Main(string[] args)
         {
             Menu menu = new Menu();
         }
 
-        public static void ShootBulletFromEnemy(int x, int y)
+        public static void GlobalMoves()
         {
-            Shoot shoot = new Shoot(x, y, 50, 0);
-            while (shoot != null)
+            one = new DateTime();
+            two = new DateTime();
+            do
             {
-                if (ship.PosX == shoot.PosX && ship.PosY == shoot.PosY)
+                MoveEnnemys();
+                MoveBullets();
+
+                foreach (Enemy ennemy in enemiesArray)
                 {
-                    shoot.DestroyBullet();
-                    ship.Life -= 1;
+                    for (int i = 0; i < bullets.Count; i++)
+                    {
+                        if (bullets[i].PosX == ennemy.PosX && bullets[i].PosY == ennemy.PosY && ennemy.IsAlive)
+                        {
+                            bullets[i].DestroyBullet();
+                            canShoot = true;
+                            ennemy.IsAlive = false;
+                            ennemy.DestroyEnemy();
+                            GC.Collect();
+                        }
+                    }
                 }
             }
+            while (true);
         }
 
         static public void MoveEnnemys()
         {
-            int[] direction = new int[] { -1, 0 }; //la direction du pack en [x,y]
-            int[] enemiesLimits = { 5, Console.WindowWidth - 5, enemiesSpawnPoint[1] - 6, enemiesSpawnPoint[1] + 6 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
-            while (!gameOver)
+                
+            if(DateTime.Now.Ticks > two.Ticks)
             {
+                two = DateTime.Now.AddMilliseconds(enemiesSpeed);
+
                 foreach (Enemy ennemy in enemiesArray)
                 {
-                    if(ennemy.IsAlive)
+                    if (ennemy.IsAlive)
                     {
-                        /*if (random.Next(ennemy.ShootProbability) == 1)
+                        /*if (random.Next(50) == 1)
                         {
-                            ShootBulletFromEnemy(ennemy.PosX, ennemy.PosY);
+                            bullets.Add(new Shoot(ennemy.PosX, ennemy.PosY + 5, + 1));
                         }*/
                         ennemy.Move(direction);
-                    } 
+                    }
                 }
                 if (enemiesArray[0, 0].PosX + direction[0] <= enemiesLimits[0])
                 {
@@ -127,7 +154,27 @@ namespace P_032_SpicyInvaders
                 {
                     direction = new int[] { 1, 0 };
                 }
-                Thread.Sleep(enemiesSpeed);
+            }
+        }
+        static public void MoveBullets()
+        {
+            if(DateTime.Now.Ticks > one.Ticks)
+            {
+                one = DateTime.Now.AddMilliseconds(30);
+
+                for (int i = 0; i < bullets.Count; i++)
+                {
+                    if (bullets[i].PosY > 10 && bullets[i].PosY < 45)
+                    {
+                        bullets[i].Move();
+                    }
+                    else
+                    {
+                        bullets[i].DestroyBullet();
+                        GC.Collect();
+                        canShoot = true;
+                    }
+                }                       
             }
         }
     }

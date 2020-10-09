@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -9,12 +10,9 @@ namespace P_032_SpicyInvaders
 {
     class Shoot
     {
-        private int _posX;
-        private int _posY;
-        private int _tempPosX;
-        private int _tempPosY;
-        private static int _speed;
-        private Thread missileLaunch;
+        private static int _posX;
+        private static int _posY;
+        private static int _direction;
 
         public int PosX
         {
@@ -29,57 +27,35 @@ namespace P_032_SpicyInvaders
         }
 
 
-        public Shoot(int x, int y, int speed, int direction)
+        public Shoot(int x, int y, int direction)
         {
-            this._posX = x;
-            this._posY = y;
-            _speed = speed;
-            missileLaunch = new Thread(delegate() { LaunchMissile(direction); });
-            missileLaunch.Start();
+            _posX = x;
+            _posY = y;
+            _direction = direction;
         }
 
-        private void LaunchMissile(int direction)
+        public void Move()
         {
-            if(direction == 0)
-            {
-                while (_posY != Console.WindowHeight - 5)
-                {
-                    _posY++;
-                    _tempPosX = _posX;
-                    _tempPosY = _posY;
-                    Console.SetCursorPosition(_posX, _posY);
-                    Console.Write("■");
-                    WaitToFire();
-                    Console.SetCursorPosition(_tempPosX--, _tempPosY--);
-                    Console.Write(" ");
-                }
-            }
-            else if(direction == 1)
-            {
-                while (_posY != Console.WindowTop + 10)
-                {
-                    _posY--;
-                    _tempPosX = _posX;
-                    _tempPosY = _posY;
-                    Console.SetCursorPosition(_posX, _posY);
-                    Console.Write("■");
-                    WaitToFire();
-                    Console.SetCursorPosition(_tempPosX++, _tempPosY++);
-                    Console.Write(" ");
-                }
-            }
-            Program.canShoot = true;
-            GC.Collect();
-        }
+            Program.canShoot = false;
 
-        private static void WaitToFire()
-        {
-            Thread.Sleep(_speed);
+            Console.SetCursorPosition(_posX, _posY);
+            Console.Write(" ");
+            _posY += _direction;
+            Console.SetCursorPosition(_posX, _posY);
+            Console.Write("■");
+
         }
 
         public void DestroyBullet()
         {
-            GC.Collect();
+            Console.SetCursorPosition(_posX, _posY);
+            Console.Write(" ");
+            Program.bullets.Remove(this);
+        }
+
+        ~Shoot()
+        {
+            Debug.WriteLine("Destructor");
         }
     }
 }
