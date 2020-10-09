@@ -35,7 +35,7 @@ namespace P_032_SpicyInvaders
 
         public static void RunAll()
         {
-            Console.SetWindowSize(80, 80);
+            Console.SetWindowSize(50, 50);
             ship = new Player(39, 45, 3);
             Hud hud = new Hud(80, 50);
 
