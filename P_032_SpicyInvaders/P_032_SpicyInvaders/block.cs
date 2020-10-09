@@ -92,7 +92,7 @@ namespace P_032_SpicyInvaders
             foreach(LittleBlock block in elements)
             {
                 //la méthode Array.Equals ne fonctionnait pas, donc retour à la bonne vielle méthode
-                if(location.SequenceEqual(block.Location))
+                if(location.SequenceEqual(block.Location) && block.IsAlive)
                 {
                     block.Delete();
                     return true;

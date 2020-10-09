@@ -14,8 +14,6 @@ namespace P_032_SpicyInvaders
         private int _posX;
         private int _posY;
         private bool _isAlive = true;
-        //private int _shootProbability = 2;
-        //private Thread _moveEnemy;
 
         /// <summary>
         /// Properties
@@ -54,8 +52,6 @@ namespace P_032_SpicyInvaders
         {
             _posX = posX;
             _posY = posY;
-            /*_moveEnemy = new Thread(Cycle);
-            _moveEnemy.Start();*/
         }
 
         public void Move(int[] direction)

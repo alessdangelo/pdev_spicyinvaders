@@ -32,6 +32,7 @@ namespace P_032_SpicyInvaders
 
         public static int[] direction = new int[] { -1, 0 }; //la direction du pack en [x,y]
         public static int[] enemiesLimits = { 5, Console.WindowWidth - 5, enemiesSpawnPoint[1] - 6, enemiesSpawnPoint[1] + 6 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
+        public static List<Block> blockList = new List<Block>();
 
         public static void RunAll()
         {
@@ -52,6 +53,13 @@ namespace P_032_SpicyInvaders
                     enemiesArray[x, y] = new Enemy(enemiesSpawnPoint[0] + (2 * x), enemiesSpawnPoint[1] + (1 * y));
                 }
             }
+
+            blockList.Add(new Block(new int[] { 7, 3 }, new int[] { Console.WindowWidth / 4 - 6, 40}));
+            blockList.Add(new Block(new int[] { 7, 3 }, new int[] { Console.WindowWidth / 4 + 8, 40 }));
+            blockList.Add(new Block(new int[] { 7, 3 }, new int[] { Console.WindowWidth / 4 + 24, 40 }));
+            blockList.Add(new Block(new int[] { 7, 3 }, new int[] { Console.WindowWidth / 4 + 38, 40 }));
+
+
             if (soundOn)
             {
                 music.SoundLocation = fileToPlay; // Breakpoint here to see what fileToPlay is
@@ -97,6 +105,7 @@ namespace P_032_SpicyInvaders
         {
             one = new DateTime();
             two = new DateTime();
+
             do
             {
                 MoveEnnemys();
@@ -114,6 +123,31 @@ namespace P_032_SpicyInvaders
                             ennemy.DestroyEnemy();
                             GC.Collect();
                         }
+                    }
+                }
+                foreach (Block block in blockList)
+                {
+                    for (int i = 0; i < bullets.Count; i++)
+                    {
+                        if (block.IsInside(new int[] { bullets[i].PosX, bullets[i].PosY }))
+                        {
+                            bullets[i].DestroyBullet();
+                            canShoot = true;
+                            GC.Collect();
+                        }
+                    }
+                }
+
+                for (int i = 0; i < bullets.Count; i++)
+                {
+                    if (bullets[i].PosX == ship.PosX && bullets[i].PosY == ship.PosY)
+                    {
+                        bullets[i].DestroyBullet();
+                        GC.Collect();
+                        canShoot = true;
+
+                        ship.Life--;
+                        Hud.PrintPlayerLifes();
                     }
                 }
             }
