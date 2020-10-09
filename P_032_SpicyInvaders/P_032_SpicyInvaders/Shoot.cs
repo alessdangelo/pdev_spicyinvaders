@@ -1,19 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/*
+	ETML
+	Date: 11.09.20
+	Auteur: Manuel Oro
+	Description: Shoot class. Shoot can moove and destroyed
+	Modifié le: --
+*/
+using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace P_032_SpicyInvaders
 {
+    /// <summary>
+    /// Class Shoot
+    /// </summary>
     class Shoot
     {
-        private static int _posX;
-        private static int _posY;
-        private static int _direction;
+        /// <summary>
+        /// Attributes
+        /// </summary>
+        private int _posX;
+        private int _posY;
+        private int _direction;
 
+        /// <summary>
+        /// Properties
+        /// </summary>
         public int PosX
         {
             get { return _posX; }
@@ -26,14 +37,22 @@ namespace P_032_SpicyInvaders
             set { _posY = value; }
         }
 
-
+        /// <summary>
+        /// Custom constructor
+        /// </summary>
+        /// <param name="x">Position x in console</param>
+        /// <param name="y">Position y in console</param>
+        /// <param name="direction">Direction (-1 Up | 1 Down)</param>
         public Shoot(int x, int y, int direction)
         {
-            _posX = x;
-            _posY = y;
-            _direction = direction;
+            this._posX = x;
+            this._posY = y;
+            this._direction = direction;
         }
 
+        /// <summary>
+        /// Move bullet
+        /// </summary>
         public void Move()
         {
             Program.canShoot = false;
@@ -46,6 +65,9 @@ namespace P_032_SpicyInvaders
 
         }
 
+        /// <summary>
+        /// Destroy bullet char
+        /// </summary>
         public void DestroyBullet()
         {
             Console.SetCursorPosition(_posX, _posY);
@@ -53,6 +75,9 @@ namespace P_032_SpicyInvaders
             Program.bullets.Remove(this);
         }
 
+        /// <summary>
+        /// Destructor
+        /// </summary>
         ~Shoot()
         {
             Debug.WriteLine("Destructor");

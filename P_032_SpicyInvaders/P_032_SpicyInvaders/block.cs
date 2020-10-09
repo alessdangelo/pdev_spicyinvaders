@@ -9,10 +9,7 @@
  * Description: remplacement de la méthode de test de la localisation pour quelque chose de plus propre.
  */
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace P_032_SpicyInvaders
 {

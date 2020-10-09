@@ -1,5 +1,11 @@
-﻿using System;
-using System.Threading;
+﻿/*
+	ETML
+	Date: 11.09.20
+	Auteur: Manuel Oro
+	Description: Enemy class. Enemy can moove and be destroyed
+	Modifié le: --
+*/
+using System;
 
 namespace P_032_SpicyInvaders
 {
@@ -36,12 +42,6 @@ namespace P_032_SpicyInvaders
             set { _isAlive = value; }
         }
 
-        /*public int ShootProbability
-        {
-            get { return _shootProbability; }
-            set { _shootProbability = value; }
-        }*/
-
         /// <summary>
         /// Custom constructor
         /// </summary>
@@ -54,6 +54,10 @@ namespace P_032_SpicyInvaders
             _posY = posY;
         }
 
+        /// <summary>
+        /// Move enemy
+        /// </summary>
+        /// <param name="direction">Select in which direction enemy goes</param>
         public void Move(int[] direction)
         {
             Console.SetCursorPosition(_posX, _posY);
@@ -64,12 +68,18 @@ namespace P_032_SpicyInvaders
             Console.Write("*");
         }
 
+        /// <summary>
+        /// Remove enemy char
+        /// </summary>
         public void DestroyEnemy()
         {
             Console.SetCursorPosition(_posX, _posY);
             Console.Write(" ");
         }
 
+        /// <summary>
+        /// Destructor
+        /// </summary>
         ~Enemy()
         {
 

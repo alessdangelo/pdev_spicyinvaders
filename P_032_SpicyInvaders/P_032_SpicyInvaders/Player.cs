@@ -1,8 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*
+	ETML
+	Date: 11.09.20
+	Auteur: Manuel Oro
+	Description: Player class. Player can moove
+	Modifié le: --
+*/
+using System;
 
 namespace P_032_SpicyInvaders
 {
@@ -11,12 +14,13 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Attributs
         /// </summary>
-        const char player = 'x';
+        private readonly char player = 'x';
         private int _life = 3;
         private int _score = 0;
         private int _posX = 20;
         private int _posY = 20;
         private bool _canShoot = true;
+
         /// <summary>
         /// Properties
         /// </summary>
@@ -46,8 +50,11 @@ namespace P_032_SpicyInvaders
         }
 
         /// <summary>
-        /// Constructor
+        /// Custom constructor
         /// </summary>
+        /// <param name="x">X position in console</param>
+        /// <param name="y">Y position in console</param>
+        /// <param name="life">Player lifes</param>
         public Player(int x, int y, int life)
         {
             this._posX = x;
@@ -59,30 +66,19 @@ namespace P_032_SpicyInvaders
         }
 
         /// <summary>
-        /// Methods
+        /// Move player
         /// </summary>
-        public void moveRight()
+        /// <param name="direction">Direction (-1 = left | 1 = right)</param>
+        public void Move(int direction)
         {
             Console.SetCursorPosition(_posX, _posY);
             Console.Write(" ");
-            if (_posX != Console.WindowWidth-1)
+            if (_posX != Console.WindowWidth - 1 && _posX != 0)
             {
-                _posX++;
+                _posX += direction;
             }
             Console.SetCursorPosition(_posX, _posY);
             Console.Write(player);
-        }
-
-        public void moveLeft()
-        {
-            Console.SetCursorPosition(_posX, _posY);
-            Console.Write(" ");
-            if (_posX != 0)
-            {
-                _posX--;
-            }
-            Console.SetCursorPosition(_posX, _posY);
-            Console.Write(player);
-        }
+        }       
     }
 }

@@ -1,16 +1,27 @@
-﻿using System;
+﻿/*
+	ETML
+	Date: 25.09.20
+	Auteur: Manuel Oro
+	Description: 
+	Modifié le: --
+*/
+using System;
 
 namespace P_032_SpicyInvaders
 {
     class Hud
     {
+        /// <summary>
+        /// Attributes
+        /// </summary>
         private int _windowXSize = 80;
         private int _windowYSize = 50;
 
-
         /// <summary>
-        /// Default Constructor
+        /// Custom constructor
         /// </summary>
+        /// <param name="xConsoleSize">Console x size</param>
+        /// <param name="yConsoleSize">Console y size</param>
         public Hud(int xConsoleSize, int yConsoleSize)
         {
             this._windowXSize = xConsoleSize;

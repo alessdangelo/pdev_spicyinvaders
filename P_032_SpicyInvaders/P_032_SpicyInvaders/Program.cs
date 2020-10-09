@@ -88,11 +88,11 @@ namespace P_032_SpicyInvaders
                 switch (keyEnterred.Key)
                 {
                     case ConsoleKey.RightArrow:
-                        ship.moveRight();
+                        ship.Move(1);
                         break;
 
                     case ConsoleKey.LeftArrow:
-                        ship.moveLeft();
+                        ship.Move(-1);
                         break;
 
                     case ConsoleKey.Spacebar:

@@ -316,7 +316,7 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Write sound and difficulty options
         /// </summary>
-        /// <param name="index">Get selected options (sound or difficulty)</param>
+        /// <param name="index">Get selected options (sound or difficulty)      </param>
         public static void WriteOptions(int index)
         {
             Console.SetCursorPosition(35, 15);
