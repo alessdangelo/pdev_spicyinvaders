@@ -35,7 +35,7 @@ namespace P_032_SpicyInvaders
 
         public static int[] enemiesSpawnPoint = {hudSizeX/2-enemiesArray.GetLength(0)/2, hudSizeY/2 - 5 - enemiesArray.GetLength(1)/2 };
 
-        private static int enemiesSpeed = 400;
+        private static int enemiesSpeed;
         private static bool gameOver = false;
         public static bool soundOn = true;
         public static int difficulty = 0;
@@ -61,6 +61,26 @@ namespace P_032_SpicyInvaders
             SoundPlayer music = new SoundPlayer();
             music.SoundLocation = fileToPlay; // Breakpoint here to see what fileToPlay is
             music.PlayLooping();
+            hud = new Hud(80, 50);
+
+            // Music
+            if (soundOn)
+            {
+                SoundPlayer music = new SoundPlayer();
+                music.SoundLocation = fileToPlay;
+                music.PlayLooping();
+            }
+     
+
+            // Dificulty system
+            if(difficulty == 0)
+            {
+                enemiesSpeed = 400;
+            }
+            else
+            {
+                enemiesSpeed = 150;
+            }
 
             //initialisation des ennemis
             for (int y = 0; y < enemiesArray.GetLength(1); y++)
@@ -76,13 +96,6 @@ namespace P_032_SpicyInvaders
             blockList.Add(new Block(new int[] { 7, 3 }, new int[] { Console.WindowWidth / 4 + 8, 40 }));
             blockList.Add(new Block(new int[] { 7, 3 }, new int[] { Console.WindowWidth / 4 + 24, 40 }));
             blockList.Add(new Block(new int[] { 7, 3 }, new int[] { Console.WindowWidth / 4 + 38, 40 }));
-
-            // play and loop music
-            if (soundOn)
-            {
-                music.SoundLocation = fileToPlay; // Breakpoint here to see what fileToPlay is
-                music.PlayLooping();
-            }
 
             // execute methods on keys input
             ConsoleKeyInfo keyEnterred;
@@ -156,7 +169,7 @@ namespace P_032_SpicyInvaders
                 {
                     for (int i = 0; i < bullets.Count; i++)
                     {
-                        if (bullets[i].PosX == ennemy.PosX && bullets[i].PosY == ennemy.PosY && ennemy.IsAlive)
+                        if (bullets[i] != null && bullets[i].PosX == ennemy.PosX && bullets[i].PosY == ennemy.PosY && ennemy.IsAlive)
                         {
                             bullets[i].DestroyBullet();
                             ennemy.IsAlive = false;
