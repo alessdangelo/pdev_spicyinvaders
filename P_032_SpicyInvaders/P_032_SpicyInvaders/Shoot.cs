@@ -55,8 +55,6 @@ namespace P_032_SpicyInvaders
         /// </summary>
         public void Move()
         {
-            Program.canShoot = false;
-
             Console.SetCursorPosition(_posX, _posY);
             Console.Write(" ");
             _posY += _direction;

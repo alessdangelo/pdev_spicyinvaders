@@ -35,7 +35,6 @@ namespace P_032_SpicyInvaders
 
         private static int enemiesSpeed = 400;
         private static bool gameOver = false;
-        public static bool canShoot = true;
         public static bool soundOn = true;
         public static int difficulty = 0;
 
@@ -88,6 +87,7 @@ namespace P_032_SpicyInvaders
 
             // execute methods on keys input
             ConsoleKeyInfo keyEnterred;
+            int test = 0;
             do
             {
                 keyEnterred = Console.ReadKey(true);
@@ -102,10 +102,10 @@ namespace P_032_SpicyInvaders
                         break;
 
                     case ConsoleKey.Spacebar:
-                        if (canShoot)
+                        if (DateTime.Now.Second > test)
                         {
                             bullets.Add(new Shoot(ship.PosX, ship.PosY - 1, -1));
-                            canShoot = false;
+                            test = DateTime.Now.Second;
                         }
                         break;
                 }
@@ -114,12 +114,17 @@ namespace P_032_SpicyInvaders
             hud.PrintGameOver();
         }
 
-
-        static void Main(string[] args)
+        /// <summary>
+        /// Display Menu
+        /// </summary>
+        static void Main()
         {
             menu = new Menu();
         }
 
+        /// <summary>
+        /// Moves ennemies and do some checks
+        /// </summary>
         public static void GlobalMoves()
         {
             one = new DateTime();
@@ -127,6 +132,7 @@ namespace P_032_SpicyInvaders
 
             do
             {
+                // check is all ennemy are dead
                 foreach (Enemy ennemy in enemiesArray)
                 {
                     if (ennemy.IsAlive == true)
@@ -138,6 +144,7 @@ namespace P_032_SpicyInvaders
                 MoveEnnemys();
                 MoveBullets();
 
+                // check if as bullet hit ennemy then detroy ennemy and bullet
                 foreach (Enemy ennemy in enemiesArray)
                 {
                     for (int i = 0; i < bullets.Count; i++)
@@ -145,13 +152,14 @@ namespace P_032_SpicyInvaders
                         if (bullets[i].PosX == ennemy.PosX && bullets[i].PosY == ennemy.PosY && ennemy.IsAlive)
                         {
                             bullets[i].DestroyBullet();
-                            canShoot = true;
                             ennemy.IsAlive = false;
                             ennemy.DestroyEnemy();
                             GC.Collect();
                         }
                     }
                 }
+
+                // check if a bullet hit a block then destroy part of the block
                 foreach (Block block in blockList)
                 {
                     for (int i = 0; i < bullets.Count; i++)
@@ -159,25 +167,25 @@ namespace P_032_SpicyInvaders
                         if (block.IsInside(new int[] { bullets[i].PosX, bullets[i].PosY }))
                         {
                             bullets[i].DestroyBullet();
-                            canShoot = true;
                             GC.Collect();
                         }
                     }
                 }
 
+                // check if a bullet hit the player then decrease lifes
                 for (int i = 0; i < bullets.Count; i++)
                 {
                     if (bullets[i].PosX == ship.PosX && bullets[i].PosY == ship.PosY)
                     {
                         bullets[i].DestroyBullet();
                         GC.Collect();
-                        canShoot = true;
 
                         ship.Life--;
                         Hud.PrintPlayerLifes();
                     }
                 }
 
+                // if player has no more lifes, stop the game and display gameOver
                 if(ship.Life < 1)
                 {
                     gameOver = true;
@@ -224,14 +232,20 @@ namespace P_032_SpicyInvaders
                 }
             }
         }
+
+        /// <summary>
+        /// Move all bullets at the same time
+        /// </summary>
         static public void MoveBullets()
         {
+            // wait some time before execute
             if(DateTime.Now.Ticks > one.Ticks)
             {
-                one = DateTime.Now.AddMilliseconds(30);
+                one = DateTime.Now.AddMilliseconds(40);
 
                 for (int i = 0; i < bullets.Count; i++)
                 {
+                    // if bullet is in a specific range then move it, else destroy bullet
                     if (bullets[i].PosY > 10 && bullets[i].PosY < 45)
                     {
                         bullets[i].Move();
@@ -240,7 +254,6 @@ namespace P_032_SpicyInvaders
                     {
                         bullets[i].DestroyBullet();
                         GC.Collect();
-                        canShoot = true;
                     }
                 }                       
             }
