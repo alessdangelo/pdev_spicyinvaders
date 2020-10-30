@@ -29,7 +29,6 @@ namespace P_032_SpicyInvaders
 
         public static Enemy[,] enemiesArray = new Enemy[10, 4]; //10, 4
         public static List<Shoot> bullets = new List<Shoot>();
-        private static Thread Global;
 
         public static int[] enemiesSpawnPoint = {Console.WindowWidth/2-enemiesArray.GetLength(0)/2, Console.WindowHeight/1 - 5 - enemiesArray.GetLength(1)/2 };
 
@@ -82,37 +81,46 @@ namespace P_032_SpicyInvaders
                 music.PlayLooping();
             }
 
-            Global = new Thread(GlobalMoves);
-            Global.Start();
-
             // execute methods on keys input
             ConsoleKeyInfo keyEnterred;
-            int test = 0;
+            DateTime test = new DateTime();
+
+            one = new DateTime();
+            two = new DateTime();
+
             do
             {
-                keyEnterred = Console.ReadKey(true);
-                switch (keyEnterred.Key)
+                GlobalMoves();
+
+                if (Console.KeyAvailable)
                 {
-                    case ConsoleKey.RightArrow:
-                        ship.Move(1);
-                        break;
+                    keyEnterred = Console.ReadKey(true);
+                    switch (keyEnterred.Key)
+                    {
+                        case ConsoleKey.RightArrow:
+                            ship.Move(1);
+                            break;
 
-                    case ConsoleKey.LeftArrow:
-                        ship.Move(-1);
-                        break;
+                        case ConsoleKey.LeftArrow:
+                            ship.Move(-1);
+                            break;
 
-                    case ConsoleKey.Spacebar:
-                        // wait one second before shoot again
-                        if (DateTime.Now.Second > test)
-                        {
-                            test = DateTime.Now.Second;
-                            bullets.Add(new Shoot(ship.PosX, ship.PosY - 1, -1));
-                        }
-                        break;
+                        case ConsoleKey.Spacebar:
+
+                            // wait one second before shoot again
+                            if (DateTime.Now > test)
+                            {
+                                test = DateTime.Now.AddSeconds(1);
+                                bullets.Add(new Shoot(ship.PosX, ship.PosY - 1, -1));
+                            }
+                            break;
+                    }
                 }
+                
             }
             while (gameOver == false);
             hud.PrintGameOver();
+            System.IO.File.WriteAllText(Environment.CurrentDirectory + "/highscore.txt", ship.Score.ToString());
         }
 
         /// <summary>
@@ -128,11 +136,6 @@ namespace P_032_SpicyInvaders
         /// </summary>
         public static void GlobalMoves()
         {
-            one = new DateTime();
-            two = new DateTime();
-
-            do
-            {
                 // check is all ennemy are dead
                 foreach (Enemy ennemy in enemiesArray)
                 {
@@ -165,7 +168,7 @@ namespace P_032_SpicyInvaders
                 {
                     for (int i = 0; i < bullets.Count; i++)
                     {
-                        if (block.IsInside(new int[] { bullets[i].PosX, bullets[i].PosY }))
+                        if (bullets[i] != null && block.IsInside(new int[] { bullets[i].PosX, bullets[i].PosY }))
                         {
                             bullets[i].DestroyBullet();
                             GC.Collect();
@@ -176,13 +179,15 @@ namespace P_032_SpicyInvaders
                 // check if a bullet hit the player then decrease lifes
                 for (int i = 0; i < bullets.Count; i++)
                 {
-                    if (bullets[i].PosX == ship.PosX && bullets[i].PosY == ship.PosY)
+                    if (bullets[i] != null && bullets[i].PosX == ship.PosX && bullets[i].PosY == ship.PosY)
                     {
                         bullets[i].DestroyBullet();
                         GC.Collect();
 
                         ship.Life--;
                         Hud.PrintPlayerLifes();
+                        Console.SetCursorPosition(ship.PosX, ship.PosY);
+                        Console.Write(ship.PlayerChar);
                     }
                 }
 
@@ -191,12 +196,11 @@ namespace P_032_SpicyInvaders
                 {
                     gameOver = true;
                 }
-            }
-            while (!gameOver);
-            hud.PrintGameOver();
-            Console.Read();
         }
 
+        /// <summary>
+        /// Move enemys and control shoot
+        /// </summary>
         static public void MoveEnnemys()
         {
                 

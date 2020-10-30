@@ -14,13 +14,13 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Attributs
         /// </summary>
-        private readonly char player = 'x';
+        private readonly char _playerChar = 'x';
         private int _life = 3;
         private int _score = 0;
         private int _posX = 20;
         private int _posY = 20;
         private bool _canShoot = true;
-
+        
         /// <summary>
         /// Properties
         /// </summary>
@@ -49,6 +49,12 @@ namespace P_032_SpicyInvaders
             set { _canShoot = value; }
         }
 
+        public char PlayerChar
+        {
+            get { return _playerChar; }
+        }
+
+
         /// <summary>
         /// Custom constructor
         /// </summary>
@@ -62,7 +68,7 @@ namespace P_032_SpicyInvaders
             this._life = life;
 
             Console.SetCursorPosition(_posX, _posY);
-            Console.Write(player);
+            Console.Write(_playerChar);
         }
 
         /// <summary>
@@ -82,7 +88,7 @@ namespace P_032_SpicyInvaders
                 _posX -= direction;
             }
             Console.SetCursorPosition(_posX, _posY);
-            Console.Write(player);
+            Console.Write(_playerChar);
         }       
     }
 }
