@@ -111,7 +111,6 @@ namespace P_032_SpicyInvaders
                 }
             }
             while (gameOver == false);
-            hud.PrintGameOver();
         }
 
 
@@ -206,18 +205,22 @@ namespace P_032_SpicyInvaders
                         ennemy.Move(direction);
                     }
                 }
+                //si l'ennemi en haut à gauche atteint la limite de gauche, change la direction des ennemis pour les faire descendre
                 if (enemiesArray[0, 0].PosX + direction[0] <= enemiesLimits[0])
                 {
                     direction = new int[] { 0, 1 };
                 }
+                //si l'ennemi en haut à droite atteint la limite de droite, change la direction des ennemis pour les faire monter
                 if (enemiesArray[enemiesArray.GetLength(0) - 1, 0].PosX + direction[0] >= enemiesLimits[1])
                 {
                     direction = new int[] { 0, -1 };
                 }
+                //si l'ennemi en haut à gauche atteint la limite du haut, change la direction des ennemis pour les faire aller à gauche
                 if (enemiesArray[0, 0].PosY + direction[1] <= enemiesLimits[2])
                 {
                     direction = new int[] { -1, 0 };
                 }
+                //si l'ennemi en bas à gauche atteint la limite du bas, change la direction des ennemis pour les faire aller à droite
                 if (enemiesArray[0, enemiesArray.GetLength(1) - 1].PosY + direction[1] >= enemiesLimits[3])
                 {
                     direction = new int[] { 1, 0 };
