@@ -111,6 +111,7 @@ namespace P_032_SpicyInvaders
                 }
             }
             while (gameOver == false);
+            hud.PrintGameOver();
         }
 
 
@@ -128,7 +129,6 @@ namespace P_032_SpicyInvaders
             {
                 foreach (Enemy ennemy in enemiesArray)
                 {
-                    gameOver = true;
                     if (ennemy.IsAlive == true)
                     {
                         gameOver = false;
@@ -177,9 +177,14 @@ namespace P_032_SpicyInvaders
                         Hud.PrintPlayerLifes();
                     }
                 }
+
+                if(ship.Life < 1)
+                {
+                    gameOver = true;
+                }
             }
             while (!gameOver);
-            Console.WriteLine("GAME OVER");
+            hud.PrintGameOver();
             Console.Read();
         }
 
@@ -194,10 +199,10 @@ namespace P_032_SpicyInvaders
                 {
                     if (ennemy.IsAlive)
                     {
-                        /*if (random.Next(50) == 1)
+                        if (random.Next(50) == 1)
                         {
                             bullets.Add(new Shoot(ennemy.PosX, ennemy.PosY + 5, + 1));
-                        }*/
+                        }
                         ennemy.Move(direction);
                     }
                 }
