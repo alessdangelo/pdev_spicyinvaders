@@ -192,6 +192,7 @@ namespace P_032_SpicyInvaders
         /// </summary>
         public static void PlayGame()
         {
+            
             Console.Clear();
             Program.RunAll();
         }

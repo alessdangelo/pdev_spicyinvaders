@@ -27,7 +27,7 @@ namespace P_032_SpicyInvaders
         private static readonly Random random = new Random();
         public static Player ship;
 
-        public static Enemy[,] enemiesArray = new Enemy[10, 4];
+        public static Enemy[,] enemiesArray = new Enemy[10, 4]; //10, 4
         public static List<Shoot> bullets = new List<Shoot>();
         private static Thread Global;
 
@@ -45,13 +45,17 @@ namespace P_032_SpicyInvaders
         private static int[] direction = new int[] { -1, 0 }; //la direction du pack en [x,y]
         private static int[] enemiesLimits = { 5, Console.WindowWidth - 5, enemiesSpawnPoint[1] - 6, enemiesSpawnPoint[1] + 6 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
         public static List<Block> blockList = new List<Block>();
+        public static Hud hud;
+        private static Menu menu;
 
+        // Launch game
         public static void RunAll()
         {
+            menu = null;
             Console.SetWindowSize(50, 50);
             ship = new Player(39, 45, 3);
-            Hud hud = new Hud(80, 50);
-
+            hud = new Hud(80, 50);
+            
             //Music
             SoundPlayer music = new SoundPlayer();
             music.SoundLocation = fileToPlay; // Breakpoint here to see what fileToPlay is
@@ -66,12 +70,13 @@ namespace P_032_SpicyInvaders
                 }
             }
 
+            // Add blocks
             blockList.Add(new Block(new int[] { 7, 3 }, new int[] { Console.WindowWidth / 4 - 6, 40}));
             blockList.Add(new Block(new int[] { 7, 3 }, new int[] { Console.WindowWidth / 4 + 8, 40 }));
             blockList.Add(new Block(new int[] { 7, 3 }, new int[] { Console.WindowWidth / 4 + 24, 40 }));
             blockList.Add(new Block(new int[] { 7, 3 }, new int[] { Console.WindowWidth / 4 + 38, 40 }));
 
-
+            // play and loop music
             if (soundOn)
             {
                 music.SoundLocation = fileToPlay; // Breakpoint here to see what fileToPlay is
@@ -81,6 +86,7 @@ namespace P_032_SpicyInvaders
             Global = new Thread(GlobalMoves);
             Global.Start();
 
+            // execute methods on keys input
             ConsoleKeyInfo keyEnterred;
             do
             {
@@ -110,7 +116,7 @@ namespace P_032_SpicyInvaders
 
         static void Main(string[] args)
         {
-            Menu menu = new Menu();
+            menu = new Menu();
         }
 
         public static void GlobalMoves()
@@ -120,6 +126,15 @@ namespace P_032_SpicyInvaders
 
             do
             {
+                foreach (Enemy ennemy in enemiesArray)
+                {
+                    gameOver = true;
+                    if (ennemy.IsAlive == true)
+                    {
+                        gameOver = false;
+                    }
+                }
+
                 MoveEnnemys();
                 MoveBullets();
 
@@ -163,7 +178,9 @@ namespace P_032_SpicyInvaders
                     }
                 }
             }
-            while (true);
+            while (!gameOver);
+            Console.WriteLine("GAME OVER");
+            Console.Read();
         }
 
         static public void MoveEnnemys()

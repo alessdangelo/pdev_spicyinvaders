@@ -77,6 +77,10 @@ namespace P_032_SpicyInvaders
             {
                 _posX += direction;
             }
+            else
+            {
+                _posX -= direction;
+            }
             Console.SetCursorPosition(_posX, _posY);
             Console.Write(player);
         }       

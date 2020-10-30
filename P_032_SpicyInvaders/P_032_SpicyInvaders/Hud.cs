@@ -47,17 +47,17 @@ namespace P_032_SpicyInvaders
             Console.Write("Espace: Tir");
 
             PrintPlayerLifes();
-            PrintPlayerScore(Program.ship.Score);
+            PrintPlayerScore();
         }
 
         /// <summary>
         /// Print player score
         /// </summary>
         /// <param name="score">Player score</param>
-        public void PrintPlayerScore(int score)
+        public void PrintPlayerScore()
         {
             Console.SetCursorPosition(65, 3);
-            Console.WriteLine("Score: {0}", score);
+            Console.WriteLine("Score: {0}", Program.ship.Score);
         }
 
         /// <summary>
