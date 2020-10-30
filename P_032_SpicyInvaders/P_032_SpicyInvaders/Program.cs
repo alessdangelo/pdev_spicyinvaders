@@ -102,10 +102,11 @@ namespace P_032_SpicyInvaders
                         break;
 
                     case ConsoleKey.Spacebar:
+                        // wait one second before shoot again
                         if (DateTime.Now.Second > test)
                         {
-                            bullets.Add(new Shoot(ship.PosX, ship.PosY - 1, -1));
                             test = DateTime.Now.Second;
+                            bullets.Add(new Shoot(ship.PosX, ship.PosY - 1, -1));
                         }
                         break;
                 }
@@ -148,7 +149,7 @@ namespace P_032_SpicyInvaders
                 {
                     for (int i = 0; i < bullets.Count; i++)
                     {
-                        if (bullets[i].PosX == ennemy.PosX && bullets[i].PosY == ennemy.PosY && ennemy.IsAlive)
+                        if (bullets[i] != null && bullets[i].PosX == ennemy.PosX && bullets[i].PosY == ennemy.PosY && ennemy.IsAlive)
                         {
                             bullets[i].DestroyBullet();
                             ennemy.IsAlive = false;
