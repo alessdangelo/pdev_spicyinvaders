@@ -41,7 +41,7 @@ namespace P_032_SpicyInvaders
         private static DateTime two;
 
         private static int[] direction = new int[] { -1, 0 }; //la direction du pack en [x,y]
-        private static int[] enemiesLimits = { 5, hudSizeX - 5, enemiesSpawnPoint[1] - 6, enemiesSpawnPoint[1] + 6 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
+        private static int[] enemiesLimits = { 5, hudSizeX - 5, enemiesSpawnPoint[1] -3, enemiesSpawnPoint[1] + 10 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
         public static List<Block> blockList = new List<Block>();
         public static Hud hud;
         private static Menu menu;
