@@ -219,9 +219,10 @@ namespace P_032_SpicyInvaders
                         {
                             bullets.Add(new Shoot(ennemy.PosX, ennemy.PosY + 5, + 1));
                         }
-                        ennemy.Move(direction);
                     }
+                    ennemy.Move(direction);
                 }
+
                 if (enemiesArray[0, 0].PosX + direction[0] <= enemiesLimits[0])
                 {
                     direction = new int[] { 0, 1 };
