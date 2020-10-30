@@ -19,6 +19,8 @@ namespace P_032_SpicyInvaders
         private int _score = 0;
         private int _posX = 20;
         private int _posY = 20;
+        private bool _isPosLimitRight = false;
+        private bool _isPosLimitLeft = false;
         private bool _canShoot = true;
 
         /// <summary>
@@ -73,13 +75,33 @@ namespace P_032_SpicyInvaders
         {
             Console.SetCursorPosition(_posX, _posY);
             Console.Write(" ");
-            if (_posX != Console.WindowWidth - 1 && _posX != 0)
+            if (_posX >= Console.WindowWidth - 1) //Check if player is in the right border
+            {
+                _isPosLimitRight = true;    //Player can't move to the right
+                //_posX = Console.WindowWidth - 2;
+            }
+            else if (_posX == Console.WindowWidth - 2) //Check if player is not in the right border
+            {
+                _isPosLimitRight = false;   //Player can move to the right
+            }
+            if (_posX <= 0) //Check if player is in the left border
+            {
+                _isPosLimitLeft = true; //Player can't move to the left
+                //_posX = 1;
+            }
+            else if (_posX == 1)    //Check if player is in the left border
+            {
+                _isPosLimitLeft = false;    //Player can move to the left
+            }
+
+            //Player move to the right or left if he's not in the limits
+            if (direction == 1 && _isPosLimitRight == false)
             {
                 _posX += direction;
             }
-            else
+            if (direction == -1 && _isPosLimitLeft == false)
             {
-                _posX -= direction;
+                _posX += direction;
             }
             Console.SetCursorPosition(_posX, _posY);
             Console.Write(player);
