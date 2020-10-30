@@ -56,12 +56,6 @@ namespace P_032_SpicyInvaders
             Console.SetWindowSize(50, 50);
             ship = new Player(39, 45, 3);
             hud = new Hud(hudSizeX, hudSizeY);
-            
-            //Music
-            SoundPlayer music = new SoundPlayer();
-            music.SoundLocation = fileToPlay; // Breakpoint here to see what fileToPlay is
-            music.PlayLooping();
-            hud = new Hud(80, 50);
 
             // Music
             if (soundOn)
