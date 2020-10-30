@@ -5,8 +5,12 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Media;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace P_032_SpicyInvaders
 {
@@ -28,7 +32,6 @@ namespace P_032_SpicyInvaders
 
         public static Enemy[,] enemiesArray = new Enemy[10, 4]; //10, 4
         public static List<Shoot> bullets = new List<Shoot>();
-        private static Thread Global;
 
         public static int[] enemiesSpawnPoint = {hudSizeX/2-enemiesArray.GetLength(0)/2, hudSizeY/2 - 5 - enemiesArray.GetLength(1)/2 };
 
@@ -81,36 +84,46 @@ namespace P_032_SpicyInvaders
                 music.PlayLooping();
             }
 
-            Global = new Thread(GlobalMoves);
-            Global.Start();
-
             // execute methods on keys input
             ConsoleKeyInfo keyEnterred;
-            int test = 0;
+            DateTime test = new DateTime();
+
+            one = new DateTime();
+            two = new DateTime();
+
             do
             {
-                keyEnterred = Console.ReadKey(true);
-                switch (keyEnterred.Key)
+                GlobalMoves();
+
+                if (Console.KeyAvailable)
                 {
-                    case ConsoleKey.RightArrow:
-                        ship.Move(1);
-                        break;
+                    keyEnterred = Console.ReadKey(true);
+                    switch (keyEnterred.Key)
+                    {
+                        case ConsoleKey.RightArrow:
+                            ship.Move(1);
+                            break;
 
-                    case ConsoleKey.LeftArrow:
-                        ship.Move(-1);
-                        break;
+                        case ConsoleKey.LeftArrow:
+                            ship.Move(-1);
+                            break;
 
-                    case ConsoleKey.Spacebar:
-                        // wait one second before shoot again
-                        if (DateTime.Now.Second > test)
-                        {
-                            test = DateTime.Now.Second;
-                            bullets.Add(new Shoot(ship.PosX, ship.PosY - 1, -1));
-                        }
-                        break;
+                        case ConsoleKey.Spacebar:
+
+                            // wait one second before shoot again
+                            if (DateTime.Now > test)
+                            {
+                                test = DateTime.Now.AddSeconds(1);
+                                bullets.Add(new Shoot(ship.PosX, ship.PosY - 1, -1));
+                            }
+                            break;
+                    }
                 }
+                
             }
             while (gameOver == false);
+            hud.PrintGameOver();
+            System.IO.File.WriteAllText(Environment.CurrentDirectory + "/highscore.txt", ship.Score.ToString());
         }
 
         /// <summary>
@@ -126,11 +139,6 @@ namespace P_032_SpicyInvaders
         /// </summary>
         public static void GlobalMoves()
         {
-            one = new DateTime();
-            two = new DateTime();
-
-            do
-            {
                 // check is all ennemy are dead
                 foreach (Enemy ennemy in enemiesArray)
                 {
@@ -163,7 +171,7 @@ namespace P_032_SpicyInvaders
                 {
                     for (int i = 0; i < bullets.Count; i++)
                     {
-                        if (block.IsInside(new int[] { bullets[i].PosX, bullets[i].PosY }))
+                        if (bullets[i] != null && block.IsInside(new int[] { bullets[i].PosX, bullets[i].PosY }))
                         {
                             bullets[i].DestroyBullet();
                             GC.Collect();
@@ -174,13 +182,15 @@ namespace P_032_SpicyInvaders
                 // check if a bullet hit the player then decrease lifes
                 for (int i = 0; i < bullets.Count; i++)
                 {
-                    if (bullets[i].PosX == ship.PosX && bullets[i].PosY == ship.PosY)
+                    if (bullets[i] != null && bullets[i].PosX == ship.PosX && bullets[i].PosY == ship.PosY)
                     {
                         bullets[i].DestroyBullet();
                         GC.Collect();
 
                         ship.Life--;
                         Hud.PrintPlayerLifes();
+                        Console.SetCursorPosition(ship.PosX, ship.PosY);
+                        Console.Write(ship.PlayerChar);
                     }
                 }
 
@@ -189,12 +199,11 @@ namespace P_032_SpicyInvaders
                 {
                     gameOver = true;
                 }
-            }
-            while (!gameOver);
-            hud.PrintGameOver();
-            Console.Read();
         }
 
+        /// <summary>
+        /// Move enemys and control shoot
+        /// </summary>
         static public void MoveEnnemys()
         {
                 
@@ -213,22 +222,18 @@ namespace P_032_SpicyInvaders
                         ennemy.Move(direction);
                     }
                 }
-                //si l'ennemi en haut à gauche atteint la limite de gauche, change la direction des ennemis pour les faire descendre
                 if (enemiesArray[0, 0].PosX + direction[0] <= enemiesLimits[0])
                 {
                     direction = new int[] { 0, 1 };
                 }
-                //si l'ennemi en haut à droite atteint la limite de droite, change la direction des ennemis pour les faire monter
                 if (enemiesArray[enemiesArray.GetLength(0) - 1, 0].PosX + direction[0] >= enemiesLimits[1])
                 {
                     direction = new int[] { 0, -1 };
                 }
-                //si l'ennemi en haut à gauche atteint la limite du haut, change la direction des ennemis pour les faire aller à gauche
                 if (enemiesArray[0, 0].PosY + direction[1] <= enemiesLimits[2])
                 {
                     direction = new int[] { -1, 0 };
                 }
-                //si l'ennemi en bas à gauche atteint la limite du bas, change la direction des ennemis pour les faire aller à droite
                 if (enemiesArray[0, enemiesArray.GetLength(1) - 1].PosY + direction[1] >= enemiesLimits[3])
                 {
                     direction = new int[] { 1, 0 };
