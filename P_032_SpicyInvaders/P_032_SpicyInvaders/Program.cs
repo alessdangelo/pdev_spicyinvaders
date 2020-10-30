@@ -18,6 +18,9 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Class variables
         /// </summary>
+
+        public const int hudSizeX = 80, hudSizeY = 50;
+
         public static readonly string musicFile = "song";
         public static readonly string fileToPlay = Environment.CurrentDirectory + $@"\{musicFile}.wav";
         private static readonly Random random = new Random();
@@ -27,7 +30,7 @@ namespace P_032_SpicyInvaders
         public static List<Shoot> bullets = new List<Shoot>();
         private static Thread Global;
 
-        public static int[] enemiesSpawnPoint = {Console.WindowWidth/2-enemiesArray.GetLength(0)/2, Console.WindowHeight/1 - 5 - enemiesArray.GetLength(1)/2 };
+        public static int[] enemiesSpawnPoint = {hudSizeX/2-enemiesArray.GetLength(0)/2, hudSizeY/2 - 5 - enemiesArray.GetLength(1)/2 };
 
         private static int enemiesSpeed = 400;
         private static bool gameOver = false;
@@ -38,7 +41,7 @@ namespace P_032_SpicyInvaders
         private static DateTime two;
 
         private static int[] direction = new int[] { -1, 0 }; //la direction du pack en [x,y]
-        private static int[] enemiesLimits = { 5, Console.WindowWidth - 5, enemiesSpawnPoint[1] - 6, enemiesSpawnPoint[1] + 6 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
+        private static int[] enemiesLimits = { 5, hudSizeX - 5, enemiesSpawnPoint[1] - 6, enemiesSpawnPoint[1] + 6 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
         public static List<Block> blockList = new List<Block>();
         public static Hud hud;
         private static Menu menu;
@@ -49,7 +52,7 @@ namespace P_032_SpicyInvaders
             menu = null;
             Console.SetWindowSize(50, 50);
             ship = new Player(39, 45, 3);
-            hud = new Hud(80, 50);
+            hud = new Hud(hudSizeX, hudSizeY);
             
             //Music
             SoundPlayer music = new SoundPlayer();
