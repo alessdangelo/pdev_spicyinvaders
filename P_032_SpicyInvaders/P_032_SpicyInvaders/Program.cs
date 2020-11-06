@@ -90,10 +90,10 @@ namespace P_032_SpicyInvaders
             }
 
             // Add blocks
-            blockList.Add(new Block(new int[] { 7, 3 }, new int[] { Console.WindowWidth / 4 - 6, 40}));
-            blockList.Add(new Block(new int[] { 7, 3 }, new int[] { Console.WindowWidth / 4 + 8, 40 }));
-            blockList.Add(new Block(new int[] { 7, 3 }, new int[] { Console.WindowWidth / 4 + 24, 40 }));
-            blockList.Add(new Block(new int[] { 7, 3 }, new int[] { Console.WindowWidth / 4 + 38, 40 }));
+            blockList.Add(new Block( 7, 3 , Console.WindowWidth / 4 - 6, 40));
+            blockList.Add(new Block(7, 3, Console.WindowWidth / 4 + 8, 40));
+            blockList.Add(new Block(7, 3, Console.WindowWidth / 4 + 24, 40));
+            blockList.Add(new Block(7, 3, Console.WindowWidth / 4 + 38, 40));
 
             // execute methods on keys input
             ConsoleKeyInfo keyEnterred;
@@ -192,7 +192,7 @@ namespace P_032_SpicyInvaders
                 {
                     for (int i = 0; i < bullets.Count; i++)
                     {
-                        if (bullets[i] != null && block.IsInside(new int[] { bullets[i].PosX, bullets[i].PosY }))
+                        if (bullets[i] != null && block.IsInside(bullets[i].PosX, bullets[i].PosY ))
                         {
                             bullets[i].DestroyBullet();
                             GC.Collect();
@@ -244,8 +244,8 @@ namespace P_032_SpicyInvaders
                                 {
                                     bullets.Add(new Shoot(enemiesArray[x, y].PosX, enemiesArray[x, y].PosY + 5, +1));
                                 }
-                                enemiesArray[x, y].Move(direction);
                             }
+                            enemiesArray[x, y].Move(direction);
                         }
                     }
                 }
@@ -259,8 +259,8 @@ namespace P_032_SpicyInvaders
                             {
                                 bullets.Add(new Shoot(ennemy.PosX, ennemy.PosY + 5, +1));
                             }
-                            ennemy.Move(direction);
                         }
+                        ennemy.Move(direction);
                     }
                 }
               
