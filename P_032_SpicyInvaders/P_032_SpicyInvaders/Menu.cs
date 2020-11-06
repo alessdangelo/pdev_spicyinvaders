@@ -111,18 +111,6 @@ namespace P_032_SpicyInvaders
             const int SPICYXAXETITLE = 28;
             const int INVADERSXAXETITLE = 15;
 
-            const string SPICYLINEONE = "███████ ██████  ██  ██████ ██    ██";
-            const string SPICYLINETWO = "██      ██   ██ ██ ██       ██  ██ ";
-            const string SPICYLINETHREE = "███████ ██████  ██ ██        ████  ";
-            const string SPICYLINEFOUR = "     ██ ██      ██ ██         ██   ";
-            const string SPICYLINEFIVE = "███████ ██      ██  ██████    ██   ";
-
-            const string INVADERSLINEONE = "██ ███    ██ ██    ██  █████  ██████  ███████ ██████  ███████";
-            const string INVADERSLINETWO = "██ ████   ██ ██    ██ ██   ██ ██   ██ ██      ██   ██ ██     ";
-            const string INVADERSLINETHREE = "██ ██ ██  ██ ██    ██ ███████ ██   ██ █████   ██████  ███████";
-            const string INVADERSLINEFOUR = "██ ██  ██ ██  ██  ██  ██   ██ ██   ██ ██      ██   ██      ██";
-            const string INVADERSLINEFIVE = "██ ██   ████   ████   ██   ██ ██████  ███████ ██   ██ ███████";
-
             const string PLAY = "1) JOUER";
             const string OPTIONS = "2) OPTIONS";
             const string HIGHSCORE = "3) HIGHSCORE";
@@ -131,6 +119,24 @@ namespace P_032_SpicyInvaders
 
             const int ENDLEAVEXPOSITION = 49;
             const int LEAVEYPOSITION = 28;
+
+            string[] spicyArray = new string[5]
+            {
+                "███████ ██████  ██  ██████ ██    ██",
+                "██      ██   ██ ██ ██       ██  ██ ",
+                "███████ ██████  ██ ██        ████  ",
+                "     ██ ██      ██ ██         ██   ",
+                "███████ ██      ██  ██████    ██   "
+            };
+
+            string[] invadersArray = new string[5]
+            {
+                "██ ███    ██ ██    ██  █████  ██████  ███████ ██████  ███████",
+                "██ ████   ██ ██    ██ ██   ██ ██   ██ ██      ██   ██ ██     ",
+                "██ ██ ██  ██ ██    ██ ███████ ██   ██ █████   ██████  ███████",
+                "██ ██  ██ ██  ██  ██  ██   ██ ██   ██ ██      ██   ██      ██",
+                "██ ██   ████   ████   ██   ██ ██████  ███████ ██   ██ ███████"
+            };
 
             int positionXSubMenu = 40;
             int positionYSubMenu = 20;
@@ -149,49 +155,23 @@ namespace P_032_SpicyInvaders
             Console.ForegroundColor = ConsoleColor.Red;
 
             //Writing the "SPICY" game title
-            for (int i = 0; i != 1; i++)
+            for (int i = 0; i < spicyArray.Length; i++)
             {
-                Console.WriteLine(SPICYLINEONE);
+                Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
+                Console.WriteLine(spicyArray[i]);
                 spicyYAxeTitle++;
-                Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
-                Console.WriteLine(SPICYLINETWO);
-                spicyYAxeTitle++;
-                Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
-                Console.WriteLine(SPICYLINETHREE);
-                Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
-                spicyYAxeTitle++;
-                Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
-                Console.WriteLine(SPICYLINEFOUR);
-                spicyYAxeTitle++;
-                Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
-                Console.WriteLine(SPICYLINEFIVE);
-
             }
 
             Console.ResetColor();
 
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
 
-            Console.SetCursorPosition(INVADERSXAXETITLE, invadersYAxeTitle);
-
             //Writing the "INVADERS" game title
-            for (int i = 0; i != 1; i++)
+            for (int i = 0; i < invadersArray.Length; i++)
             {
-                Console.WriteLine(INVADERSLINEONE);
+                Console.SetCursorPosition(INVADERSXAXETITLE, invadersYAxeTitle);
+                Console.WriteLine(invadersArray[i]);
                 invadersYAxeTitle++;
-                Console.SetCursorPosition(INVADERSXAXETITLE, invadersYAxeTitle);
-                Console.WriteLine(INVADERSLINETWO);
-                invadersYAxeTitle++;
-                Console.SetCursorPosition(INVADERSXAXETITLE, invadersYAxeTitle);
-                Console.WriteLine(INVADERSLINETHREE);
-                Console.SetCursorPosition(INVADERSXAXETITLE, invadersYAxeTitle);
-                invadersYAxeTitle++;
-                Console.SetCursorPosition(INVADERSXAXETITLE, invadersYAxeTitle);
-                Console.WriteLine(INVADERSLINEFOUR);
-                invadersYAxeTitle++;
-                Console.SetCursorPosition(INVADERSXAXETITLE, invadersYAxeTitle);
-                Console.WriteLine(INVADERSLINEFIVE);
-
             }
             Console.ResetColor();
 
@@ -279,11 +259,14 @@ namespace P_032_SpicyInvaders
             //Variables
             const int OPTIONSXAXETITLE = 17;
 
-            const string OPTIONSLINEONE = " ██████  ██████  ████████ ██  ██████  ███    ██ ███████ ";
-            const string OPTIONSLINETWO = "██    ██ ██   ██    ██    ██ ██    ██ ████   ██ ██      ";
-            const string OPTIONSLINETHREE = "██    ██ ██████     ██    ██ ██    ██ ██ ██  ██ ███████ ";
-            const string OPTIONSLINEFOUR = "██    ██ ██         ██    ██ ██    ██ ██  ██ ██      ██ ";
-            const string OPTIONSLINEFIVE = " ██████  ██         ██    ██  ██████  ██   ████ ███████ ";
+            string[] optionsArray = new string[5]
+            {
+                " ██████  ██████  ████████ ██  ██████  ███    ██ ███████ ",
+                "██    ██ ██   ██    ██    ██ ██    ██ ████   ██ ██      ",
+                "██    ██ ██████     ██    ██ ██    ██ ██ ██  ██ ███████ ",
+                "██    ██ ██         ██    ██ ██    ██ ██  ██ ██      ██ ",
+                " ██████  ██         ██    ██  ██████  ██   ████ ███████ "
+            };
 
             int optionsYAxeTitle = 1;
             int index = 0;
@@ -295,23 +278,11 @@ namespace P_032_SpicyInvaders
             Console.SetCursorPosition(OPTIONSXAXETITLE, optionsYAxeTitle);
 
             //Writing the "OPTIONS"
-            for (int i = 0; i != 1; i++)
+            for (int i = 0; i < optionsArray.Length; i++)
             {
-                Console.WriteLine(OPTIONSLINEONE);
+                Console.SetCursorPosition(OPTIONSXAXETITLE, optionsYAxeTitle);
+                Console.WriteLine(optionsArray[i]);
                 optionsYAxeTitle++;
-                Console.SetCursorPosition(OPTIONSXAXETITLE, optionsYAxeTitle);
-                Console.WriteLine(OPTIONSLINETWO);
-                optionsYAxeTitle++;
-                Console.SetCursorPosition(OPTIONSXAXETITLE, optionsYAxeTitle);
-                Console.WriteLine(OPTIONSLINETHREE);
-                Console.SetCursorPosition(OPTIONSXAXETITLE, optionsYAxeTitle);
-                optionsYAxeTitle++;
-                Console.SetCursorPosition(OPTIONSXAXETITLE, optionsYAxeTitle);
-                Console.WriteLine(OPTIONSLINEFOUR);
-                optionsYAxeTitle++;
-                Console.SetCursorPosition(OPTIONSXAXETITLE, optionsYAxeTitle);
-                Console.WriteLine(OPTIONSLINEFIVE);
-
             }
 
             WriteOptions(index);
