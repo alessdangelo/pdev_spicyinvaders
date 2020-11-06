@@ -9,9 +9,6 @@ using System;
 
 namespace P_032_SpicyInvaders
 {
-    /// <summary>
-    /// Class Player
-    /// </summary>
     class Player
     {
         /// <summary>
