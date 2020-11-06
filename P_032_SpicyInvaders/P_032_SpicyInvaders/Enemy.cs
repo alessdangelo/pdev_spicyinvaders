@@ -60,12 +60,20 @@ namespace P_032_SpicyInvaders
         /// <param name="direction">Select in which direction enemy goes</param>
         public void Move(int[] direction)
         {
-            Console.SetCursorPosition(_posX, _posY);
-            Console.Write(" ");
-            _posX += direction[0];
-            _posY += direction[1];
-            Console.SetCursorPosition(_posX, _posY);
-            Console.Write("*");
+            if(_isAlive)
+            {
+                Console.SetCursorPosition(_posX, _posY);
+                Console.Write(" ");
+                _posX += direction[0];
+                _posY += direction[1];
+                Console.SetCursorPosition(_posX, _posY);
+                Console.Write("*");
+            }
+            else
+            {
+                _posX += direction[0];
+                _posY += direction[1];
+            }
         }
 
         /// <summary>
