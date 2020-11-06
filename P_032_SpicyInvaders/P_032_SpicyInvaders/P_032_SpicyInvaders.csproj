@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enemy.cs" />
+    <Compile Include="Entity.cs" />
     <Compile Include="Hud.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Player.cs" />

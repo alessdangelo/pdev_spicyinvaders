@@ -37,23 +37,27 @@ namespace P_032_SpicyInvaders
         public static int[] enemiesSpawnPoint = {hudSizeX/2-enemiesArray.GetLength(0)/2, hudSizeY/2 - 5 - enemiesArray.GetLength(1)/2 };
 
         private static int enemiesSpeed;
-        private static bool gameOver = false;
+        private static int bulletSpeed = 25;
+        private static double reloadTime = 0.8;
+        public static bool gameOver = false;
         public static bool soundOn = true;
         public static int difficulty = 0;
 
         private static DateTime one;
         private static DateTime two;
+        private static DateTime timeBeforeShoot;
 
         private static int[] direction = new int[] { -1, 0 }; //la direction du pack en [x,y]
         private static int[] enemiesLimits = { 5, hudSizeX - 5, enemiesSpawnPoint[1] -3, enemiesSpawnPoint[1] + 10 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
         public static List<Block> blockList = new List<Block>();
         public static Hud hud;
         private static Menu menu;
+        public static bool gamePaused = false;
 
         // Launch game
         public static void RunAll()
         {
-            menu = null;
+            menu = new Menu();
             Console.SetWindowSize(50, 50);
             ship = new Player(39, 45, 3);
             hud = new Hud(hudSizeX, hudSizeY);
@@ -94,51 +98,56 @@ namespace P_032_SpicyInvaders
             }
 
             // Add blocks
-            blockList.Add(new Block(new int[] { 7, 3 }, new int[] { Console.WindowWidth / 4 - 6, 40}));
-            blockList.Add(new Block(new int[] { 7, 3 }, new int[] { Console.WindowWidth / 4 + 8, 40 }));
-            blockList.Add(new Block(new int[] { 7, 3 }, new int[] { Console.WindowWidth / 4 + 24, 40 }));
-            blockList.Add(new Block(new int[] { 7, 3 }, new int[] { Console.WindowWidth / 4 + 38, 40 }));
+            blockList.Add(new Block( 7, 3 , Console.WindowWidth / 4 - 6, 40));
+            blockList.Add(new Block(7, 3, Console.WindowWidth / 4 + 8, 40));
+            blockList.Add(new Block(7, 3, Console.WindowWidth / 4 + 24, 40));
+            blockList.Add(new Block(7, 3, Console.WindowWidth / 4 + 38, 40));
 
             // execute methods on keys input
             ConsoleKeyInfo keyEnterred;
-            DateTime test = new DateTime();
+            timeBeforeShoot = new DateTime();
 
             one = new DateTime();
             two = new DateTime();
 
             do
             {
-                GlobalMoves();
-
-                if (Console.KeyAvailable)
+                if (gamePaused  == false)
                 {
-                    keyEnterred = Console.ReadKey(true);
-                    switch (keyEnterred.Key)
+                    GlobalMoves();
+
+                    if (Console.KeyAvailable)
                     {
-                        case ConsoleKey.RightArrow:
-                            ship.Move(1);
-                            break;
+                        keyEnterred = Console.ReadKey(true);
+                        switch (keyEnterred.Key)
+                        {
+                            case ConsoleKey.RightArrow:
+                                ship.Move(1);
+                                break;
 
-                        case ConsoleKey.LeftArrow:
-                            ship.Move(-1);
-                            break;
+                            case ConsoleKey.LeftArrow:
+                                ship.Move(-1);
+                                break;
 
-                        case ConsoleKey.Spacebar:
+                            case ConsoleKey.Spacebar:
 
-                            // wait one second before shoot again and make a sound when you shoot
-                            if (DateTime.Now > test)
-                            {
-                                test = DateTime.Now.AddSeconds(1);
-                                bullets.Add(new Shoot(ship.PosX, ship.PosY - 1, -1));
-                                NAudio.Wave.DirectSoundOut shootingEffect = new NAudio.Wave.DirectSoundOut();
-                                NAudio.Wave.WaveFileReader shoot = new NAudio.Wave.WaveFileReader(Program.shootingEffect);
-                                shootingEffect.Init(new NAudio.Wave.WaveChannel32(shoot));
-                                shootingEffect.Play();
-                            }
-                            break;
+                                // wait one second before shoot again
+                                if (DateTime.Now > timeBeforeShoot)
+                                {
+                                    timeBeforeShoot = DateTime.Now.AddSeconds(reloadTime);
+                                    bullets.Add(new Shoot(ship.PosX, ship.PosY - 1, -1));
+                                }
+                                break;
+
+                            case ConsoleKey.Escape:
+                                gamePaused = true;
+                                menu.PauseMenu();
+                                gamePaused = false;
+                                break;
+                        }
                     }
                 }
-                
+
             }
             while (gameOver == false);
             hud.PrintGameOver();
@@ -151,6 +160,7 @@ namespace P_032_SpicyInvaders
         static void Main()
         {
             menu = new Menu();
+            menu.MainMenu();
         }
 
         /// <summary>
@@ -190,7 +200,7 @@ namespace P_032_SpicyInvaders
                 {
                     for (int i = 0; i < bullets.Count; i++)
                     {
-                        if (bullets[i] != null && block.IsInside(new int[] { bullets[i].PosX, bullets[i].PosY }))
+                        if (bullets[i] != null && block.IsInside(bullets[i].PosX, bullets[i].PosY ))
                         {
                             bullets[i].DestroyBullet();
                             GC.Collect();
@@ -242,8 +252,8 @@ namespace P_032_SpicyInvaders
                                 {
                                     bullets.Add(new Shoot(enemiesArray[x, y].PosX, enemiesArray[x, y].PosY + 5, +1));
                                 }
-                                enemiesArray[x, y].Move(direction);
                             }
+                            enemiesArray[x, y].Move(direction);
                         }
                     }
                 }
@@ -257,8 +267,8 @@ namespace P_032_SpicyInvaders
                             {
                                 bullets.Add(new Shoot(ennemy.PosX, ennemy.PosY + 5, +1));
                             }
-                            ennemy.Move(direction);
                         }
+                        ennemy.Move(direction);
                     }
                 }
               
@@ -289,7 +299,7 @@ namespace P_032_SpicyInvaders
             // wait some time before execute
             if(DateTime.Now.Ticks > one.Ticks)
             {
-                one = DateTime.Now.AddMilliseconds(30);
+                one = DateTime.Now.AddMilliseconds(bulletSpeed);
 
                 for (int i = 0; i < bullets.Count; i++)
                 {

@@ -9,7 +9,7 @@ using System;
 
 namespace P_032_SpicyInvaders
 {
-    class Player
+    public class Player : Entity
     {
         /// <summary>
         /// Attributs
@@ -17,8 +17,6 @@ namespace P_032_SpicyInvaders
         private readonly char _playerChar = 'x';
         private int _life = 3;
         private int _score = 0;
-        private int _posX = 20;
-        private int _posY = 20;
         private bool _isPosLimitRight = false;
         private bool _isPosLimitLeft = false;
         private bool _canShoot = true;
@@ -36,15 +34,6 @@ namespace P_032_SpicyInvaders
             get { return _score; }
             set { _score = value; }
         }
-        public int PosX
-        {
-            get { return _posX; }
-        }
-        public int PosY
-        {
-            get { return _posY; }
-        }
-
         public bool CanShoot
         {
             get { return _canShoot; }
