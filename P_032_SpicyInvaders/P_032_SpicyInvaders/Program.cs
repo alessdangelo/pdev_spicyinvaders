@@ -215,17 +215,38 @@ namespace P_032_SpicyInvaders
             {
                 two = DateTime.Now.AddMilliseconds(enemiesSpeed);
 
-                foreach (Enemy ennemy in enemiesArray)
+                if(direction[1] == 1)
                 {
-                    if (ennemy.IsAlive)
+                    for (int y = enemiesArray.GetLength(1)-1; y >= 0; y--)
                     {
-                        if (random.Next(50) == 1)
+                        for (int x = 0; x < enemiesArray.GetLength(0); x++)
                         {
-                            bullets.Add(new Shoot(ennemy.PosX, ennemy.PosY + 5, + 1));
+                            if (enemiesArray[x, y].IsAlive)
+                            {
+                                if (random.Next(50) == 1)
+                                {
+                                    bullets.Add(new Shoot(enemiesArray[x, y].PosX, enemiesArray[x, y].PosY + 5, +1));
+                                }
+                                enemiesArray[x, y].Move(direction);
+                            }
                         }
-                        ennemy.Move(direction);
                     }
                 }
+                else
+                {
+                    foreach (Enemy ennemy in enemiesArray)
+                    {
+                        if (ennemy.IsAlive)
+                        {
+                            if (random.Next(50) == 1)
+                            {
+                                bullets.Add(new Shoot(ennemy.PosX, ennemy.PosY + 5, +1));
+                            }
+                            ennemy.Move(direction);
+                        }
+                    }
+                }
+              
                 if (enemiesArray[0, 0].PosX + direction[0] <= enemiesLimits[0])
                 {
                     direction = new int[] { 0, 1 };
@@ -253,7 +274,7 @@ namespace P_032_SpicyInvaders
             // wait some time before execute
             if(DateTime.Now.Ticks > one.Ticks)
             {
-                one = DateTime.Now.AddMilliseconds(40);
+                one = DateTime.Now.AddMilliseconds(30);
 
                 for (int i = 0; i < bullets.Count; i++)
                 {
