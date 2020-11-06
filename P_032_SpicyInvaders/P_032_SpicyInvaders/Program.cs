@@ -36,7 +36,7 @@ namespace P_032_SpicyInvaders
         public static int[] enemiesSpawnPoint = {hudSizeX/2-enemiesArray.GetLength(0)/2, hudSizeY/2 - 5 - enemiesArray.GetLength(1)/2 };
 
         private static int enemiesSpeed;
-        private static int bulletSpeed = 30;
+        private static int bulletSpeed = 25;
         private static double reloadTime = 0.8;
         public static bool gameOver = false;
         public static bool soundOn = true;
@@ -104,7 +104,7 @@ namespace P_032_SpicyInvaders
 
             do
             {
-                if(gamePaused  == false)
+                if (gamePaused  == false)
                 {
                     GlobalMoves();
 
