@@ -7,6 +7,7 @@
 
 using System;
 using System.IO;
+using NAudio.Wave;
 
 namespace P_032_SpicyInvaders
 {
@@ -16,6 +17,7 @@ namespace P_032_SpicyInvaders
         private static bool _continueKey = false;
         const int WINDOWSIZEX = 90;
         const int WINDOWSIZEY = 35;
+        private static readonly string _selectSoundPath = Environment.CurrentDirectory + @"\Blip_Select.wav"; //"Select" sound effect location
 
         /// <summary>
         /// Default Constructor
@@ -31,6 +33,10 @@ namespace P_032_SpicyInvaders
 
         public void PauseMenu()
         {
+            //Sound in the menu
+             DirectSoundOut _selectSound = new DirectSoundOut();
+             WaveFileReader _selectSoundLocation = new WaveFileReader(_selectSoundPath); //Path of the file (== _selectSoundPath)
+
             Console.SetCursorPosition(28, 22);
             Console.WriteLine("                      ");
             Console.SetCursorPosition(28, 23);
@@ -59,6 +65,7 @@ namespace P_032_SpicyInvaders
                 switch (_keyPressed.Key)
                 {
                     case ConsoleKey.UpArrow:
+                        _selectSound.Play();
                         index = 0;
                         Console.SetCursorPosition(31, 25);
                         Console.ForegroundColor = ConsoleColor.Yellow;
@@ -70,6 +77,7 @@ namespace P_032_SpicyInvaders
                         break;
 
                     case ConsoleKey.DownArrow:
+                        _selectSound.Play();
                         index = 1;
                         Console.SetCursorPosition(36, 27);
                         Console.ForegroundColor = ConsoleColor.Yellow;
@@ -87,6 +95,7 @@ namespace P_032_SpicyInvaders
                         }
                         else
                         {
+                            _selectSound.Play();
                             _continueKey = true;
                         }
                         break;
@@ -108,9 +117,9 @@ namespace P_032_SpicyInvaders
         {
             ///Variables
             //Sound in the menu
-            NAudio.Wave.DirectSoundOut _selectSound = new NAudio.Wave.DirectSoundOut();
-            NAudio.Wave.WaveFileReader _selectSoundLocation = new NAudio.Wave.WaveFileReader(_selectSoundPath); //Path of the file (== _selectSoundPath)
-            _selectSound.Init(new NAudio.Wave.WaveChannel32(_selectSoundLocation)); //Put the song in _selectSoundLocation and put it in the channel
+            DirectSoundOut _selectSound = new DirectSoundOut();
+            WaveFileReader _selectSoundLocation = new WaveFileReader(_selectSoundPath); //Path of the file (== _selectSoundPath)
+            _selectSound.Init(new WaveChannel32(_selectSoundLocation)); //Put the song in _selectSoundLocation and put it in the channel
             const int WINDOWSIZEX = 90;
             const int WINDOWSIZEY = 35;
             const int SPICYXAXETITLE = 28;
@@ -248,7 +257,6 @@ namespace P_032_SpicyInvaders
                         break;
 
                     default:
-
                         Console.Write(" ");
                         _continueKey = false;
                         break;
@@ -262,7 +270,6 @@ namespace P_032_SpicyInvaders
         /// </summary>
         private void PlayGame()
         {
-            
             Console.Clear();
             Program.RunAll();
         }
@@ -273,9 +280,9 @@ namespace P_032_SpicyInvaders
         private void GameOptions()
         {
             //Music files, maybe add another one for this?
-            NAudio.Wave.DirectSoundOut _selectSound = new NAudio.Wave.DirectSoundOut();
-            NAudio.Wave.WaveFileReader _selectSoundLocation = new NAudio.Wave.WaveFileReader(_selectSoundPath); //Path of the file (== _selectSoundPath)
-            _selectSound.Init(new NAudio.Wave.WaveChannel32(_selectSoundLocation)); //Put the song in _selectSoundLocation and put it in the channel
+            DirectSoundOut _selectSound = new DirectSoundOut();
+            WaveFileReader _selectSoundLocation = new WaveFileReader(_selectSoundPath); //Path of the file (== _selectSoundPath)
+            _selectSound.Init(new WaveChannel32(_selectSoundLocation)); //Put the song in _selectSoundLocation and put it in the channel
            
             //Variables
             const int OPTIONSXAXETITLE = 17;
@@ -331,11 +338,11 @@ namespace P_032_SpicyInvaders
                         break;
 
                     case ConsoleKey.Enter:
-                        _selectSound.Play();
                         if (index == 0)
                         {
                             if (Program.soundOn)
                             {
+                                _selectSound.Play();
                                 Program.soundOn = false;
                                 WriteOptions(index);
                             }
@@ -347,13 +354,16 @@ namespace P_032_SpicyInvaders
                         }
                         else if (index == 1)
                         {
-                            if(Program.difficulty == 0)
+                            _selectSound.Play();
+                            if (Program.difficulty == 0)
                             {
+                                
                                 Program.difficulty = 1;
                                 WriteOptions(index);
                             }
                             else
                             {
+
                                 Program.difficulty = 0;
                                 WriteOptions(index);
                             }
@@ -535,6 +545,9 @@ namespace P_032_SpicyInvaders
 
         private void BackToMainMenu()
         {
+            //Sound in the menu
+            DirectSoundOut _selectSound = new DirectSoundOut();
+            WaveFileReader _selectSoundLocation = new WaveFileReader(_selectSoundPath); //Path of the file (== _selectSoundPath)
             while (!_continueKey)
             {
                 _keyPressed = Console.ReadKey(true);
@@ -544,6 +557,7 @@ namespace P_032_SpicyInvaders
                 {
 
                     case ConsoleKey.Escape:
+                        _selectSound.Play();
                         MainMenu();
                         break;
 
