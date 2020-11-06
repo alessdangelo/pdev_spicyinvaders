@@ -16,23 +16,27 @@ namespace P_032_SpicyInvaders
     /// <summary>
     /// class Block, représente les blocs derrière lesquels le joueur peut s'abriter
     /// </summary>
-    class Block
+    public class Block : Entity
     {
         /// <summary>
         /// attributs
         /// </summary>
-        private int[] _size;                       //la taille du block (x,y)
-
-        private int[] _location;                   //la position du bloc (x,y)
+        private int _sizeX;
+        private int _sizeY;
 
         private LittleBlock[,] elements;
 
         /// <summary>
         /// properties
         /// </summary>
-        public int[] Size
+        public int SizeX
         {
-            get { return _size; }
+            get { return _sizeX; }
+        }
+
+        public int SizeY
+        {
+            get { return _sizeY; }
         }
 
         /// <summary>
@@ -40,25 +44,12 @@ namespace P_032_SpicyInvaders
         /// </summary>
         /// <param name="size">La taille du bloc</param>
         /// <param name="location"></param>
-        public Block(int sizeX, int sizeY, int locationX, int locationY)
+        public Block(int sizeX, int sizeY, int posX, int posY)
         {
-            _size = new int[] {sizeX,sizeY};
-            _location = new int[] {locationX,locationY};
-
-            Initialize();
-        }
-
-        /// <summary>
-        /// deuxième constructeur renseigné
-        /// </summary>
-        /// <param name="sizeX"></param>
-        /// <param name="sizeY"></param>
-        /// <param name="locationX"></param>
-        /// <param name="locationY"></param>
-        public Block(int[] size, int[] location)
-        {
-            _size = size;
-            _location = location;
+            _sizeX = sizeX;
+            _sizeY = sizeY;
+            _posX = posX;
+            _posY = posY;
 
             Initialize();
         }
@@ -68,13 +59,13 @@ namespace P_032_SpicyInvaders
         /// </summary>
         public void Initialize()
         {
-            elements = new LittleBlock[_size[0], _size[1]];
+            elements = new LittleBlock[_sizeX, _sizeY];
 
-            for(int y = 0; y < _size[1]; y++)
+            for(int y = 0; y < _sizeY; y++)
             {
-                for(int x = 0; x < _size[0];x++)
+                for(int x = 0; x < _sizeX;x++)
                 {
-                    elements[x, y] = new LittleBlock(new int[] { _location[0] + x, _location[1] + y });
+                    elements[x, y] = new LittleBlock( _posX + x, _posY + y );
                 }
             }
         }
@@ -84,12 +75,11 @@ namespace P_032_SpicyInvaders
         /// </summary>
         /// <param name="location"></param>
         /// <returns></returns>
-        public bool IsInside(int[] location)
+        public bool IsInside(int posX, int posY)
         {
             foreach(LittleBlock block in elements)
             {
-                //la méthode Array.Equals ne fonctionnait pas, donc retour à la bonne vielle méthode
-                if(location.SequenceEqual(block.Location) && block.IsAlive)
+                if(posX == block.PosX && posY == block.PosY && block.IsAlive)
                 {
                     block.Delete();
                     return true;
@@ -101,25 +91,18 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// sous classe représentant chaque élément du gros bloc
         /// </summary>
-        class LittleBlock
+        class LittleBlock : Entity
         {
             /// <summary>
             /// attributs
             /// </summary>
             private char _charDesign = '█';            //le caractère utilisé pour dessiner le bloc
 
-            private int[] _location;                   //la position en x,y
-
             private bool _isAlive = true;              //si le block est vivant
 
             /// <summary>
             /// properties
             /// </summary>
-            public int[] Location
-            {
-                get { return _location; }
-            }
-
             public bool IsAlive
             {
                 get { return _isAlive; }
@@ -129,10 +112,12 @@ namespace P_032_SpicyInvaders
             /// Constructeur renseigné
             /// </summary>
             /// <param name="location">la position à laquelle créer le mini-bloc</param>
-            public LittleBlock(int[] location)
+            public LittleBlock(int posX, int posY)
             {
-                _location = location;
-                Console.SetCursorPosition(_location[0], _location[1]);
+                _posX = posX;
+                _posY = posY;
+
+                Console.SetCursorPosition(_posX, _posY);
                 Console.Write(_charDesign);
             }
             
@@ -142,7 +127,7 @@ namespace P_032_SpicyInvaders
             public void Delete()
             {
                 _isAlive = false;
-                Console.SetCursorPosition(_location[0], _location[1]);
+                Console.SetCursorPosition(_posX, _posY);
                 Console.Write(' ');
             }
 

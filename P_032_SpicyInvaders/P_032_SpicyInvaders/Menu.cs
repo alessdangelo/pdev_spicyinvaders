@@ -10,20 +10,101 @@ using System.IO;
 
 namespace P_032_SpicyInvaders
 {
-    class Menu
+    public class Menu
     {
+        private static ConsoleKeyInfo _keyPressed;
+        private static bool _continueKey = false;
+
         /// <summary>
         /// Default Constructor
         /// </summary>
         public Menu()
         {
-            MainMenu();
+            
+        }
+
+        public void PauseMenu()
+        {
+            Program.gamePaused = true;
+
+            Console.SetCursorPosition(28, 22);
+            Console.WriteLine("                      ");
+            Console.SetCursorPosition(28, 23);
+            Console.WriteLine("      GAME PAUSED     ");
+            Console.SetCursorPosition(28, 24);
+            Console.WriteLine("                      ");
+            Console.SetCursorPosition(28, 25);
+            Console.WriteLine("   Retourner au jeu   ");
+            Console.SetCursorPosition(28, 26);
+            Console.WriteLine("                      ");
+            Console.SetCursorPosition(28, 27);
+            Console.WriteLine("        Quitter       ");
+            Console.SetCursorPosition(28, 28);
+            Console.WriteLine("                      ");
+
+            int index = 0;
+
+            _continueKey = false;
+
+            while (!_continueKey)
+            {
+                _keyPressed = Console.ReadKey(true);
+                //Sub menu movement
+                switch (_keyPressed.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        index = 0;
+                        Console.SetCursorPosition(31, 25);
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("Retourner au jeu");
+
+                        Console.SetCursorPosition(36, 27);
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("Quitter");
+                        break;
+
+                    case ConsoleKey.DownArrow:
+                        index = 1;
+                        Console.SetCursorPosition(36, 27);
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("Quitter");
+
+                        Console.SetCursorPosition(31, 25);
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine("Retourner au jeu");
+                        break;
+
+                    case ConsoleKey.Enter:
+                        if (index == 1)
+                        {
+                            Environment.Exit(0);
+                        }
+                        else
+                        {
+                            _continueKey = true;
+                            Program.gamePaused = false;
+                        }
+                        break;
+
+                    default:
+
+                        Console.Write(" ");
+                        _continueKey = false;
+                        break;
+                }
+            }
+            Console.SetCursorPosition(31, 23);
+            Console.WriteLine("                   ");
+            Console.SetCursorPosition(31, 25);
+            Console.WriteLine("                   ");
+            Console.SetCursorPosition(31, 27);
+            Console.WriteLine("                   ");
         }
 
         /// <summary>
         /// Prints the main menu
         /// </summary>
-        public static void MainMenu()
+        public void MainMenu()
         {
             ///Variables
             const int WINDOWSIZEX = 90;
@@ -57,9 +138,6 @@ namespace P_032_SpicyInvaders
 
             int spicyYAxeTitle = 1;
             int invadersYAxeTitle = 7;
-
-            ConsoleKeyInfo keyPressed;
-            bool continueKey = false;
 
             ///Main program
 
@@ -147,11 +225,11 @@ namespace P_032_SpicyInvaders
             }
             Console.SetCursorPosition(ENDLEAVEXPOSITION, LEAVEYPOSITION);
 
-            while (!continueKey)
+            while (!_continueKey)
             {
-                keyPressed = Console.ReadKey(true);
+                _keyPressed = Console.ReadKey(true);
                 //Sub menu movement
-                switch (keyPressed.Key)
+                switch (_keyPressed.Key)
                 {
                     case ConsoleKey.D1:
                         PlayGame();
@@ -180,7 +258,7 @@ namespace P_032_SpicyInvaders
                     default:
 
                         Console.Write(" ");
-                        continueKey = false;
+                        _continueKey = false;
                         break;
                 }
             }
@@ -190,7 +268,7 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Spacy Invaders game
         /// </summary>
-        public static void PlayGame()
+        private void PlayGame()
         {
             
             Console.Clear();
@@ -200,7 +278,7 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Prints the game options
         /// </summary>
-        public static void GameOptions()
+        private void GameOptions()
         {
             //Variables
             const int WINDOWSIZEX = 90;
@@ -215,9 +293,6 @@ namespace P_032_SpicyInvaders
 
             int optionsYAxeTitle = 1;
             int index = 0;
-
-            ConsoleKeyInfo keyPressed;
-            bool continueKey = false;
 
             ///Main program
 
@@ -256,11 +331,11 @@ namespace P_032_SpicyInvaders
             Console.SetCursorPosition(21, 30);
             Console.Write("Appuyez sur ESC pour revenir au menu principal...");
 
-            while (!continueKey)
+            while (!_continueKey)
             {
-                keyPressed = Console.ReadKey(true);
+                _keyPressed = Console.ReadKey(true);
                 //Sub menu movement
-                switch (keyPressed.Key)
+                switch (_keyPressed.Key)
                 {
                     case ConsoleKey.UpArrow:
                         index = 0;
@@ -308,7 +383,7 @@ namespace P_032_SpicyInvaders
                     default:
 
                         Console.Write(" ");
-                        continueKey = false;
+                        _continueKey = false;
                         break;
                 }
             }
@@ -318,7 +393,7 @@ namespace P_032_SpicyInvaders
         /// Write sound and difficulty options
         /// </summary>
         /// <param name="index">Get selected options (sound or difficulty)      </param>
-        public static void WriteOptions(int index)
+        private static void WriteOptions(int index)
         {
             Console.SetCursorPosition(35, 15);
             if(index == 0)
@@ -354,7 +429,7 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Show the highscore
         /// </summary>
-        public static void GameHighscore()
+        private void GameHighscore()
         {
             //Variables
             const int WINDOWSIZEX = 90;
@@ -368,9 +443,6 @@ namespace P_032_SpicyInvaders
             const string HIGHSCORELINEFIVE = "██   ██ ██  ██████  ██   ██ ███████  ██████  ██████  ██   ██ ███████";
 
             int highscoreYAxeTitle = 1;
-
-            ConsoleKeyInfo keyPressed;
-            bool continueKey = false;
 
             ///Main program
 
@@ -411,30 +483,13 @@ namespace P_032_SpicyInvaders
             Console.SetCursorPosition(21, 30);
             Console.Write("Appuyez sur ESC pour revenir au menu principal...");
 
-            while (!continueKey)
-            {
-                keyPressed = Console.ReadKey(true);
-                //Sub menu movement
-                switch (keyPressed.Key)
-                {
-
-                    case ConsoleKey.Escape:
-                        MainMenu();
-                        break;
-
-                    default:
-
-                        Console.Write(" ");
-                        continueKey = false;
-                        break;
-                }
-            }
+            BackToMainMenu();
         }
 
         /// <summary>
         /// Prints the infos
         /// </summary>
-        public static void Infos()
+        private void Infos()
         {
             //Variables
             const int WINDOWSIZEX = 90;
@@ -464,10 +519,6 @@ namespace P_032_SpicyInvaders
 
             int developpedYAxeTitle = 1;
             int byYAxeTitle = 8;
-
-
-            ConsoleKeyInfo keyPressed;
-            bool continueKey = false;
 
             ///Main program
 
@@ -503,8 +554,6 @@ namespace P_032_SpicyInvaders
             Console.SetCursorPosition(BYXAXETITLE, byYAxeTitle);
 
             //Writing the "BY"
-            for (int i = 0; i != 1; i++)
-            {
                 Console.WriteLine(BYLINEONE);
                 byYAxeTitle++;
                 Console.SetCursorPosition(BYXAXETITLE, byYAxeTitle);
@@ -520,13 +569,9 @@ namespace P_032_SpicyInvaders
                 Console.SetCursorPosition(BYXAXETITLE, byYAxeTitle);
                 Console.WriteLine(BYLINEFIVE);
 
-            }
-
             Console.SetCursorPosition(positionXDeveloppers, positionYDeveloppers);
 
             //Writing the sub menu
-            for (int i = 0; i != 1; i++)
-            {
                 Console.WriteLine(DEVONE);
                 positionYDeveloppers += 2;
                 Console.SetCursorPosition(positionXDeveloppers += 7, positionYDeveloppers);
@@ -538,16 +583,22 @@ namespace P_032_SpicyInvaders
                 positionYDeveloppers += 2;
                 Console.SetCursorPosition(positionXDeveloppers += 2, positionYDeveloppers);
                 Console.WriteLine(DEVFOUR);
-            }
 
             Console.SetCursorPosition(22, 30);
             Console.Write("Appuyez sur ESC pour revenir au menu principal...");
 
-            while (!continueKey)
+            BackToMainMenu();
+
+        }
+
+        private void BackToMainMenu()
+        {
+            while (!_continueKey)
             {
-                keyPressed = Console.ReadKey(true);
+                _keyPressed = Console.ReadKey(true);
+
                 //Sub menu movement
-                switch (keyPressed.Key)
+                switch (_keyPressed.Key)
                 {
 
                     case ConsoleKey.Escape:
@@ -557,7 +608,7 @@ namespace P_032_SpicyInvaders
                     default:
 
                         Console.Write(" ");
-                        continueKey = false;
+                        _continueKey = false;
                         break;
                 }
             }

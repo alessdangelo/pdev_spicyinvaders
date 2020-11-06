@@ -13,29 +13,12 @@ namespace P_032_SpicyInvaders
     /// <summary>
     /// Class Shoot
     /// </summary>
-    class Shoot
+    public class Shoot : Entity
     {
         /// <summary>
         /// Attributes
         /// </summary>
-        private int _posX;
-        private int _posY;
         private int _direction;
-
-        /// <summary>
-        /// Properties
-        /// </summary>
-        public int PosX
-        {
-            get { return _posX; }
-            set { _posX = value; }
-        }
-
-        public int PosY
-        {
-            get { return _posY; }
-            set { _posY = value; }
-        }
 
         /// <summary>
         /// Custom constructor
