@@ -1,15 +1,18 @@
 ﻿///   ETML 
 /// 
-///   Auteur     : Bruno Martins Constantino
-///   Date       : 28.08.2020
-///   Modif      : 11.09.2020
-///   Descrption : Ceci est le menu principal de notre Spicy Invaders
+///   Auteur       : Bruno Martins Constantino
+///   Date         : 28.08.2020
+///   Modification : 11.09.2020
+///   Descrption   : Main menu of the Spicy Invaders.
 
 using System;
 using System.IO;
 
 namespace P_032_SpicyInvaders
 {
+    /// <summary>
+    /// Class Menu
+    /// </summary>
     class Menu
     {
         /// <summary>
@@ -75,24 +78,20 @@ namespace P_032_SpicyInvaders
             Console.ForegroundColor = ConsoleColor.Red;
 
             //Writing the "SPICY" game title
-            for (int i = 0; i != 1; i++)
-            {
-                Console.WriteLine(SPICYLINEONE);
-                spicyYAxeTitle++;
-                Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
-                Console.WriteLine(SPICYLINETWO);
-                spicyYAxeTitle++;
-                Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
-                Console.WriteLine(SPICYLINETHREE);
-                Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
-                spicyYAxeTitle++;
-                Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
-                Console.WriteLine(SPICYLINEFOUR);
-                spicyYAxeTitle++;
-                Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
-                Console.WriteLine(SPICYLINEFIVE);
-
-            }
+            Console.WriteLine(SPICYLINEONE);
+            spicyYAxeTitle++;
+            Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
+            Console.WriteLine(SPICYLINETWO);
+            spicyYAxeTitle++;
+            Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
+            Console.WriteLine(SPICYLINETHREE);
+            Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
+            spicyYAxeTitle++;
+            Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
+            Console.WriteLine(SPICYLINEFOUR);
+            spicyYAxeTitle++;
+            Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
+            Console.WriteLine(SPICYLINEFIVE);
 
             Console.ResetColor();
 
@@ -101,52 +100,49 @@ namespace P_032_SpicyInvaders
             Console.SetCursorPosition(INVADERSXAXETITLE, invadersYAxeTitle);
 
             //Writing the "INVADERS" game title
-            for (int i = 0; i != 1; i++)
-            {
-                Console.WriteLine(INVADERSLINEONE);
-                invadersYAxeTitle++;
-                Console.SetCursorPosition(INVADERSXAXETITLE, invadersYAxeTitle);
-                Console.WriteLine(INVADERSLINETWO);
-                invadersYAxeTitle++;
-                Console.SetCursorPosition(INVADERSXAXETITLE, invadersYAxeTitle);
-                Console.WriteLine(INVADERSLINETHREE);
-                Console.SetCursorPosition(INVADERSXAXETITLE, invadersYAxeTitle);
-                invadersYAxeTitle++;
-                Console.SetCursorPosition(INVADERSXAXETITLE, invadersYAxeTitle);
-                Console.WriteLine(INVADERSLINEFOUR);
-                invadersYAxeTitle++;
-                Console.SetCursorPosition(INVADERSXAXETITLE, invadersYAxeTitle);
-                Console.WriteLine(INVADERSLINEFIVE);
+            Console.WriteLine(INVADERSLINEONE);
+            invadersYAxeTitle++;
+            Console.SetCursorPosition(INVADERSXAXETITLE, invadersYAxeTitle);
+            Console.WriteLine(INVADERSLINETWO);
+            invadersYAxeTitle++;
+            Console.SetCursorPosition(INVADERSXAXETITLE, invadersYAxeTitle);
+            Console.WriteLine(INVADERSLINETHREE);
+            Console.SetCursorPosition(INVADERSXAXETITLE, invadersYAxeTitle);
+            invadersYAxeTitle++;
+            Console.SetCursorPosition(INVADERSXAXETITLE, invadersYAxeTitle);
+            Console.WriteLine(INVADERSLINEFOUR);
+            invadersYAxeTitle++;
+            Console.SetCursorPosition(INVADERSXAXETITLE, invadersYAxeTitle);
+            Console.WriteLine(INVADERSLINEFIVE);
 
-            }
             Console.ResetColor();
 
+            //Moving the cursor to write the line
             Console.SetCursorPosition(10, 16);
             Console.Write("Appuyez sur '1', '2', '3', '4' ou '5' selon ce que vous voulez accéder.");
 
+            //Moving the cursor to write the SubMenu
             Console.SetCursorPosition(positionXSubMenu, positionYSubMenu);
 
             //Writing the sub menu
-            for (int i = 0; i != 1; i++)
-            {
-                Console.WriteLine(PLAY);
-                positionYSubMenu += 2;
-                Console.SetCursorPosition(positionXSubMenu -= 1, positionYSubMenu);
-                Console.WriteLine(OPTIONS);
-                positionYSubMenu += 2;
-                Console.SetCursorPosition(positionXSubMenu -= 1, positionYSubMenu);
-                Console.WriteLine(HIGHSCORE);
-                Console.SetCursorPosition(positionXSubMenu, positionYSubMenu);
-                positionYSubMenu += 2;
-                Console.SetCursorPosition(positionXSubMenu += 2, positionYSubMenu);
-                Console.WriteLine(INFOS);
-                positionYSubMenu += 2;
-                Console.SetCursorPosition(positionXSubMenu -= 1, positionYSubMenu);
-                Console.WriteLine(LEAVE);
+            Console.WriteLine(PLAY);
+            positionYSubMenu += 2;
+            Console.SetCursorPosition(positionXSubMenu -= 1, positionYSubMenu);
+            Console.WriteLine(OPTIONS);
+            positionYSubMenu += 2;
+            Console.SetCursorPosition(positionXSubMenu -= 1, positionYSubMenu);
+            Console.WriteLine(HIGHSCORE);
+            Console.SetCursorPosition(positionXSubMenu, positionYSubMenu);
+            positionYSubMenu += 2;
+            Console.SetCursorPosition(positionXSubMenu += 2, positionYSubMenu);
+            Console.WriteLine(INFOS);
+            positionYSubMenu += 2;
+            Console.SetCursorPosition(positionXSubMenu -= 1, positionYSubMenu);
+            Console.WriteLine(LEAVE);
 
-            }
             Console.SetCursorPosition(ENDLEAVEXPOSITION, LEAVEYPOSITION);
 
+            //The player can only press 1,2,3,4,5,ESC on the menu
             while (!continueKey)
             {
                 keyPressed = Console.ReadKey(true);

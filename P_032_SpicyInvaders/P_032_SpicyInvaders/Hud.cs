@@ -9,6 +9,9 @@ using System;
 
 namespace P_032_SpicyInvaders
 {
+    /// <summary>
+    /// Class HUD
+    /// </summary>
     class Hud
     {
         /// <summary>

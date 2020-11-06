@@ -98,6 +98,7 @@ namespace P_032_SpicyInvaders
             one = new DateTime();
             two = new DateTime();
 
+            //Player can move and shoot while game's not over
             do
             {
                 GlobalMoves();
@@ -129,6 +130,8 @@ namespace P_032_SpicyInvaders
                 
             }
             while (gameOver == false);
+
+            //Prints game over and store the current score if > previous highscore
             hud.PrintGameOver();
             System.IO.File.WriteAllText(Environment.CurrentDirectory + "/highscore.txt", ship.Score.ToString());
         }
@@ -146,7 +149,7 @@ namespace P_032_SpicyInvaders
         /// </summary>
         public static void GlobalMoves()
         {
-                // check is all ennemy are dead
+                // check if all ennemy are dead
                 foreach (Enemy ennemy in enemiesArray)
                 {
                     if (ennemy.IsAlive == true)

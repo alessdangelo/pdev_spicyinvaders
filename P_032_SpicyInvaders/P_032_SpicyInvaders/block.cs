@@ -14,7 +14,7 @@ using System.Linq;
 namespace P_032_SpicyInvaders
 {
     /// <summary>
-    /// class Block, représente les blocs derrière lesquels le joueur peut s'abriter
+    /// Class Block, représente les blocs derrière lesquels le joueur peut s'abriter
     /// </summary>
     class Block
     {
@@ -82,8 +82,8 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// méthode qui supprime le bloc à la position spécifiée si il n'est pas déja mort
         /// </summary>
-        /// <param name="location"></param>
-        /// <returns></returns>
+        /// <param name="location">retourne la position</param>
+        /// <returns>true ou false</returns>
         public bool IsInside(int[] location)
         {
             foreach(LittleBlock block in elements)
