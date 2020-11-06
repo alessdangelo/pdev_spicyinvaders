@@ -27,6 +27,7 @@ namespace P_032_SpicyInvaders
 
         public static readonly string musicFile = "song";
         public static readonly string fileToPlay = Environment.CurrentDirectory + $@"\{musicFile}.wav";
+        public static readonly string shootingEffect = Environment.CurrentDirectory + @"\Laser_Shoot.wav"; //A optimiser
         private static readonly Random random = new Random();
         public static Player ship;
 
@@ -60,9 +61,16 @@ namespace P_032_SpicyInvaders
             // Music
             if (soundOn)
             {
-                SoundPlayer music = new SoundPlayer();
-                music.SoundLocation = fileToPlay;
-                music.PlayLooping();
+                //SoundPlayer shootingSound = new SoundPlayer(); Old music player
+                //SoundPlayer music = new SoundPlayer();
+                //music.SoundLocation = fileToPlay;
+                //music.PlayLooping();
+                NAudio.Wave.DirectSoundOut music = new NAudio.Wave.DirectSoundOut();
+                NAudio.Wave.WaveFileReader musicpath = new NAudio.Wave.WaveFileReader(fileToPlay);
+                music.Init(new NAudio.Wave.WaveChannel32(musicpath));
+                //music.Volume = NAudio.Wave.WaveProvider32;
+                music.Play();
+
             }
      
 
@@ -117,11 +125,15 @@ namespace P_032_SpicyInvaders
 
                         case ConsoleKey.Spacebar:
 
-                            // wait one second before shoot again
+                            // wait one second before shoot again and make a sound when you shoot
                             if (DateTime.Now > test)
                             {
                                 test = DateTime.Now.AddSeconds(1);
                                 bullets.Add(new Shoot(ship.PosX, ship.PosY - 1, -1));
+                                NAudio.Wave.DirectSoundOut shootingEffect = new NAudio.Wave.DirectSoundOut();
+                                NAudio.Wave.WaveFileReader shoot = new NAudio.Wave.WaveFileReader(Program.shootingEffect);
+                                shootingEffect.Init(new NAudio.Wave.WaveChannel32(shoot));
+                                shootingEffect.Play();
                             }
                             break;
                     }

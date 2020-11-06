@@ -12,6 +12,8 @@ namespace P_032_SpicyInvaders
 {
     class Menu
     {
+        private static readonly string _selectSoundPath = Environment.CurrentDirectory + @"\Blip_Select.wav"; //"Select" sound effect location
+  
         /// <summary>
         /// Default Constructor
         /// </summary>
@@ -26,6 +28,10 @@ namespace P_032_SpicyInvaders
         public static void MainMenu()
         {
             ///Variables
+            //Sound in the menu
+            NAudio.Wave.DirectSoundOut _selectSound = new NAudio.Wave.DirectSoundOut();
+            NAudio.Wave.WaveFileReader _selectSoundLocation = new NAudio.Wave.WaveFileReader(_selectSoundPath); //Path of the file (== _selectSoundPath)
+            _selectSound.Init(new NAudio.Wave.WaveChannel32(_selectSoundLocation)); //Put the song in _selectSoundLocation and put it in the channel
             const int WINDOWSIZEX = 90;
             const int WINDOWSIZEY = 35;
             const int SPICYXAXETITLE = 28;
@@ -60,6 +66,8 @@ namespace P_032_SpicyInvaders
 
             ConsoleKeyInfo keyPressed;
             bool continueKey = false;
+
+            
 
             ///Main program
 
@@ -154,26 +162,32 @@ namespace P_032_SpicyInvaders
                 switch (keyPressed.Key)
                 {
                     case ConsoleKey.D1:
+                        _selectSound.Play();
                         PlayGame();
                         break;
 
                     case ConsoleKey.D2:
+                        _selectSound.Play();
                         GameOptions();
                         break;
 
                     case ConsoleKey.D3:
+                        _selectSound.Play();
                         GameHighscore();
                         break;
 
                     case ConsoleKey.D4:
+                        _selectSound.Play();
                         Infos();
                         break;
 
                     case ConsoleKey.D5:
+                        _selectSound.Play();
                         Environment.Exit(1);
                         break;
 
                     case ConsoleKey.Escape:
+                        _selectSound.Play();
                         Environment.Exit(1);
                         break;
 
@@ -202,6 +216,11 @@ namespace P_032_SpicyInvaders
         /// </summary>
         public static void GameOptions()
         {
+            //Music files, maybe add another one for this?
+            NAudio.Wave.DirectSoundOut _selectSound = new NAudio.Wave.DirectSoundOut();
+            NAudio.Wave.WaveFileReader _selectSoundLocation = new NAudio.Wave.WaveFileReader(_selectSoundPath); //Path of the file (== _selectSoundPath)
+            _selectSound.Init(new NAudio.Wave.WaveChannel32(_selectSoundLocation)); //Put the song in _selectSoundLocation and put it in the channel
+           
             //Variables
             const int WINDOWSIZEX = 90;
             const int WINDOWSIZEY = 35;
@@ -263,17 +282,20 @@ namespace P_032_SpicyInvaders
                 switch (keyPressed.Key)
                 {
                     case ConsoleKey.UpArrow:
+                        _selectSound.Play();
                         index = 0;
                         WriteOptions(index);
                         break;
 
                     case ConsoleKey.DownArrow:
+                        _selectSound.Play();
                         index = 1;
                         WriteOptions(index);
                         break;
 
                     case ConsoleKey.Enter:
-                        if(index == 0)
+                        _selectSound.Play();
+                        if (index == 0)
                         {
                             if (Program.soundOn)
                             {
@@ -302,11 +324,11 @@ namespace P_032_SpicyInvaders
                         break;
 
                     case ConsoleKey.Escape:
+                        _selectSound.Play();
                         MainMenu();
                         break;
 
                     default:
-
                         Console.Write(" ");
                         continueKey = false;
                         break;
