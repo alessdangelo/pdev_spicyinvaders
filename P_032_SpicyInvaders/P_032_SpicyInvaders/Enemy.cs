@@ -12,30 +12,16 @@ namespace P_032_SpicyInvaders
     /// <summary>
     /// Class Enemy
     /// </summary>
-    class Enemy
+    public class Enemy : Entity
     {
         /// <summary>
         /// Attributes
         /// </summary>
-        private int _posX;
-        private int _posY;
         private bool _isAlive = true;
 
         /// <summary>
         /// Properties
         /// </summary>
-        public int PosX
-        {
-            get { return _posX; }
-            set { _posX = value; }
-        }
-
-        public int PosY
-        {
-            get { return _posY; }
-            set { _posY = value; }
-        }
-
         public bool IsAlive
         {
             get { return _isAlive; }
