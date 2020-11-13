@@ -25,7 +25,6 @@ namespace P_032_SpicyInvaders
         /// </summary>
         public Menu()
         {
-
             Console.SetWindowSize(WINDOWSIZEX, WINDOWSIZEY);
             Console.SetBufferSize(WINDOWSIZEX, WINDOWSIZEY);
 
@@ -34,9 +33,11 @@ namespace P_032_SpicyInvaders
 
         public void PauseMenu()
         {
+            DirectSoundOut _selectSound = new DirectSoundOut();
+            WaveFileReader _selectSoundLocation = new WaveFileReader(_selectSoundPath); //Path of the file (== _selectSoundPath)
+
             //Sound in the menu
-             DirectSoundOut _selectSound = new DirectSoundOut();
-             WaveFileReader _selectSoundLocation = new WaveFileReader(_selectSoundPath); //Path of the file (== _selectSoundPath)
+            _selectSound.Init(new WaveChannel32(_selectSoundLocation)); //Put the song in _selectSoundLocation and put it in the channel
 
             Console.SetCursorPosition(28, 22);
             Console.WriteLine("                      ");
@@ -117,10 +118,8 @@ namespace P_032_SpicyInvaders
         public void MainMenu()
         {
             ///Variables
-            //Sound in the menu
-            DirectSoundOut _selectSound = new DirectSoundOut();
-            WaveFileReader _selectSoundLocation = new WaveFileReader(_selectSoundPath); //Path of the file (== _selectSoundPath)
-            _selectSound.Init(new WaveChannel32(_selectSoundLocation)); //Put the song in _selectSoundLocation and put it in the channel
+            const int WINDOWSIZEX = 90;
+            const int WINDOWSIZEY = 35;
             const int SPICYXAXETITLE = 28;
             const int INVADERSXAXETITLE = 15;
 
@@ -231,12 +230,7 @@ namespace P_032_SpicyInvaders
         /// Prints the game options
         /// </summary>
         private void GameOptions()
-        {
-            //Music files, maybe add another one for this?
-            DirectSoundOut _selectSound = new DirectSoundOut();
-            WaveFileReader _selectSoundLocation = new WaveFileReader(_selectSoundPath); //Path of the file (== _selectSoundPath)
-            _selectSound.Init(new WaveChannel32(_selectSoundLocation)); //Put the song in _selectSoundLocation and put it in the channel
-           
+        {  
             //Variables
             const int OPTIONSXAXETITLE = 17;
             int optionsYAxeTitle = 1;
@@ -319,34 +313,44 @@ namespace P_032_SpicyInvaders
 
         private void MenuSelection()
         {
-                while (!_continueKey)
+            DirectSoundOut _selectSound = new DirectSoundOut();
+            WaveFileReader _selectSoundLocation = new WaveFileReader(_selectSoundPath); //Path of the file (== _selectSoundPath)
+
+            //Sound in the menu
+            _selectSound.Init(new WaveChannel32(_selectSoundLocation)); //Put the song in _selectSoundLocation and put it in the channel
+            while (!_continueKey)
                 {
                     _keyPressed = Console.ReadKey(true);
                     //Sub menu movement
                     switch (_keyPressed.Key)
                     {
                         case ConsoleKey.D1:
-
+                            _selectSound.Play();
                             PlayGame();
                             break;
 
                         case ConsoleKey.D2:
+                            _selectSound.Play();
                             GameOptions();
                             break;
 
                         case ConsoleKey.D3:
+                            _selectSound.Play();
                             GameHighscore();
                             break;
 
                         case ConsoleKey.D4:
+                            _selectSound.Play();
                             Infos();
                             break;
 
                         case ConsoleKey.D5:
+                            _selectSound.Play();
                             Environment.Exit(1);
                             break;
 
                         case ConsoleKey.Escape:
+                            _selectSound.Play();
                             Environment.Exit(1);
                             break;
 
@@ -519,9 +523,11 @@ namespace P_032_SpicyInvaders
 
         private void BackToMainMenu()
         {
-            //Sound in the menu
             DirectSoundOut _selectSound = new DirectSoundOut();
             WaveFileReader _selectSoundLocation = new WaveFileReader(_selectSoundPath); //Path of the file (== _selectSoundPath)
+
+            _selectSound.Init(new WaveChannel32(_selectSoundLocation)); //Put the song in _selectSoundLocation and put it in the channel
+
             while (!_continueKey)
             {
                 _keyPressed = Console.ReadKey(true);
