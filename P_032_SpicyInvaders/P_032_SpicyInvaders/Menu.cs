@@ -201,43 +201,7 @@ namespace P_032_SpicyInvaders
             }
             Console.SetCursorPosition(ENDLEAVEXPOSITION, LEAVEYPOSITION);
 
-            while (!_continueKey)
-            {
-                _keyPressed = Console.ReadKey(true);
-                //Sub menu movement
-                switch (_keyPressed.Key)
-                {
-                    case ConsoleKey.D1:
-                        PlayGame();
-                        break;
-
-                    case ConsoleKey.D2:
-                        GameOptions();
-                        break;
-
-                    case ConsoleKey.D3:
-                        GameHighscore();
-                        break;
-
-                    case ConsoleKey.D4:
-                        Infos();
-                        break;
-
-                    case ConsoleKey.D5:
-                        Environment.Exit(1);
-                        break;
-
-                    case ConsoleKey.Escape:
-                        Environment.Exit(1);
-                        break;
-
-                    default:
-
-                        Console.Write(" ");
-                        _continueKey = false;
-                        break;
-                }
-            }
+            MenuSelection();
 
         }
 
@@ -291,68 +255,53 @@ namespace P_032_SpicyInvaders
             Console.SetCursorPosition(21, 30);
             Console.Write("Appuyez sur ESC pour revenir au menu principal...");
 
-            while (!_continueKey)
-            {
-                _keyPressed = Console.ReadKey(true);
-                //Sub menu movement
-                switch (_keyPressed.Key)
+            BackToMainMenu();
+        }
+
+        private void MenuSelection()
+        {
+                while (!_continueKey)
                 {
-                    case ConsoleKey.UpArrow:
-                        index = 0;
-                        WriteOptions(index);
-                        break;
+                    _keyPressed = Console.ReadKey(true);
+                    //Sub menu movement
+                    switch (_keyPressed.Key)
+                    {
+                        case ConsoleKey.D1:
+                            PlayGame();
+                            break;
 
-                    case ConsoleKey.DownArrow:
-                        index = 1;
-                        WriteOptions(index);
-                        break;
+                        case ConsoleKey.D2:
+                            GameOptions();
+                            break;
 
-                    case ConsoleKey.Enter:
-                        if(index == 0)
-                        {
-                            if (Program.soundOn)
-                            {
-                                Program.soundOn = false;
-                                WriteOptions(index);
-                            }
-                            else
-                            {
-                                Program.soundOn = true;
-                                WriteOptions(index);
-                            }
-                        }
-                        else if (index == 1)
-                        {
-                            if(Program.difficulty == 0)
-                            {
-                                Program.difficulty = 1;
-                                WriteOptions(index);
-                            }
-                            else
-                            {
-                                Program.difficulty = 0;
-                                WriteOptions(index);
-                            }
-                        }
-                        break;
+                        case ConsoleKey.D3:
+                            GameHighscore();
+                            break;
 
-                    case ConsoleKey.Escape:
-                        MainMenu();
-                        break;
+                        case ConsoleKey.D4:
+                            Infos();
+                            break;
 
-                    default:
+                        case ConsoleKey.D5:
+                            Environment.Exit(1);
+                            break;
 
-                        Console.Write(" ");
-                        _continueKey = false;
-                        break;
+                        case ConsoleKey.Escape:
+                            Environment.Exit(1);
+                            break;
+
+                        default:
+                            Console.Write(" ");
+                            _continueKey = false;
+                            break;
+                    }
                 }
-            }
         }
 
         /// <summary>
         /// Write sound and difficulty options
         /// </summary>
-        /// <param name="index">Get selected options (sound or difficulty)      </param>
+        /// <param name="index">Get selected options (sound or difficulty)</param>
         private static void WriteOptions(int index)
         {
             Console.SetCursorPosition(35, 15);
@@ -507,6 +456,11 @@ namespace P_032_SpicyInvaders
             Console.Write("Appuyez sur ESC pour revenir au menu principal...");
 
             BackToMainMenu();
+        }
+
+        private void GameOver()
+        {
+
         }
 
         private void BackToMainMenu()
