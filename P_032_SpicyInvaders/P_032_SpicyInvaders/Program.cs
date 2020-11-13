@@ -33,6 +33,8 @@ namespace P_032_SpicyInvaders
 
         public static int[] enemiesSpawnPoint = {hudSizeX/2-enemiesArray.GetLength(0)/2, hudSizeY/2 - 5 - enemiesArray.GetLength(1)/2 };
 
+        static int ennemyAlive = enemiesArray.Length;  //Take the numbers of ennemy and decrement it each time one dies.
+
         private static int enemiesSpeed;
         private static int bulletSpeed = 25;
         private static double reloadTime = 0.8;
@@ -122,7 +124,6 @@ namespace P_032_SpicyInvaders
                                 break;
 
                             case ConsoleKey.Spacebar:
-
                                 // wait one second before shoot again
                                 if (DateTime.Now > timeBeforeShoot)
                                 {
@@ -146,7 +147,17 @@ namespace P_032_SpicyInvaders
 
             }
             while (gameOver == false);
-            hud.PrintGameOver();
+            if(ship.Life < 1)
+            {
+                hud.PrintGameOver();
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("HEEEEE c cassé");
+                menu.Win();
+            }
+
             System.IO.File.WriteAllText(Environment.CurrentDirectory + "/highscore.txt", ship.Score.ToString());
         }
 
@@ -186,6 +197,7 @@ namespace P_032_SpicyInvaders
                             bullets[i].DestroyBullet();
                             ennemy.IsAlive = false;
                             ennemy.DestroyEnemy();
+                            ennemyAlive--;
                             GC.Collect();
                         }
                     }
@@ -230,7 +242,7 @@ namespace P_032_SpicyInvaders
                 }
 
                 // if player has no more lifes, stop the game and display gameOver
-                if(ship.Life < 1)
+                if(ship.Life < 1 || ennemyAlive == 0)
                 {
                     gameOver = true;
                 }
