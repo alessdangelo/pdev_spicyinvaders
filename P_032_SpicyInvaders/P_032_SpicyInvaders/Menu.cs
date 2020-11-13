@@ -265,8 +265,56 @@ namespace P_032_SpicyInvaders
             Console.SetCursorPosition(21, 30);
             Console.Write("Appuyez sur ESC pour revenir au menu principal...");
 
-            
-            BackToMainMenu();
+            while (!_continueKey)
+            {
+                _keyPressed = Console.ReadKey(true);
+                //Sub menu movement
+                switch (_keyPressed.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        index = 0;
+                        WriteOptions(index);
+                        break;
+
+                    case ConsoleKey.DownArrow:
+                        index = 1;
+                        WriteOptions(index);
+                        break;
+
+                    case ConsoleKey.Enter:
+                        if (index == 0)
+                        {
+                            if (Program.soundOn)
+                            {
+                                Program.soundOn = false;
+                                WriteOptions(index);
+                            }
+                            else
+                            {
+                                Program.soundOn = true;
+                                WriteOptions(index);
+                            }
+                        }
+                        else if (index == 1)
+                        {
+                            if (Program.difficulty == 0)
+                            {
+                                Program.difficulty = 1;
+                                WriteOptions(index);
+                            }
+                            else
+                            {
+                                Program.difficulty = 0;
+                                WriteOptions(index);
+                            }
+                        }
+                        break;
+
+                    case ConsoleKey.Escape:
+                        MainMenu();
+                        break;
+                }
+            }
         }
 
         private void MenuSelection()
