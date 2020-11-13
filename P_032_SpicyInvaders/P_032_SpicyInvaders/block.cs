@@ -9,6 +9,7 @@
  * Description: remplacement de la méthode de test de la localisation pour quelque chose de plus propre.
  */
 using System;
+using NAudio.Wave;
 using System.Linq;
 
 namespace P_032_SpicyInvaders
@@ -23,6 +24,9 @@ namespace P_032_SpicyInvaders
         /// </summary>
         private int _sizeX;
         private int _sizeY;
+        private Random _random = new Random();
+        string barrierEffectPath;
+        //public static readonly string barrierEffectPath = Environment.CurrentDirectory + $@"\{_wichSoundBarrier}.wav"; //A optimiser
 
         private LittleBlock[,] elements;
 
@@ -81,6 +85,18 @@ namespace P_032_SpicyInvaders
             {
                 if(posX == block.PosX && posY == block.PosY && block.IsAlive)
                 {
+                    if (_random.Next(2) == 1)
+                    {
+                        barrierEffectPath = Environment.CurrentDirectory + @"\barrier.wav";
+                    }
+                    else
+                    {
+                        barrierEffectPath = Environment.CurrentDirectory + @"\barrier2.wav";
+                    }
+                    DirectSoundOut shootingEffect = new DirectSoundOut();   // Create the sound object wich output sound
+                    WaveFileReader shoot = new WaveFileReader(barrierEffectPath);   //Path of the file
+                    shootingEffect.Init(new WaveChannel32(shoot));  //init the sound in a channel to be played
+                    shootingEffect.Play();  //Play the sound
                     block.Delete();
                     return true;
                 }

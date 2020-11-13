@@ -7,6 +7,7 @@
 
 using System;
 using System.IO;
+using NAudio.Wave;
 
 namespace P_032_SpicyInvaders
 {
@@ -17,6 +18,7 @@ namespace P_032_SpicyInvaders
         private static bool _continueKey = false;
         const int WINDOWSIZEX = 90;
         const int WINDOWSIZEY = 35;
+        private static readonly string _selectSoundPath = Environment.CurrentDirectory + @"\Blip_Select.wav"; //"Select" sound effect location
 
         /// <summary>
         /// Default Constructor
@@ -32,6 +34,10 @@ namespace P_032_SpicyInvaders
 
         public void PauseMenu()
         {
+            //Sound in the menu
+             DirectSoundOut _selectSound = new DirectSoundOut();
+             WaveFileReader _selectSoundLocation = new WaveFileReader(_selectSoundPath); //Path of the file (== _selectSoundPath)
+
             Console.SetCursorPosition(28, 22);
             Console.WriteLine("                      ");
             Console.SetCursorPosition(28, 23);
@@ -60,6 +66,7 @@ namespace P_032_SpicyInvaders
                 switch (_keyPressed.Key)
                 {
                     case ConsoleKey.UpArrow:
+                        _selectSound.Play();
                         index = 0;
                         Console.SetCursorPosition(31, 25);
                         Console.ForegroundColor = ConsoleColor.Yellow;
@@ -71,6 +78,7 @@ namespace P_032_SpicyInvaders
                         break;
 
                     case ConsoleKey.DownArrow:
+                        _selectSound.Play();
                         index = 1;
                         Console.SetCursorPosition(36, 27);
                         Console.ForegroundColor = ConsoleColor.Yellow;
@@ -88,6 +96,7 @@ namespace P_032_SpicyInvaders
                         }
                         else
                         {
+                            _selectSound.Play();
                             _continueKey = true;
                         }
                         break;
@@ -108,7 +117,12 @@ namespace P_032_SpicyInvaders
         public void MainMenu()
         {
             ///Variables
-
+            //Sound in the menu
+            DirectSoundOut _selectSound = new DirectSoundOut();
+            WaveFileReader _selectSoundLocation = new WaveFileReader(_selectSoundPath); //Path of the file (== _selectSoundPath)
+            _selectSound.Init(new WaveChannel32(_selectSoundLocation)); //Put the song in _selectSoundLocation and put it in the channel
+            const int WINDOWSIZEX = 90;
+            const int WINDOWSIZEY = 35;
             const int SPICYXAXETITLE = 28;
             const int INVADERSXAXETITLE = 15;
 
@@ -144,6 +158,11 @@ namespace P_032_SpicyInvaders
 
             int spicyYAxeTitle = 1;
             int invadersYAxeTitle = 7;
+
+            ConsoleKeyInfo keyPressed;
+            bool continueKey = false;
+
+            
 
             ///Main program
 
@@ -202,38 +221,7 @@ namespace P_032_SpicyInvaders
             }
             Console.SetCursorPosition(ENDLEAVEXPOSITION, LEAVEYPOSITION);
 
-            while (!_continueKey)
-            {
-                _keyPressed = Console.ReadKey(true);
-
-                // Select choice
-                switch (_keyPressed.Key)
-                {
-                    case ConsoleKey.D1:
-                        PlayGame();
-                        break;
-
-                    case ConsoleKey.D2:
-                        GameOptions();
-                        break;
-
-                    case ConsoleKey.D3:
-                        GameHighscore();
-                        break;
-
-                    case ConsoleKey.D4:
-                        Infos();
-                        break;
-
-                    case ConsoleKey.D5:
-                        Environment.Exit(1);
-                        break;
-
-                    case ConsoleKey.Escape:
-                        Environment.Exit(1);
-                        break;
-                }
-            }
+            MenuSelection();
 
         }
 
@@ -241,7 +229,7 @@ namespace P_032_SpicyInvaders
         /// Spacy Invaders game
         /// </summary>
         private void PlayGame()
-        {          
+        {
             Console.Clear();
             Program.RunAll();
         }
@@ -251,6 +239,11 @@ namespace P_032_SpicyInvaders
         /// </summary>
         private void GameOptions()
         {
+            //Music files, maybe add another one for this?
+            DirectSoundOut _selectSound = new DirectSoundOut();
+            WaveFileReader _selectSoundLocation = new WaveFileReader(_selectSoundPath); //Path of the file (== _selectSoundPath)
+            _selectSound.Init(new WaveChannel32(_selectSoundLocation)); //Put the song in _selectSoundLocation and put it in the channel
+           
             //Variables
             const int OPTIONSXAXETITLE = 17;
             int optionsYAxeTitle = 1;
@@ -279,63 +272,53 @@ namespace P_032_SpicyInvaders
             Console.SetCursorPosition(21, 30);
             Console.Write("Appuyez sur ESC pour revenir au menu principal...");
 
-            while (!_continueKey)
-            {
-                _keyPressed = Console.ReadKey(true);
+            BackToMainMenu();
+        }
 
-                // Select choice
-                switch (_keyPressed.Key)
+        private void MenuSelection()
+        {
+                while (!_continueKey)
                 {
-                    case ConsoleKey.UpArrow:
-                        index = 0;
-                        WriteOptions(index);
-                        break;
+                    _keyPressed = Console.ReadKey(true);
+                    //Sub menu movement
+                    switch (_keyPressed.Key)
+                    {
+                        case ConsoleKey.D1:
+                            PlayGame();
+                            break;
 
-                    case ConsoleKey.DownArrow:
-                        index = 1;
-                        WriteOptions(index);
-                        break;
+                        case ConsoleKey.D2:
+                            GameOptions();
+                            break;
 
-                    case ConsoleKey.Enter:
-                        if(index == 0)
-                        {
-                            if (Program.soundOn)
-                            {
-                                Program.soundOn = false;
-                                WriteOptions(index);
-                            }
-                            else
-                            {
-                                Program.soundOn = true;
-                                WriteOptions(index);
-                            }
-                        }
-                        else if (index == 1)
-                        {
-                            if(Program.difficulty == 0)
-                            {
-                                Program.difficulty = 1;
-                                WriteOptions(index);
-                            }
-                            else
-                            {
-                                Program.difficulty = 0;
-                                WriteOptions(index);
-                            }
-                        }
-                        break;
+                        case ConsoleKey.D3:
+                            GameHighscore();
+                            break;
 
-                    case ConsoleKey.Escape:
-                        MainMenu();
-                        break;
+                        case ConsoleKey.D4:
+                            Infos();
+                            break;
+
+                        case ConsoleKey.D5:
+                            Environment.Exit(1);
+                            break;
+
+                        case ConsoleKey.Escape:
+                            Environment.Exit(1);
+                            break;
+
+                        default:
+                            Console.Write(" ");
+                            _continueKey = false;
+                            break;
+                    }
                 }
-            }
         }
 
         /// <summary>
         /// Write sound and difficulty options
         /// </summary>
-        /// <param name="index">Get selected options (sound or difficulty)      </param>
+        /// <param name="index">Get selected options (sound or difficulty)</param>
         private static void WriteOptions(int index)
         {
             Console.SetCursorPosition(35, 15);
@@ -486,8 +469,16 @@ namespace P_032_SpicyInvaders
             BackToMainMenu();
         }
 
+        private void GameOver()
+        {
+
+        }
+
         private void BackToMainMenu()
         {
+            //Sound in the menu
+            DirectSoundOut _selectSound = new DirectSoundOut();
+            WaveFileReader _selectSoundLocation = new WaveFileReader(_selectSoundPath); //Path of the file (== _selectSoundPath)
             while (!_continueKey)
             {
                 _keyPressed = Console.ReadKey(true);
@@ -495,6 +486,7 @@ namespace P_032_SpicyInvaders
                 switch (_keyPressed.Key)
                 {
                     case ConsoleKey.Escape:
+                        _selectSound.Play();
                         MainMenu();
                         break;
                 }

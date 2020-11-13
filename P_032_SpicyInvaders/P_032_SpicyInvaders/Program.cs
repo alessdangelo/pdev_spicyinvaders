@@ -3,14 +3,10 @@
  * Auteurs: Bruno Martins Constantino, Manuel Oro, Alessandro D'Angelo, Clément Sartoni
  * Description: Classe program du projet Spiciy Invaders, contient l'architecture globale du jeu et le thread de jeu contenant les checks
  */
+using NAudio.Wave;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Media;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace P_032_SpicyInvaders
 {
@@ -27,6 +23,8 @@ namespace P_032_SpicyInvaders
 
         public static readonly string musicFile = "song";
         public static readonly string fileToPlay = Environment.CurrentDirectory + $@"\{musicFile}.wav";
+        public static readonly string shootingEffectPath = Environment.CurrentDirectory + @"\Laser_Shoot.wav"; //A optimiser
+        public static readonly string shotEffectPath = Environment.CurrentDirectory + @"\Hit_Hurt.wav"; //A optimiser
         private static readonly Random random = new Random();
         public static Player ship;
 
@@ -68,7 +66,6 @@ namespace P_032_SpicyInvaders
                 music.SoundLocation = fileToPlay;
                 music.PlayLooping();
             }
-     
 
             // Dificulty system
             if(difficulty == 0)
@@ -127,6 +124,10 @@ namespace P_032_SpicyInvaders
                                 if (DateTime.Now > timeBeforeShoot)
                                 {
                                     timeBeforeShoot = DateTime.Now.AddSeconds(reloadTime);
+                                    DirectSoundOut shootingEffect = new DirectSoundOut();
+                                    WaveFileReader shoot = new WaveFileReader(shootingEffectPath);
+                                    shootingEffect.Init(new WaveChannel32(shoot));
+                                    shootingEffect.Play();
                                     bullets.Add(new Shoot(ship.PosX, ship.PosY - 1, -1));
                                 }
                                 break;
@@ -207,7 +208,10 @@ namespace P_032_SpicyInvaders
                     {
                         bullets[i].DestroyBullet();
                         GC.Collect();
-
+                        DirectSoundOut shotEffect = new DirectSoundOut();
+                        WaveFileReader shoot = new WaveFileReader(shotEffectPath);
+                        shotEffect.Init(new WaveChannel32(shoot));
+                        shotEffect.Play();
                         ship.Life--;
                         Hud.PrintPlayerLifes();
                         Console.SetCursorPosition(ship.PosX, ship.PosY);
