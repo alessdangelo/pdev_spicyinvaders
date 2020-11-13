@@ -265,6 +265,7 @@ namespace P_032_SpicyInvaders
             Console.SetCursorPosition(21, 30);
             Console.Write("Appuyez sur ESC pour revenir au menu principal...");
 
+            
             BackToMainMenu();
         }
 
