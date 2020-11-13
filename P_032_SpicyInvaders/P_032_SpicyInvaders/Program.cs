@@ -217,7 +217,7 @@ namespace P_032_SpicyInvaders
                         // invincibility time (when plyers is hit)
                         if (DateTime.Now > tempInvincibility)
                             {
-                                tempInvincibility = DateTime.Now.AddSeconds(reloadTime);
+                                tempInvincibility = DateTime.Now.AddSeconds(invincibilityTime);
 
                                 DirectSoundOut shotEffect = new DirectSoundOut();
                                 WaveFileReader shoot = new WaveFileReader(shotEffectPath);
