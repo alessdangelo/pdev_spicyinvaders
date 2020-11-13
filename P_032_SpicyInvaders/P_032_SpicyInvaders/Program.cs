@@ -36,6 +36,8 @@ namespace P_032_SpicyInvaders
         private static int enemiesSpeed;
         private static int bulletSpeed = 25;
         private static double reloadTime = 0.8;
+        private static double invincibilityTime = 3.0;
+
         public static bool gameOver = false;
         public static bool soundOn = true;
         public static int difficulty = 0;
@@ -43,6 +45,7 @@ namespace P_032_SpicyInvaders
         private static DateTime one;
         private static DateTime two;
         private static DateTime timeBeforeShoot;
+        private static DateTime tempInvincibility;
 
         private static int[] direction = new int[] { -1, 0 }; //la direction du pack en [x,y]
         private static int[] enemiesLimits = { 5, hudSizeX - 5, enemiesSpawnPoint[1] -3, enemiesSpawnPoint[1] + 10 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
@@ -95,7 +98,7 @@ namespace P_032_SpicyInvaders
             // execute methods on keys input
             ConsoleKeyInfo keyEnterred;
             timeBeforeShoot = new DateTime();
-
+            tempInvincibility = new DateTime();
             one = new DateTime();
             two = new DateTime();
 
@@ -208,14 +211,21 @@ namespace P_032_SpicyInvaders
                     {
                         bullets[i].DestroyBullet();
                         GC.Collect();
-                        DirectSoundOut shotEffect = new DirectSoundOut();
-                        WaveFileReader shoot = new WaveFileReader(shotEffectPath);
-                        shotEffect.Init(new WaveChannel32(shoot));
-                        shotEffect.Play();
-                        ship.Life--;
-                        Hud.PrintPlayerLifes();
                         Console.SetCursorPosition(ship.PosX, ship.PosY);
                         Console.Write(ship.PlayerChar);
+
+                        // invincibility time (when plyers is hit)
+                        if (DateTime.Now > tempInvincibility)
+                            {
+                                tempInvincibility = DateTime.Now.AddSeconds(reloadTime);
+
+                                DirectSoundOut shotEffect = new DirectSoundOut();
+                                WaveFileReader shoot = new WaveFileReader(shotEffectPath);
+                                shotEffect.Init(new WaveChannel32(shoot));
+                                shotEffect.Play();
+                                ship.Life--;
+                                Hud.PrintPlayerLifes();
+                            }
                     }
                 }
 
