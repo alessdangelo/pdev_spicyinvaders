@@ -1,8 +1,8 @@
 ﻿///   ETML 
 /// 
-///   Auteur     : Bruno Martins Constantino
+///   Auteur     : Bruno Martins Constantino, Manus
 ///   Date       : 28.08.2020
-///   Modif      : 11.09.2020
+///   Modif      : 06.11.2020
 ///   Descrption : Ceci est le menu principal de notre Spicy Invaders
 
 using System;
@@ -12,6 +12,7 @@ namespace P_032_SpicyInvaders
 {
     public class Menu
     {
+        // Variables
         private static ConsoleKeyInfo _keyPressed;
         private static bool _continueKey = false;
         const int WINDOWSIZEX = 90;
@@ -204,7 +205,8 @@ namespace P_032_SpicyInvaders
             while (!_continueKey)
             {
                 _keyPressed = Console.ReadKey(true);
-                //Sub menu movement
+
+                // Select choice
                 switch (_keyPressed.Key)
                 {
                     case ConsoleKey.D1:
@@ -230,12 +232,6 @@ namespace P_032_SpicyInvaders
                     case ConsoleKey.Escape:
                         Environment.Exit(1);
                         break;
-
-                    default:
-
-                        Console.Write(" ");
-                        _continueKey = false;
-                        break;
                 }
             }
 
@@ -245,8 +241,7 @@ namespace P_032_SpicyInvaders
         /// Spacy Invaders game
         /// </summary>
         private void PlayGame()
-        {
-            
+        {          
             Console.Clear();
             Program.RunAll();
         }
@@ -258,7 +253,8 @@ namespace P_032_SpicyInvaders
         {
             //Variables
             const int OPTIONSXAXETITLE = 17;
-
+            int optionsYAxeTitle = 1;
+            int index = 0;
             string[] optionsArray = new string[5]
             {
                 " ██████  ██████  ████████ ██  ██████  ███    ██ ███████ ",
@@ -268,14 +264,7 @@ namespace P_032_SpicyInvaders
                 " ██████  ██         ██    ██  ██████  ██   ████ ███████ "
             };
 
-            int optionsYAxeTitle = 1;
-            int index = 0;
-
-            ///Main program
-
             Console.Clear();
-
-            Console.SetCursorPosition(OPTIONSXAXETITLE, optionsYAxeTitle);
 
             //Writing the "OPTIONS"
             for (int i = 0; i < optionsArray.Length; i++)
@@ -287,14 +276,14 @@ namespace P_032_SpicyInvaders
 
             WriteOptions(index);
 
-
             Console.SetCursorPosition(21, 30);
             Console.Write("Appuyez sur ESC pour revenir au menu principal...");
 
             while (!_continueKey)
             {
                 _keyPressed = Console.ReadKey(true);
-                //Sub menu movement
+
+                // Select choice
                 switch (_keyPressed.Key)
                 {
                     case ConsoleKey.UpArrow:
@@ -338,12 +327,6 @@ namespace P_032_SpicyInvaders
 
                     case ConsoleKey.Escape:
                         MainMenu();
-                        break;
-
-                    default:
-
-                        Console.Write(" ");
-                        _continueKey = false;
                         break;
                 }
             }
@@ -394,7 +377,9 @@ namespace P_032_SpicyInvaders
         private void GameHighscore()
         {
             //Variables
+            string highscore;
             const int HIGHSCOREXAXETITLE = 11;
+            int highscoreYAxeTitle = 1;
             string[] highscoreArray = new string[5]
             {
                 "██   ██ ██  ██████  ██   ██ ███████  ██████  ██████  ██████  ███████",
@@ -403,8 +388,6 @@ namespace P_032_SpicyInvaders
                 "██   ██ ██ ██    ██ ██   ██      ██ ██      ██    ██ ██   ██ ██     ",
                 "██   ██ ██  ██████  ██   ██ ███████  ██████  ██████  ██   ██ ███████"
             };
-
-            int highscoreYAxeTitle = 1;
 
             Console.Clear();           
 
@@ -417,9 +400,9 @@ namespace P_032_SpicyInvaders
             }
 
             // read highscore in txt file
-            string highsore = $"Votre meilleur score est de: " + File.ReadAllText(Environment.CurrentDirectory + "/highscore.txt");
-            Console.SetCursorPosition((Console.WindowWidth)/2-(highsore.Length/2), 20);
-            Console.Write(highsore);
+            highscore = $"Votre meilleur score est de: " + File.ReadAllText(Environment.CurrentDirectory + "/highscore.txt");
+            Console.SetCursorPosition((Console.WindowWidth)/2-(highscore.Length/2), 20);
+            Console.Write(highscore);
 
             Console.SetCursorPosition(21, 30);
             Console.Write("Appuyez sur ESC pour revenir au menu principal...");
@@ -432,9 +415,13 @@ namespace P_032_SpicyInvaders
         /// </summary>
         private void Infos()
         {
-            //Variables
+            // Variables
             const int DEVELOPPEDXAXETITLE = 5;
             const int BYXAXETITLE = 38;
+            int positionXDeveloppers = 33;
+            int positionYDeveloppers = 18;
+            int developpedYAxeTitle = 1;
+            int byYAxeTitle = 8;
 
             string[] byArray = new string[5]
             {
@@ -459,18 +446,7 @@ namespace P_032_SpicyInvaders
             const string DEVTHREE = "Alessandro D'Angelo";
             const string DEVFOUR = "Clément Sartoni";
 
-            int positionXDeveloppers = 33;
-            int positionYDeveloppers = 18;
-
-            int developpedYAxeTitle = 1;
-            int byYAxeTitle = 8;
-
-            ///Main program
-
             Console.Clear();
-
-
-            Console.SetCursorPosition(DEVELOPPEDXAXETITLE, developpedYAxeTitle);
 
             //Writing the "DEVELOPPED"
             for (int i = 0; i < developpedArray.Length; i++)
@@ -486,22 +462,23 @@ namespace P_032_SpicyInvaders
                 Console.SetCursorPosition(BYXAXETITLE, byYAxeTitle);
                 Console.WriteLine(byArray[i]);
                 byYAxeTitle++;
-            }           
+            }
 
-            Console.SetCursorPosition(positionXDeveloppers, positionYDeveloppers);
 
             //Writing developpers infos
-                Console.WriteLine(DEVONE);
-                positionYDeveloppers += 2;
-                Console.SetCursorPosition(positionXDeveloppers += 7, positionYDeveloppers);
-                Console.WriteLine(DEVTWO);
-                positionYDeveloppers += 2;
-                Console.SetCursorPosition(positionXDeveloppers -= 4, positionYDeveloppers);
-                Console.WriteLine(DEVTHREE);
-                Console.SetCursorPosition(positionXDeveloppers, positionYDeveloppers);
-                positionYDeveloppers += 2;
-                Console.SetCursorPosition(positionXDeveloppers += 2, positionYDeveloppers);
-                Console.WriteLine(DEVFOUR);
+            Console.SetCursorPosition(positionXDeveloppers, positionYDeveloppers);
+
+            Console.WriteLine(DEVONE);
+            positionYDeveloppers += 2;
+            Console.SetCursorPosition(positionXDeveloppers += 7, positionYDeveloppers);
+            Console.WriteLine(DEVTWO);
+            positionYDeveloppers += 2;
+            Console.SetCursorPosition(positionXDeveloppers -= 4, positionYDeveloppers);
+            Console.WriteLine(DEVTHREE);
+            Console.SetCursorPosition(positionXDeveloppers, positionYDeveloppers);
+            positionYDeveloppers += 2;
+            Console.SetCursorPosition(positionXDeveloppers += 2, positionYDeveloppers);
+            Console.WriteLine(DEVFOUR);
 
             Console.SetCursorPosition(22, 30);
             Console.Write("Appuyez sur ESC pour revenir au menu principal...");
@@ -515,18 +492,10 @@ namespace P_032_SpicyInvaders
             {
                 _keyPressed = Console.ReadKey(true);
 
-                //Sub menu movement
                 switch (_keyPressed.Key)
                 {
-
                     case ConsoleKey.Escape:
                         MainMenu();
-                        break;
-
-                    default:
-
-                        Console.Write(" ");
-                        _continueKey = false;
                         break;
                 }
             }
