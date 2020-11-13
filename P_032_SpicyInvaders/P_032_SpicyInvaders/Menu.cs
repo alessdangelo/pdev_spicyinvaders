@@ -120,8 +120,6 @@ namespace P_032_SpicyInvaders
             DirectSoundOut _selectSound = new DirectSoundOut();
             WaveFileReader _selectSoundLocation = new WaveFileReader(_selectSoundPath); //Path of the file (== _selectSoundPath)
             _selectSound.Init(new WaveChannel32(_selectSoundLocation)); //Put the song in _selectSoundLocation and put it in the channel
-            const int WINDOWSIZEX = 90;
-            const int WINDOWSIZEY = 35;
             const int SPICYXAXETITLE = 28;
             const int INVADERSXAXETITLE = 15;
 
@@ -157,11 +155,6 @@ namespace P_032_SpicyInvaders
 
             int spicyYAxeTitle = 1;
             int invadersYAxeTitle = 7;
-
-            ConsoleKeyInfo keyPressed;
-            bool continueKey = false;
-
-            
 
             ///Main program
 
@@ -290,6 +283,7 @@ namespace P_032_SpicyInvaders
                     switch (_keyPressed.Key)
                     {
                         case ConsoleKey.D1:
+
                             PlayGame();
                             break;
 
