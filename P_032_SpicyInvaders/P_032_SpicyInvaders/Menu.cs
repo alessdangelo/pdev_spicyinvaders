@@ -8,6 +8,7 @@
 using System;
 using System.IO;
 using NAudio.Wave;
+using System.Threading;
 
 namespace P_032_SpicyInvaders
 {
@@ -317,6 +318,9 @@ namespace P_032_SpicyInvaders
             }
         }
 
+        /// <summary>
+        /// Select in where menu you want to go
+        /// </summary>
         private void MenuSelection()
         {
                 while (!_continueKey)
@@ -512,9 +516,35 @@ namespace P_032_SpicyInvaders
             BackToMainMenu();
         }
 
+        /// <summary>
+        /// Game Over Menu
+        /// </summary>
         private void GameOver()
         {
+            // Variables
+            const int GAMEOVERXTITLE = 17;
+            int gameOverYTitle = 1;
 
+            string[] optionsArray = new string[5]
+            {
+                 " ██████   █████  ███    ███ ███████      ██████  ██    ██ ███████ ██████ ",  
+                 "██       ██   ██ ████  ████ ██          ██    ██ ██    ██ ██      ██   ██", 
+                 "██   ███ ███████ ██ ████ ██ █████       ██    ██ ██    ██ █████   ██████ ",  
+                 "██    ██ ██   ██ ██  ██  ██ ██          ██    ██  ██  ██  ██      ██   ██",
+                 " ██████  ██   ██ ██      ██ ███████      ██████    ████   ███████ ██   ██"
+            };
+
+            Console.Clear();
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            for (int i = 0; i < optionsArray.Length; i++)
+            {
+                Thread.Sleep(500);
+                Console.SetCursorPosition(GAMEOVERXTITLE, gameOverYTitle);
+                Console.WriteLine(optionsArray[i]);
+                gameOverYTitle++;
+            }
+            Console.ResetColor();
         }
 
         private void BackToMainMenu()
