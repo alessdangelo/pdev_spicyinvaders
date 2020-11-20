@@ -26,9 +26,6 @@ namespace P_032_SpicyInvaders
 
         private Random _random = new Random();
         private string[] barrierSoundPaths = new string[2] { $"{Environment.CurrentDirectory}\\barrier.wav", $"{Environment.CurrentDirectory}\\barrier2.wav"};
-        private DirectSoundOut soundPlayer = new DirectSoundOut();
-        private WaveFileReader blockSoundToPlay;
-
 
         private LittleBlock[,] elements;
 
@@ -89,15 +86,13 @@ namespace P_032_SpicyInvaders
                 {
                     if (_random.Next(2) == 1)
                     {
-                        blockSoundToPlay = new WaveFileReader(barrierSoundPaths[0]);
+                        Program.PlaySound(barrierSoundPaths[0]);
                     }
                     else
                     {
-                        blockSoundToPlay = new WaveFileReader(barrierSoundPaths[1]);
+                        Program.PlaySound(barrierSoundPaths[1]);
                     }
 
-                    soundPlayer.Init(new WaveChannel32(blockSoundToPlay));
-                    soundPlayer.Play();
                     block.Delete();
                     return true;
                 }
@@ -146,8 +141,6 @@ namespace P_032_SpicyInvaders
                 Console.SetCursorPosition(_posX, _posY);
                 Console.Write(' ');
             }
-
         }
-    }
-    
+    }   
 }
