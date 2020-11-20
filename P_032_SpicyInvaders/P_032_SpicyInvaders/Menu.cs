@@ -9,6 +9,7 @@ using System;
 using System.IO;
 using System.Threading;
 using NAudio.Wave;
+using System.Threading;
 
 namespace P_032_SpicyInvaders
 {
@@ -311,7 +312,7 @@ namespace P_032_SpicyInvaders
         }
 
         /// <summary>
-        /// 
+        /// Select in where menu you want to go
         /// </summary>
         private void MenuSelection()
         {
@@ -575,7 +576,30 @@ namespace P_032_SpicyInvaders
 
         private void GameOver()
         {
+            // Variables
+            const int GAMEOVERXTITLE = 17;
+            int gameOverYTitle = 1;
 
+            string[] optionsArray = new string[5]
+            {
+                 " ██████   █████  ███    ███ ███████      ██████  ██    ██ ███████ ██████ ",  
+                 "██       ██   ██ ████  ████ ██          ██    ██ ██    ██ ██      ██   ██", 
+                 "██   ███ ███████ ██ ████ ██ █████       ██    ██ ██    ██ █████   ██████ ",  
+                 "██    ██ ██   ██ ██  ██  ██ ██          ██    ██  ██  ██  ██      ██   ██",
+                 " ██████  ██   ██ ██      ██ ███████      ██████    ████   ███████ ██   ██"
+            };
+
+            Console.Clear();
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            for (int i = 0; i < optionsArray.Length; i++)
+            {
+                Thread.Sleep(500);
+                Console.SetCursorPosition(GAMEOVERXTITLE, gameOverYTitle);
+                Console.WriteLine(optionsArray[i]);
+                gameOverYTitle++;
+            }
+            Console.ResetColor();
         }
 
         /// <summary>
