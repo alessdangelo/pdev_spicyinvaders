@@ -2,8 +2,8 @@
 	ETML
 	Date: 11.09.20
 	Auteur: Manuel Oro
-	Description: Enemy class. Enemy can moove and be destroyed
-	Modifié le: --
+	Description: Enemy class. Enemy can moove, shoot and be destroyed
+	Modifié le: 20.11.20
 */
 using System;
 
@@ -18,7 +18,7 @@ namespace P_032_SpicyInvaders
         /// Attributes
         /// </summary>
         private bool _isAlive = true;
-        private static char _ennemyChar;
+        private static char _ennemyChar = '*';
 
         /// <summary>
         /// Properties
@@ -34,14 +34,19 @@ namespace P_032_SpicyInvaders
         /// </summary>
         /// <param name="posX">Spawn enemy at position x</param>
         /// <param name="posY">Spawn enemy at position y</param>
-        /// <param name="speed">Set enemy speed</param>
         public Enemy(int posX, int posY)
         {
             _posX = posX;
             _posY = posY;
         }
 
-        public Enemy(int posX, int posY,char ennemyCharacter)
+        /// <summary>
+        /// Custom constructor
+        /// </summary>
+        /// <param name="posX">Spawn enemy at position x</param>
+        /// <param name="posY">Spawn enemy at position y</param>
+        /// <param name="ennemyCharacter">Character displayed (represent the enemy)</param>
+        public Enemy(int posX, int posY, char ennemyCharacter)
         {
             _posX = posX;
             _posY = posY;
@@ -62,7 +67,7 @@ namespace P_032_SpicyInvaders
                 _posX += direction[0];
                 _posY += direction[1];
                 Console.SetCursorPosition(_posX, _posY);
-                Console.Write("*");
+                Console.Write(_ennemyChar);
             }
             else
             {

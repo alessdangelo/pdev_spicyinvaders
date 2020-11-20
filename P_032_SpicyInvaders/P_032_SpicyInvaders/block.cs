@@ -1,37 +1,39 @@
 ﻿/*
  * Auteur:   Clément Sartoni
  * Date:     04.09.2020
- * Description: Classe "block" du projet Spicy Invaders, représente les bunkers derrière lesquels le vaisseau peut se cacher
+ * Description: Class block. Protect player from bullets. Can be destroyed
  * 
  * Modifications:
  * Auteur:      CSI
  * Date:        11.09.2020
  * Description: remplacement de la méthode de test de la localisation pour quelque chose de plus propre.
  */
-using System;
 using NAudio.Wave;
-using System.Linq;
+using System;
 
 namespace P_032_SpicyInvaders
 {
     /// <summary>
-    /// class Block, représente les blocs derrière lesquels le joueur peut s'abriter
+    /// Class Block
     /// </summary>
     public class Block : Entity
     {
         /// <summary>
-        /// attributs
+        /// Attributes
         /// </summary>
         private int _sizeX;
         private int _sizeY;
+
         private Random _random = new Random();
-        string barrierEffectPath;
-        //public static readonly string barrierEffectPath = Environment.CurrentDirectory + $@"\{_wichSoundBarrier}.wav"; //A optimiser
+        private string[] barrierSoundPaths = new string[2] { $"{Environment.CurrentDirectory}\\barrier.wav", $"{Environment.CurrentDirectory}\\barrier2.wav"};
+        private DirectSoundOut soundPlayer = new DirectSoundOut();
+        private WaveFileReader blockSoundToPlay;
+
 
         private LittleBlock[,] elements;
 
         /// <summary>
-        /// properties
+        /// Properties
         /// </summary>
         public int SizeX
         {
@@ -44,10 +46,10 @@ namespace P_032_SpicyInvaders
         }
 
         /// <summary>
-        /// Constructeur renseigné
+        /// Custom constructor
         /// </summary>
-        /// <param name="size">La taille du bloc</param>
-        /// <param name="location"></param>
+        /// <param name="size">Block size</param>
+        /// <param name="location">Block location</param>
         public Block(int sizeX, int sizeY, int posX, int posY)
         {
             _sizeX = sizeX;
@@ -59,7 +61,7 @@ namespace P_032_SpicyInvaders
         }
 
         /// <summary>
-        /// Initialiseur du bloc, le réinitialise si il est déja créé
+        /// Initialize the block (by creating little blocks)
         /// </summary>
         public void Initialize()
         {
@@ -75,10 +77,10 @@ namespace P_032_SpicyInvaders
         }
 
         /// <summary>
-        /// méthode qui supprime le bloc à la position spécifiée si il n'est pas déja mort
+        /// Destroy little block when hit by bullet
         /// </summary>
-        /// <param name="location"></param>
-        /// <returns></returns>
+        /// <param name="location">Block location</param>
+        /// <returns>Return true if block is destroyed</returns>
         public bool IsInside(int posX, int posY)
         {
             foreach(LittleBlock block in elements)
@@ -87,16 +89,15 @@ namespace P_032_SpicyInvaders
                 {
                     if (_random.Next(2) == 1)
                     {
-                        barrierEffectPath = Environment.CurrentDirectory + @"\barrier.wav";
+                        blockSoundToPlay = new WaveFileReader(barrierSoundPaths[0]);
                     }
                     else
                     {
-                        barrierEffectPath = Environment.CurrentDirectory + @"\barrier2.wav";
+                        blockSoundToPlay = new WaveFileReader(barrierSoundPaths[1]);
                     }
-                    DirectSoundOut shootingEffect = new DirectSoundOut();   // Create the sound object wich output sound
-                    WaveFileReader shoot = new WaveFileReader(barrierEffectPath);   //Path of the file
-                    shootingEffect.Init(new WaveChannel32(shoot));  //init the sound in a channel to be played
-                    shootingEffect.Play();  //Play the sound
+
+                    soundPlayer.Init(new WaveChannel32(blockSoundToPlay));
+                    soundPlayer.Play();
                     block.Delete();
                     return true;
                 }
@@ -105,19 +106,18 @@ namespace P_032_SpicyInvaders
         }
 
         /// <summary>
-        /// sous classe représentant chaque élément du gros bloc
+        /// Class LittleBlock
         /// </summary>
         class LittleBlock : Entity
         {
             /// <summary>
-            /// attributs
+            /// Attributes
             /// </summary>
-            private char _charDesign = '█';            //le caractère utilisé pour dessiner le bloc
-
-            private bool _isAlive = true;              //si le block est vivant
-
+            private char _charDesign = '█';
+            private bool _isAlive = true;
+        
             /// <summary>
-            /// properties
+            /// Properties
             /// </summary>
             public bool IsAlive
             {
@@ -125,9 +125,9 @@ namespace P_032_SpicyInvaders
             }
 
             /// <summary>
-            /// Constructeur renseigné
+            /// Custom constructor
             /// </summary>
-            /// <param name="location">la position à laquelle créer le mini-bloc</param>
+            /// <param name="location">Little block location</param>
             public LittleBlock(int posX, int posY)
             {
                 _posX = posX;
@@ -138,7 +138,7 @@ namespace P_032_SpicyInvaders
             }
             
             /// <summary>
-            /// méthode pour supprimer le bloc
+            /// Destroy little block
             /// </summary>
             public void Delete()
             {

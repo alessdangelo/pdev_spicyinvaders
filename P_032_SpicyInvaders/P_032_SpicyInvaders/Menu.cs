@@ -32,6 +32,9 @@ namespace P_032_SpicyInvaders
             Console.CursorVisible = false;
         }
 
+        /// <summary>
+        /// Display Pause Menu
+        /// </summary>
         public void PauseMenu()
         {
             DirectSoundOut _selectSound = new DirectSoundOut();
@@ -118,9 +121,7 @@ namespace P_032_SpicyInvaders
         /// </summary>
         public void MainMenu()
         {
-            ///Variables
-            //const int WINDOWSIZEX = 90;
-            //const int WINDOWSIZEY = 35;
+            // Variables
             const int SPICYXAXETITLE = 28;
             const int INVADERSXAXETITLE = 15;
 
@@ -156,8 +157,6 @@ namespace P_032_SpicyInvaders
 
             int spicyYAxeTitle = 1;
             int invadersYAxeTitle = 7;
-
-            ///Main program
 
             Console.Clear();
 
@@ -215,7 +214,6 @@ namespace P_032_SpicyInvaders
             Console.SetCursorPosition(ENDLEAVEXPOSITION, LEAVEYPOSITION);
 
             MenuSelection();
-
         }
 
         /// <summary>
@@ -232,7 +230,7 @@ namespace P_032_SpicyInvaders
         /// </summary>
         private void GameOptions()
         {  
-            //Variables
+            // Variables
             const int OPTIONSXAXETITLE = 17;
             int optionsYAxeTitle = 1;
             int index = 0;
@@ -247,7 +245,7 @@ namespace P_032_SpicyInvaders
 
             Console.Clear();
 
-            //Writing the "OPTIONS"
+            // Writing the "OPTIONS"
             for (int i = 0; i < optionsArray.Length; i++)
             {
                 Console.SetCursorPosition(OPTIONSXAXETITLE, optionsYAxeTitle);
@@ -263,7 +261,7 @@ namespace P_032_SpicyInvaders
             while (!_continueKey)
             {
                 _keyPressed = Console.ReadKey(true);
-                //Sub menu movement
+                // Sub menu movement
                 switch (_keyPressed.Key)
                 {
                     case ConsoleKey.UpArrow:
