@@ -159,6 +159,7 @@ namespace P_032_SpicyInvaders
             while (gameOver == false);
             if(ship.Life < 1)
             {
+                menu.GameOver();
             }
             else
             {
