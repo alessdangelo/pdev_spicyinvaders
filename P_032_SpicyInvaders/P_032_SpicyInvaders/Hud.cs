@@ -2,13 +2,16 @@
 	ETML
 	Date: 25.09.20
 	Auteur: Manuel Oro
-	Description: 
-	Modifié le: --
+	Description: Display infos about player: lifes, score and keybinds
+	Modifié le: 20.11.20
 */
 using System;
 
 namespace P_032_SpicyInvaders
 {
+    /// <summary>
+    /// Class hud
+    /// </summary>
     class Hud
     {
         /// <summary>

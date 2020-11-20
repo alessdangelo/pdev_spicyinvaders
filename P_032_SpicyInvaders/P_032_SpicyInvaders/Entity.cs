@@ -2,14 +2,9 @@
 	ETML
 	Date: 06.11.2020
 	Auteur: CSI
-	Description: Classe de base pour les entités présentes dans le jeu
-	Modifié le: --
+	Description: Basic class for entity (parent of Block.cs, Enemy.cs, Player.cs and Shoot.cs
+	Modifié le: 20.11.20
 */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace P_032_SpicyInvaders
 {
@@ -25,7 +20,7 @@ namespace P_032_SpicyInvaders
 		protected int _posY;
 
 		/// <summary>
-		/// Property for the PosX
+		/// Properties
 		/// </summary>
 		public int PosX
 		{
@@ -33,9 +28,6 @@ namespace P_032_SpicyInvaders
 			set { _posX = value; }
 		}
 
-		/// <summary>
-		/// Property for the PosY
-		/// </summary>
 		public int PosY
 		{
 			get { return _posY; }
