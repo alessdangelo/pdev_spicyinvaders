@@ -14,7 +14,7 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Attributs
         /// </summary>
-        private readonly char _playerChar = 'x';
+        private readonly char _playerChar = '♠';
         private int _life = 3;
         private int _score = 0;
         private bool _isPosLimitRight = false;

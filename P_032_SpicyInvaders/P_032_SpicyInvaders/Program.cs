@@ -62,7 +62,7 @@ namespace P_032_SpicyInvaders
             ship = new Player(39, 45, 3);
             hud = new Hud(hudSizeX, hudSizeY);
 
-            // Music
+            // Enable Music
             if (soundOn)
             {
                 SoundPlayer music = new SoundPlayer();
@@ -80,7 +80,7 @@ namespace P_032_SpicyInvaders
                 enemiesSpeed = 150;
             }
 
-            //initialisation des ennemis
+            // Ini/Spawn enemies
             for (int y = 0; y < enemiesArray.GetLength(1); y++)
             {
                 for (int x = 0; x < enemiesArray.GetLength(0); x++)
@@ -95,15 +95,17 @@ namespace P_032_SpicyInvaders
             blockList.Add(new Block(7, 3, Console.WindowWidth / 4 + 24, 40));
             blockList.Add(new Block(7, 3, Console.WindowWidth / 4 + 38, 40));
 
-            // execute methods on keys input
+            // init some vars
             ConsoleKeyInfo keyEnterred;
             timeBeforeShoot = new DateTime();
             tempInvincibility = new DateTime();
             one = new DateTime();
             two = new DateTime();
 
+            // Main while (player input, enemies moves, bullets moves, ...)
             do
             {
+                // do if game is not paused
                 if (gamePaused  == false)
                 {
                     GlobalMoves();
@@ -113,14 +115,17 @@ namespace P_032_SpicyInvaders
                         keyEnterred = Console.ReadKey(true);
                         switch (keyEnterred.Key)
                         {
+                                // Move right
                             case ConsoleKey.RightArrow:
                                 ship.Move(1);
                                 break;
 
+                                // Move left
                             case ConsoleKey.LeftArrow:
                                 ship.Move(-1);
                                 break;
 
+                                // Shoot
                             case ConsoleKey.Spacebar:
 
                                 // wait one second before shoot again
@@ -135,6 +140,7 @@ namespace P_032_SpicyInvaders
                                 }
                                 break;
 
+                                // Pause game
                             case ConsoleKey.Escape:
                                 gamePaused = true;
                                 menu.PauseMenu();
