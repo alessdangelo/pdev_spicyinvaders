@@ -18,42 +18,52 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Class variables
         /// </summary>
-
         public const int hudSizeX = 80, hudSizeY = 50;
 
+        // Music
+        private static DirectSoundOut soundPlayer = new DirectSoundOut();
+        private static WaveFileReader soundToPlay;
         public static readonly string musicFile = "song";
         public static readonly string fileToPlay = Environment.CurrentDirectory + $@"\{musicFile}.wav";
-        public static readonly string shootingEffectPath = Environment.CurrentDirectory + @"\Laser_Shoot.wav"; //A optimiser
-        public static readonly string shotEffectPath = Environment.CurrentDirectory + @"\Hit_Hurt.wav"; //A optimiser
+        public static readonly string shootingEffectPath = Environment.CurrentDirectory + @"\Laser_Shoot.wav";
+        public static readonly string shotEffectPath = Environment.CurrentDirectory + @"\Hit_Hurt.wav";
+
+        // Objects from class
         private static readonly Random random = new Random();
         public static Player ship;
+        public static Hud hud;
+        public static Menu menu;
 
-        public static Enemy[,] enemiesArray = new Enemy[10, 4]; //10, 4
-        public static List<Shoot> bullets = new List<Shoot>();
-
-        public static int[] enemiesSpawnPoint = {hudSizeX/2-enemiesArray.GetLength(0)/2, hudSizeY/2 - 5 - enemiesArray.GetLength(1)/2 };
-
-        static int ennemyAlive = enemiesArray.Length;  //Take the numbers of ennemy and decrement it each time one dies.
-
+        // Speed (Delay)
         private static int enemiesSpeed;
         private static int bulletSpeed = 25;
         private static double reloadTime = 0.8;
         private static double invincibilityTime = 3.0;
 
+        // Settings
         public static bool gameOver = false;
         public static bool soundOn = true;
         public static int difficulty = 0;
 
+        // Timer
         private static DateTime one;
         private static DateTime two;
         private static DateTime timeBeforeShoot;
         private static DateTime tempInvincibility;
 
+        // toDo : DONNER UN NOM ########################
         private static int[] direction = new int[] { -1, 0 }; //la direction du pack en [x,y]
+        public static Enemy[,] enemiesArray = new Enemy[10, 4]; //10, 4
+        public static int[] enemiesSpawnPoint = { hudSizeX / 2 - enemiesArray.GetLength(0) / 2, hudSizeY / 2 - 5 - enemiesArray.GetLength(1) / 2 };
         private static int[] enemiesLimits = { 5, hudSizeX - 5, enemiesSpawnPoint[1] -3, enemiesSpawnPoint[1] + 10 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
         public static List<Block> blockList = new List<Block>();
-        public static Hud hud;
-        private static Menu menu;
+        public static List<Shoot> bullets = new List<Shoot>();
+
+
+        static int ennemyAlive = enemiesArray.Length;  //Take the numbers of ennemy and decrement it each time one dies.
+        // ##############################
+
+        // State
         public static bool gamePaused = false;
 
         // Launch game
@@ -133,10 +143,7 @@ namespace P_032_SpicyInvaders
                                 if (DateTime.Now > timeBeforeShoot)
                                 {
                                     timeBeforeShoot = DateTime.Now.AddSeconds(reloadTime);
-                                    DirectSoundOut shootingEffect = new DirectSoundOut();
-                                    WaveFileReader shoot = new WaveFileReader(shootingEffectPath);
-                                    shootingEffect.Init(new WaveChannel32(shoot));
-                                    shootingEffect.Play();
+                                    PlaySound(shootingEffectPath);
                                     bullets.Add(new Shoot(ship.PosX, ship.PosY - 1, -1));
                                 }
                                 break;
@@ -160,7 +167,7 @@ namespace P_032_SpicyInvaders
             else
             {
                 Console.Clear();
-                Console.WriteLine("HEEEEE c cassé");
+                Console.WriteLine("TACO FROM TRELLOOOOOOO \n\n\n\n\n\n\n\n\n../ ../ ../ ../ we will we will rock you");
                 menu.Win();
             }
 
@@ -237,10 +244,7 @@ namespace P_032_SpicyInvaders
                             {
                                 tempInvincibility = DateTime.Now.AddSeconds(invincibilityTime);
 
-                                DirectSoundOut shotEffect = new DirectSoundOut();
-                                WaveFileReader shoot = new WaveFileReader(shotEffectPath);
-                                shotEffect.Init(new WaveChannel32(shoot));
-                                shotEffect.Play();
+                                PlaySound(shotEffectPath);
                                 ship.Life--;
                                 Hud.PrintPlayerLifes();
                             }
@@ -339,6 +343,17 @@ namespace P_032_SpicyInvaders
                     }
                 }                       
             }
+        }
+
+        /// <summary>
+        /// Play a sound effect
+        /// </summary>
+        /// <param name="path">Sound path to play</param>
+        public static void PlaySound(string path)
+        {
+            soundToPlay = new WaveFileReader(path);
+            soundPlayer.Init(new WaveChannel32(soundToPlay));
+            soundPlayer.Play();
         }
     }
 }
