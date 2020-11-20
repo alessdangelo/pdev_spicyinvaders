@@ -77,14 +77,5 @@ namespace P_032_SpicyInvaders
                 Console.Write("♥ ");
             }
         }
-
-        /// <summary>
-        /// Print game over screen
-        /// </summary>
-        public void PrintGameOver()
-        {
-            Console.SetCursorPosition(35, 3);
-            Console.Write("GAME OVER !");
-        }
     }
 }

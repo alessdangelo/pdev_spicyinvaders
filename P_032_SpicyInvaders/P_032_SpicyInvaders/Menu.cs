@@ -9,7 +9,6 @@ using System;
 using System.IO;
 using System.Threading;
 using NAudio.Wave;
-using System.Threading;
 
 namespace P_032_SpicyInvaders
 {
@@ -519,6 +518,9 @@ namespace P_032_SpicyInvaders
             BackToMainMenu();
         }
 
+        /// <summary>
+        /// Win Menu
+        /// </summary>
         public void Win()
         {
             //GC.Collect();
@@ -574,10 +576,13 @@ namespace P_032_SpicyInvaders
 
         }
 
+        /// <summary>
+        /// GameOver Menu
+        /// </summary>
         private void GameOver()
         {
             // Variables
-            const int GAMEOVERXTITLE = 17;
+            const int GAMEOVERXTITLE = 5;
             int gameOverYTitle = 1;
 
             string[] optionsArray = new string[5]
@@ -603,7 +608,7 @@ namespace P_032_SpicyInvaders
         }
 
         /// <summary>
-        /// Navigate between menus
+        /// Back to main menu
         /// </summary>
         private void BackToMainMenu()
         {
