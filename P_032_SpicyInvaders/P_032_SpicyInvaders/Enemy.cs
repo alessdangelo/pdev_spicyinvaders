@@ -18,6 +18,7 @@ namespace P_032_SpicyInvaders
         /// Attributes
         /// </summary>
         private bool _isAlive = true;
+        private static char _ennemyChar;
 
         /// <summary>
         /// Properties
@@ -39,6 +40,14 @@ namespace P_032_SpicyInvaders
             _posX = posX;
             _posY = posY;
         }
+
+        public Enemy(int posX, int posY,char ennemyCharacter)
+        {
+            _posX = posX;
+            _posY = posY;
+            _ennemyChar = ennemyCharacter;
+        }
+
 
         /// <summary>
         /// Move enemy
