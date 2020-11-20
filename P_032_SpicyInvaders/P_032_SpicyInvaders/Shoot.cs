@@ -42,7 +42,7 @@ namespace P_032_SpicyInvaders
             Console.Write(" ");
             _posY += _direction;
             Console.SetCursorPosition(_posX, _posY);
-            Console.Write("■");
+            Console.Write("|");
 
         }
 
