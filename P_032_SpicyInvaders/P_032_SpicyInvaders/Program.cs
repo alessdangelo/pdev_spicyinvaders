@@ -38,7 +38,6 @@ namespace P_032_SpicyInvaders
         private static int enemiesSpeed;
         private static int bulletSpeed = 25;
         private static double reloadTime = 0.8;
-        private static double invincibilityTime = 3.0;
 
         // Settings
         public static bool gameOver = false;
@@ -49,7 +48,6 @@ namespace P_032_SpicyInvaders
         private static DateTime one;
         private static DateTime two;
         private static DateTime timeBeforeShoot;
-        private static DateTime tempInvincibility;
 
         // toDo : DONNER UN NOM ########################
         private static int[] direction = new int[] { -1, 0 }; //la direction du pack en [x,y]
@@ -110,7 +108,6 @@ namespace P_032_SpicyInvaders
             // init some vars
             ConsoleKeyInfo keyEnterred;
             timeBeforeShoot = new DateTime();
-            tempInvincibility = new DateTime();
             one = new DateTime();
             two = new DateTime();
 
@@ -239,11 +236,10 @@ namespace P_032_SpicyInvaders
                         Console.SetCursorPosition(ship.PosX, ship.PosY);
                         Console.Write(ship.PlayerChar);
 
-                        // invincibility time (when plyers is hit)
-                        if (DateTime.Now > tempInvincibility)
+                        // invincibility time (when player is hit) & decrement life
+                        if (DateTime.Now > ship.TempInvicibility)
                             {
-                                tempInvincibility = DateTime.Now.AddSeconds(invincibilityTime);
-
+                                ship.Invicibility();
                                 PlaySound(shotEffectPath);
                                 ship.Life--;
                                 Hud.PrintPlayerLifes();

@@ -20,6 +20,8 @@ namespace P_032_SpicyInvaders
         private bool _isPosLimitRight = false;
         private bool _isPosLimitLeft = false;
         private bool _canShoot = true;
+        private static DateTime _tempInvincibility = new DateTime();
+        private static double invincibilityTime = 3.0;
         
         /// <summary>
         /// Properties
@@ -45,6 +47,11 @@ namespace P_032_SpicyInvaders
             get { return _playerChar; }
         }
 
+        public DateTime TempInvicibility
+        {
+            get{ return _tempInvincibility; }
+            set{ _tempInvincibility = value; }
+        }
 
         /// <summary>
         /// Custom constructor
@@ -60,6 +67,17 @@ namespace P_032_SpicyInvaders
 
             Console.SetCursorPosition(_posX, _posY);
             Console.Write(_playerChar);
+        }
+
+
+        public void Invicibility()
+        {
+            /*
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.ResetColor();*/
+            _tempInvincibility = DateTime.Now.AddSeconds(invincibilityTime);
         }
 
         /// <summary>
