@@ -3,7 +3,7 @@
 ///   Auteur     : Bruno Martins Constantino, Manus
 ///   Date       : 28.08.2020
 ///   Modif      : 06.11.2020
-///   Descrption : Ceci est le menu principal de notre Spicy Invaders
+///   Descrption : This is the main menu of our Spicy Invaders
 
 using System;
 using System.IO;

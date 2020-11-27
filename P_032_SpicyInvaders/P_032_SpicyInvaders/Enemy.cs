@@ -2,7 +2,7 @@
 	ETML
 	Date: 11.09.20
 	Auteur: Manuel Oro
-	Description: Enemy class. Enemy can moove, shoot and be destroyed
+	Description: Enemy class. Enemy can move, shoot and be destroyed
 	Modifié le: 20.11.20
 */
 using System;

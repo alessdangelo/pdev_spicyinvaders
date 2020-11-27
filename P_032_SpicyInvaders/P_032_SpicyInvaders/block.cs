@@ -6,7 +6,7 @@
  * Modifications:
  * Auteur:      CSI
  * Date:        11.09.2020
- * Description: remplacement de la méthode de test de la localisation pour quelque chose de plus propre.
+ * Description: Test method replaced for something more proper.
  */
 using NAudio.Wave;
 using System;

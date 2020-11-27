@@ -1,8 +1,8 @@
 ﻿/*
 	ETML
 	Date: 11.09.20
-	Auteur: Manuel Oro
-	Description: Player class. Player can moove
+	Auteur: Manuel Oro, Alessandro D'Angelo
+	Description: Player class. Player can move.
 	Modifié le: --
 */
 using System;
@@ -15,7 +15,7 @@ namespace P_032_SpicyInvaders
     public class Player : Entity
     {
         /// <summary>
-        /// Attributs
+        /// Attributes
         /// </summary>
         private readonly char _playerChar = '♠';
         private int _life = 3;
@@ -24,7 +24,7 @@ namespace P_032_SpicyInvaders
         private bool _isPosLimitLeft = false;
         private bool _canShoot = true;
         private static DateTime _tempInvincibility = new DateTime();
-        private static double invincibilityTime = 3.0;
+        private static double _invincibilityTime = 3.0;
         
         /// <summary>
         /// Properties
