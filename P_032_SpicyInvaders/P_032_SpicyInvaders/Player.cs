@@ -9,6 +9,9 @@ using System;
 
 namespace P_032_SpicyInvaders
 {
+    /// <summary>
+    /// Class Player
+    /// </summary>
     public class Player : Entity
     {
         /// <summary>

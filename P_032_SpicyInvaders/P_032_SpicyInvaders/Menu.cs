@@ -12,6 +12,9 @@ using NAudio.Wave;
 
 namespace P_032_SpicyInvaders
 {
+    /// <summary>
+    /// Class Menu
+    /// </summary>
     public class Menu
     {
         // Variables
@@ -607,6 +610,7 @@ namespace P_032_SpicyInvaders
 
             Console.Clear();
 
+            //Write the GameOver Text
             Console.ForegroundColor = ConsoleColor.Red;
             for (int i = 0; i < optionsArray.Length; i++)
             {
@@ -617,6 +621,7 @@ namespace P_032_SpicyInvaders
             }
             Console.ResetColor();
 
+            //Write The next time text
             Console.SetCursorPosition(NEXTTIMEXPOSITION, nextTimeYPosition);
             for (int i = 0; i < nextTime.Length; i++)
             {
@@ -624,6 +629,7 @@ namespace P_032_SpicyInvaders
                 Console.Write(nextTime[i]);
             }
 
+            //Write the return to main menu text
             Console.SetCursorPosition(BACKTOMAINMENUXPOSITION, backToMainMenuYPosition);
             for (int i = 0; i < backToMainMenu.Length; i++)
             {
