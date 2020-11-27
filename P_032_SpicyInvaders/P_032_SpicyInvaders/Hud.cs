@@ -60,7 +60,7 @@ namespace P_032_SpicyInvaders
         public void PrintPlayerScore()
         {
             Console.SetCursorPosition(65, 3);
-            Console.WriteLine("Score: {0}", Program.ship.Score);
+            Console.WriteLine("Score: {0}", Program._ship.Score);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace P_032_SpicyInvaders
             Console.Write("      ");
             Console.SetCursorPosition(35, 3);
 
-            for (int i = 0; i < Program.ship.Life; i++)
+            for (int i = 0; i < Program._ship.Life; i++)
             {
                 Console.Write("♥ ");
             }

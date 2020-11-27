@@ -270,27 +270,27 @@ namespace P_032_SpicyInvaders
                         Program.PlaySound(_selectSound);
                         if (index == 0)
                         {
-                            if (Program.soundOn)
+                            if (Program._soundOn)
                             {
-                                Program.soundOn = false;
+                                Program._soundOn = false;
                                 WriteOptions(index);
                             }
                             else
                             {
-                                Program.soundOn = true;
+                                Program._soundOn = true;
                                 WriteOptions(index);
                             }
                         }
                         else if (index == 1)
                         {
-                            if (Program.difficulty == 0)
+                            if (Program._difficulty == 0)
                             {
-                                Program.difficulty = 1;
+                                Program._difficulty = 1;
                                 WriteOptions(index);
                             }
                             else
                             {
-                                Program.difficulty = 0;
+                                Program._difficulty = 0;
                                 WriteOptions(index);
                             }
                         }
@@ -363,7 +363,7 @@ namespace P_032_SpicyInvaders
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
             }
-            if (Program.soundOn)
+            if (Program._soundOn)
             {
                 Console.Write("Son actif: Oui");
             }
@@ -380,7 +380,7 @@ namespace P_032_SpicyInvaders
             }
             Console.SetCursorPosition(35, 18);
 
-            if(Program.difficulty == 0)
+            if(Program._difficulty == 0)
             {
                 Console.WriteLine("Difficulté: Facile   ");
             }
