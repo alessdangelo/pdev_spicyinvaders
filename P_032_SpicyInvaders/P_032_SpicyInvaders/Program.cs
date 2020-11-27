@@ -6,7 +6,9 @@
 using NAudio.Wave;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Media;
+using System.Resources;
 
 namespace P_032_SpicyInvaders
 {
@@ -22,12 +24,11 @@ namespace P_032_SpicyInvaders
 
         // Music
         private static DirectSoundOut soundPlayer = new DirectSoundOut();
-        private static WaveFileReader soundToPlay;
-        public static readonly string musicFile = "song";
-        public static readonly string fileToPlay = Environment.CurrentDirectory + $@"\{musicFile}.wav";
-        public static readonly string shootingEffectPath = Environment.CurrentDirectory + @"\Laser_Shoot.wav";
-        public static readonly string shotEffectPath = Environment.CurrentDirectory + @"\Hit_Hurt.wav";
-
+        public static ResourceManager resMan = new ResourceManager(typeof(AppResources.SoundFiles));
+        public static readonly string mainSong = "song";
+        public static readonly string shootingEffect = "Laser_Shoot";
+        public static readonly string shotEffect = "Hit_Hurt";
+        
         // Objects from class
         private static readonly Random random = new Random();
         public static Player ship;
@@ -39,10 +40,11 @@ namespace P_032_SpicyInvaders
         private static int bulletSpeed = 25;
         private static double reloadTime = 0.8;
 
-        // Settings
+        // Settings and score
         public static bool gameOver = false;
         public static bool soundOn = true;
         public static int difficulty = 0;
+        private readonly static string _highscorePath = @"highscore.txt";
 
         // Timer
         private static DateTime one;
@@ -76,7 +78,7 @@ namespace P_032_SpicyInvaders
             if (soundOn)
             {
                 SoundPlayer music = new SoundPlayer();
-                music.SoundLocation = fileToPlay;
+                music.Stream = resMan.GetStream(mainSong);
                 music.PlayLooping();
             }
 
@@ -128,23 +130,20 @@ namespace P_032_SpicyInvaders
                             case ConsoleKey.RightArrow:
                                 ship.Move(1);
                                 break;
-
                                 // Move left
                             case ConsoleKey.LeftArrow:
                                 ship.Move(-1);
                                 break;
-
                                 // Shoot
                             case ConsoleKey.Spacebar:
                                 // wait one second before shoot again
                                 if (DateTime.Now > timeBeforeShoot)
                                 {
                                     timeBeforeShoot = DateTime.Now.AddSeconds(reloadTime);
-                                    PlaySound(shootingEffectPath);
+                                    PlaySound(shootingEffect);
                                     bullets.Add(new Shoot(ship.PosX, ship.PosY - 1, -1));
                                 }
                                 break;
-
                                 // Pause game
                             case ConsoleKey.Escape:
                                 gamePaused = true;
@@ -168,7 +167,7 @@ namespace P_032_SpicyInvaders
                 menu.Win();
             }
 
-            System.IO.File.WriteAllText(Environment.CurrentDirectory + "/highscore.txt", ship.Score.ToString());
+            WriteHighscore(_highscorePath);
         }
 
         /// <summary>
@@ -193,10 +192,8 @@ namespace P_032_SpicyInvaders
                         gameOver = false;
                     }
                 }
-
                 MoveEnnemys();
                 MoveBullets();
-
                 // check if as bullet hit ennemy then detroy ennemy and bullet
                 foreach (Enemy ennemy in enemiesArray)
                 {
@@ -240,14 +237,14 @@ namespace P_032_SpicyInvaders
                         if (DateTime.Now > ship.TempInvicibility)
                             {
                                 ship.Invicibility();
-                                PlaySound(shotEffectPath);
+                                PlaySound(shotEffect);
                                 ship.Life--;
                                 Hud.PrintPlayerLifes();
                             }
                     }
                 }
 
-                // if player has no more lifes, stop the game and display gameOver
+                // if player has no more lives or if the ennemies are dead, stop the game and display gameOver
                 if(ship.Life < 1 || ennemyAlive == 0)
                 {
                     gameOver = true;
@@ -259,11 +256,9 @@ namespace P_032_SpicyInvaders
         /// </summary>
         static public void MoveEnnemys()
         {
-                
             if(DateTime.Now.Ticks > two.Ticks)
             {
                 two = DateTime.Now.AddMilliseconds(enemiesSpeed);
-
                 if(direction[1] == 1)
                 {
                     for (int y = enemiesArray.GetLength(1)-1; y >= 0; y--)
@@ -314,7 +309,6 @@ namespace P_032_SpicyInvaders
                 }
             }
         }
-
         /// <summary>
         /// Move all bullets at the same time
         /// </summary>
@@ -324,7 +318,6 @@ namespace P_032_SpicyInvaders
             if(DateTime.Now.Ticks > one.Ticks)
             {
                 one = DateTime.Now.AddMilliseconds(bulletSpeed);
-
                 for (int i = 0; i < bullets.Count; i++)
                 {
                     // if bullet is in a specific range then move it, else destroy bullet
@@ -340,16 +333,33 @@ namespace P_032_SpicyInvaders
                 }                       
             }
         }
-
         /// <summary>
         /// Play a sound effect
         /// </summary>
         /// <param name="path">Sound path to play</param>
-        public static void PlaySound(string path)
+        public static void PlaySound(string name)
         {
-            soundToPlay = new WaveFileReader(path);
-            soundPlayer.Init(new WaveChannel32(soundToPlay));
-            soundPlayer.Play();
+            if (soundOn)
+            {
+                soundPlayer.Init(new WaveChannel32(new WaveFileReader(resMan.GetStream(name))));
+                soundPlayer.Play();
+            }
+        }
+
+        /// <summary>
+        /// Write highscore in txt file
+        /// </summary>
+        /// <param name="path">txt file path</param>
+        private static void WriteHighscore(string path)
+        {
+            if (File.Exists(path))
+            {
+                File.WriteAllText(path, ship.Score.ToString());
+            }
+            else
+            {
+                File.Create(path).Close();
+            }
         }
     }
 }

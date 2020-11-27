@@ -25,7 +25,7 @@ namespace P_032_SpicyInvaders
         private int _sizeY;
 
         private Random _random = new Random();
-        private string[] barrierSoundPaths = new string[2] { $"{Environment.CurrentDirectory}\\barrier.wav", $"{Environment.CurrentDirectory}\\barrier2.wav"};
+        private string[] barrierSound = new string[2] {"barrier", "barrier2"};
 
         private LittleBlock[,] elements;
 
@@ -86,11 +86,11 @@ namespace P_032_SpicyInvaders
                 {
                     if (_random.Next(2) == 1)
                     {
-                        Program.PlaySound(barrierSoundPaths[0]);
+                        Program.PlaySound(barrierSound[0]);
                     }
                     else
                     {
-                        Program.PlaySound(barrierSoundPaths[1]);
+                        Program.PlaySound(barrierSound[1]);
                     }
 
                     block.Delete();
