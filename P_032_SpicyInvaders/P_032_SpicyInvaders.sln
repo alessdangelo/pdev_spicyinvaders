@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P_032_SpicyInvaders", "P_032_SpicyInvaders\P_032_SpicyInvaders.csproj", "{450BF7D2-CD2F-46B6-B757-524D9A2D2525}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P_032_SpicyInvadersTests", "P_032_SpicyInvadersTests\P_032_SpicyInvadersTests.csproj", "{B111D688-7319-41BA-BA8D-45CEBE666319}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{450BF7D2-CD2F-46B6-B757-524D9A2D2525}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{450BF7D2-CD2F-46B6-B757-524D9A2D2525}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{450BF7D2-CD2F-46B6-B757-524D9A2D2525}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B111D688-7319-41BA-BA8D-45CEBE666319}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B111D688-7319-41BA-BA8D-45CEBE666319}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B111D688-7319-41BA-BA8D-45CEBE666319}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B111D688-7319-41BA-BA8D-45CEBE666319}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
