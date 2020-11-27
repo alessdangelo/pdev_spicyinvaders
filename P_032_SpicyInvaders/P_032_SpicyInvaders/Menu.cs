@@ -153,6 +153,8 @@ namespace P_032_SpicyInvaders
 
             Console.Clear();
 
+            MenuWindowSize();
+
             Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
 
             Console.CursorVisible = false;
@@ -573,8 +575,11 @@ namespace P_032_SpicyInvaders
             const int GAMEOVERXTITLE = 4;
             int gameOverYTitle = 4;
 
-            const int NEXTTIMEXPOSITION = 20;
+            const int NEXTTIMEXPOSITION = 27;
             int nextTimeYPosition = 18;
+
+            const int BACKTOMAINMENUXPOSITION = 15;
+            int backToMainMenuYPosition = 30;
 
             string[] optionsArray = new string[5]
             {
@@ -586,13 +591,14 @@ namespace P_032_SpicyInvaders
             };
 
             string nextTime = "We'll get them next time...";
+            string backToMainMenu = "Appuyez sur ESCAPE pour revenir au menu principal...";
 
             Console.Clear();
 
             Console.ForegroundColor = ConsoleColor.Red;
             for (int i = 0; i < optionsArray.Length; i++)
             {
-                Thread.Sleep(700);
+                Thread.Sleep(500);
                 Console.SetCursorPosition(GAMEOVERXTITLE, gameOverYTitle);
                 Console.WriteLine(optionsArray[i]);
                 gameOverYTitle++;
@@ -602,9 +608,18 @@ namespace P_032_SpicyInvaders
             Console.SetCursorPosition(NEXTTIMEXPOSITION, nextTimeYPosition);
             for (int i = 0; i < nextTime.Length; i++)
             {
-                Thread.Sleep(300);
+                Thread.Sleep(50);
                 Console.Write(nextTime[i]);
             }
+
+            Console.SetCursorPosition(BACKTOMAINMENUXPOSITION, backToMainMenuYPosition);
+            for (int i = 0; i < backToMainMenu.Length; i++)
+            {
+                Thread.Sleep(20);
+                Console.Write(backToMainMenu[i]);
+            }
+
+            BackToMainMenu();
         }
 
         /// <summary>
@@ -629,6 +644,15 @@ namespace P_032_SpicyInvaders
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Set menu window size
+        /// </summary>
+        private void MenuWindowSize()
+        {
+            Console.SetWindowSize(WINDOWSIZEX, WINDOWSIZEY);
+            Console.SetBufferSize(WINDOWSIZEX, WINDOWSIZEY);
         }
     }
 }
