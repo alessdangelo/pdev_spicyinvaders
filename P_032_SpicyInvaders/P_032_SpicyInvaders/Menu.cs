@@ -61,7 +61,6 @@ namespace P_032_SpicyInvaders
             Console.WriteLine("                      ");
 
             int index = 0;
-
             _continueKey = false;
 
             while (!_continueKey)
@@ -81,7 +80,6 @@ namespace P_032_SpicyInvaders
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.WriteLine("Quitter");
                         break;
-
                     case ConsoleKey.DownArrow:
                         _selectSound.Play();
                         index = 1;
@@ -93,7 +91,6 @@ namespace P_032_SpicyInvaders
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.WriteLine("Retourner au jeu");
                         break;
-
                     case ConsoleKey.Enter:
                         if (index == 1)
                         {
@@ -107,7 +104,6 @@ namespace P_032_SpicyInvaders
                         break;
                 }
             }
-
             Console.SetCursorPosition(31, 23);
             Console.WriteLine("                   ");
             Console.SetCursorPosition(31, 25);
@@ -133,7 +129,6 @@ namespace P_032_SpicyInvaders
 
             const int ENDLEAVEXPOSITION = 49;
             const int LEAVEYPOSITION = 28;
-
             string[] spicyArray = new string[5]
             {
                 "███████ ██████  ██  ██████ ██    ██",
@@ -142,7 +137,6 @@ namespace P_032_SpicyInvaders
                 "     ██ ██      ██ ██         ██   ",
                 "███████ ██      ██  ██████    ██   "
             };
-
             string[] invadersArray = new string[5]
             {
                 "██ ███    ██ ██    ██  █████  ██████  ███████ ██████  ███████",
@@ -151,7 +145,6 @@ namespace P_032_SpicyInvaders
                 "██ ██  ██ ██  ██  ██  ██   ██ ██   ██ ██      ██   ██      ██",
                 "██ ██   ████   ████   ██   ██ ██████  ███████ ██   ██ ███████"
             };
-
             int positionXSubMenu = 40;
             int positionYSubMenu = 20;
 
@@ -175,7 +168,6 @@ namespace P_032_SpicyInvaders
             }
 
             Console.ResetColor();
-
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
 
             //Writing the "INVADERS" game title
@@ -191,7 +183,6 @@ namespace P_032_SpicyInvaders
             Console.Write("Appuyez sur '1', '2', '3', '4' ou '5' selon ce que vous voulez accéder.");
 
             Console.SetCursorPosition(positionXSubMenu, positionYSubMenu);
-
             //Writing the sub menu
             for (int i = 0; i != 1; i++)
             {
@@ -209,10 +200,8 @@ namespace P_032_SpicyInvaders
                 positionYSubMenu += 2;
                 Console.SetCursorPosition(positionXSubMenu -= 1, positionYSubMenu);
                 Console.WriteLine(LEAVE);
-
             }
             Console.SetCursorPosition(ENDLEAVEXPOSITION, LEAVEYPOSITION);
-
             MenuSelection();
         }
 
@@ -257,7 +246,6 @@ namespace P_032_SpicyInvaders
 
             Console.SetCursorPosition(21, 30);
             Console.Write("Appuyez sur ESC pour revenir au menu principal...");
-
             while (!_continueKey)
             {
                 _keyPressed = Console.ReadKey(true);
@@ -317,7 +305,6 @@ namespace P_032_SpicyInvaders
         {
             DirectSoundOut _selectSound = new DirectSoundOut();
             WaveFileReader _selectSoundLocation = new WaveFileReader(_selectSoundPath); //Path of the file (== _selectSoundPath)
-
             //Sound in the menu
             _selectSound.Init(new WaveChannel32(_selectSoundLocation)); //Put the song in _selectSoundLocation and put it in the channel
             while (!_continueKey)
@@ -553,6 +540,7 @@ namespace P_032_SpicyInvaders
 
             }
 
+            //ToDo : Victory Animation..
             //Console.SetCursorPosition(39, 45);
             //Player shipAnimation = new Player(Console.WindowWidth / 8, 45, 3);
             //foreach (char c in victory)
