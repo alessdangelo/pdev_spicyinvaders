@@ -1,7 +1,7 @@
 ﻿/*
  * ETML
  * Auteurs: Bruno Martins Constantino, Manuel Oro, Alessandro D'Angelo, Clément Sartoni
- * Description: Classe program du projet Spiciy Invaders, contient l'architecture globale du jeu et le thread de jeu contenant les checks
+ * Description: Spicy Invaders program class, contains the overall architecture of the game and the game thread containing the checks. 
  */
 using NAudio.Wave;
 using System;
