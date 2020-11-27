@@ -160,6 +160,8 @@ namespace P_032_SpicyInvaders
 
             Console.Clear();
 
+            MenuWindowSize();
+
             Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
 
             Console.CursorVisible = false;
@@ -588,6 +590,9 @@ namespace P_032_SpicyInvaders
             const int NEXTTIMEXPOSITION = 27;
             int nextTimeYPosition = 18;
 
+            const int BACKTOMAINMENUXPOSITION = 15;
+            int backToMainMenuYPosition = 30;
+
             string[] optionsArray = new string[5]
             {
                  " ██████   █████  ███    ███ ███████     ██████  ██    ██ ███████ ██████ ",  
@@ -598,6 +603,7 @@ namespace P_032_SpicyInvaders
             };
 
             string nextTime = "We'll get them next time...";
+            string backToMainMenu = "Appuyez sur ESCAPE pour revenir au menu principal...";
 
             Console.Clear();
 
@@ -614,9 +620,18 @@ namespace P_032_SpicyInvaders
             Console.SetCursorPosition(NEXTTIMEXPOSITION, nextTimeYPosition);
             for (int i = 0; i < nextTime.Length; i++)
             {
-                Thread.Sleep(100);
+                Thread.Sleep(50);
                 Console.Write(nextTime[i]);
             }
+
+            Console.SetCursorPosition(BACKTOMAINMENUXPOSITION, backToMainMenuYPosition);
+            for (int i = 0; i < backToMainMenu.Length; i++)
+            {
+                Thread.Sleep(20);
+                Console.Write(backToMainMenu[i]);
+            }
+
+            BackToMainMenu();
         }
 
         /// <summary>
@@ -641,6 +656,15 @@ namespace P_032_SpicyInvaders
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Set menu window size
+        /// </summary>
+        private void MenuWindowSize()
+        {
+            Console.SetWindowSize(WINDOWSIZEX, WINDOWSIZEY);
+            Console.SetBufferSize(WINDOWSIZEX, WINDOWSIZEY);
         }
     }
 }
