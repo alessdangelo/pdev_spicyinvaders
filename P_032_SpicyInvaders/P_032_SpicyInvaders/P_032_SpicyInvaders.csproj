@@ -53,6 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppResources\SoundFiles.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SoundFiles.resx</DependentUpon>
+    </Compile>
     <Compile Include="Enemy.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Hud.cs" />
@@ -67,5 +72,33 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AppResources\SoundFiles.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SoundFiles.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Blip_Select.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Hit_Hurt.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Laser_Shoot.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Laser_Shoot2.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\song.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\barrier.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\barrier2.wav" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
