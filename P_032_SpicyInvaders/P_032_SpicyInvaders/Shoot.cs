@@ -53,7 +53,7 @@ namespace P_032_SpicyInvaders
         {
             Console.SetCursorPosition(_posX, _posY);
             Console.Write(" ");
-            Program.bullets.Remove(this);
+            Program._bullets.Remove(this);
         }
 
         /// <summary>
