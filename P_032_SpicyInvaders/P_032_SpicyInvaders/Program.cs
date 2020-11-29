@@ -59,13 +59,11 @@ namespace P_032_SpicyInvaders
         public static List<Block> _blockList = new List<Block>();
         public static List<Shoot> _bullets = new List<Shoot>();
 
-
         static int _ennemyAlive = _enemiesArray.Length;  //Take the numbers of ennemy and decrement it each time one dies.
         // ##############################
 
         // State
         public static bool _gamePaused = false;
-
 
         // Launch game
         public static void RunAll()
