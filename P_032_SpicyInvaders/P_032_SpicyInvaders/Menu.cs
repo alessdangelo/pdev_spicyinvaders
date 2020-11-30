@@ -20,8 +20,8 @@ namespace P_032_SpicyInvaders
         // Variables
         private static ConsoleKeyInfo _keyPressed;
         private static bool _continueKey = false;
-        const int WINDOWSIZEX = 90;
-        const int WINDOWSIZEY = 35;
+        const int _WINDOWSIZEX = 90;
+        const int _WINDOWSIZEY = 35;
         private static readonly string _selectSound = "Blip_Select";
 
         /// <summary>
@@ -29,8 +29,8 @@ namespace P_032_SpicyInvaders
         /// </summary>
         public Menu()
         {
-            Console.SetWindowSize(WINDOWSIZEX, WINDOWSIZEY);
-            Console.SetBufferSize(WINDOWSIZEX, WINDOWSIZEY);
+            Console.SetWindowSize(_WINDOWSIZEX, _WINDOWSIZEY);
+            Console.SetBufferSize(_WINDOWSIZEX, _WINDOWSIZEY);
 
             Console.CursorVisible = false;
         }
@@ -647,8 +647,8 @@ namespace P_032_SpicyInvaders
         /// </summary>
         private void MenuWindowSize()
         {
-            Console.SetWindowSize(WINDOWSIZEX, WINDOWSIZEY);
-            Console.SetBufferSize(WINDOWSIZEX, WINDOWSIZEY);
+            Console.SetWindowSize(_WINDOWSIZEX, _WINDOWSIZEY);
+            Console.SetBufferSize(_WINDOWSIZEX, _WINDOWSIZEY);
         }
     }
 }
