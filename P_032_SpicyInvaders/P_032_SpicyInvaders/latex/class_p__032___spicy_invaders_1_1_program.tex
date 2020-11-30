@@ -1,0 +1,142 @@
+\hypertarget{class_p__032___spicy_invaders_1_1_program}{}\doxysection{P\+\_\+032\+\_\+\+Spicy\+Invaders.\+Program Class Reference}
+\label{class_p__032___spicy_invaders_1_1_program}\index{P\_032\_SpicyInvaders.Program@{P\_032\_SpicyInvaders.Program}}
+
+
+Class \mbox{\hyperlink{class_p__032___spicy_invaders_1_1_program}{Program}}  
+
+
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_p__032___spicy_invaders_1_1_program_a63d8ef2d96f8c038534dd770192bdafe}\label{class_p__032___spicy_invaders_1_1_program_a63d8ef2d96f8c038534dd770192bdafe}} 
+static void {\bfseries Run\+All} ()
+\item 
+static void \mbox{\hyperlink{class_p__032___spicy_invaders_1_1_program_afdb50a48ee408ab5d93abd246bbba673}{Global\+Moves}} ()
+\begin{DoxyCompactList}\small\item\em Moves ennemies and do some checks \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_p__032___spicy_invaders_1_1_program_ae91c4ed3a1314187440756d24b2e2634}{Move\+Ennemys}} ()
+\begin{DoxyCompactList}\small\item\em Move enemys and control shoot \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_p__032___spicy_invaders_1_1_program_abf27cb856dd8ad32ba3560c03a56c27e}{Move\+Bullets}} ()
+\begin{DoxyCompactList}\small\item\em Move all bullets at the same time \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_p__032___spicy_invaders_1_1_program_a35e1d84bb7ebd10ef9f43994e79a9c25}{Play\+Sound}} (string name)
+\begin{DoxyCompactList}\small\item\em Play a sound effect \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const int \mbox{\hyperlink{class_p__032___spicy_invaders_1_1_program_a500ca983446fc81506320e7e94cf956c}{\+\_\+hud\+SizeX}} = 80
+\begin{DoxyCompactList}\small\item\em Attributes \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_p__032___spicy_invaders_1_1_program_a10e458ea3a1e9b68657948260a23078e}\label{class_p__032___spicy_invaders_1_1_program_a10e458ea3a1e9b68657948260a23078e}} 
+static Resource\+Manager {\bfseries \+\_\+res\+Man} = new Resource\+Manager(typeof(App\+Resources.\+Sound\+Files))
+\item 
+\mbox{\Hypertarget{class_p__032___spicy_invaders_1_1_program_afe74cbe45637f5e4fd7060e4b99414bd}\label{class_p__032___spicy_invaders_1_1_program_afe74cbe45637f5e4fd7060e4b99414bd}} 
+static readonly string {\bfseries \+\_\+main\+Song} = \char`\"{}song\char`\"{}
+\item 
+\mbox{\Hypertarget{class_p__032___spicy_invaders_1_1_program_a66cc156226626d52e6c4523a31e4d6b7}\label{class_p__032___spicy_invaders_1_1_program_a66cc156226626d52e6c4523a31e4d6b7}} 
+static readonly string {\bfseries \+\_\+shooting\+Effect} = \char`\"{}Laser\+\_\+\+Shoot\char`\"{}
+\item 
+\mbox{\Hypertarget{class_p__032___spicy_invaders_1_1_program_a5ecae06775d86daeaa456326fd204eb5}\label{class_p__032___spicy_invaders_1_1_program_a5ecae06775d86daeaa456326fd204eb5}} 
+static readonly string {\bfseries \+\_\+shot\+Effect} = \char`\"{}Hit\+\_\+\+Hurt\char`\"{}
+\item 
+\mbox{\Hypertarget{class_p__032___spicy_invaders_1_1_program_a40b4eb60dbcbcce3d2f2b4877cc8e0f3}\label{class_p__032___spicy_invaders_1_1_program_a40b4eb60dbcbcce3d2f2b4877cc8e0f3}} 
+static \mbox{\hyperlink{class_p__032___spicy_invaders_1_1_player}{Player}} {\bfseries \+\_\+ship}
+\item 
+\mbox{\Hypertarget{class_p__032___spicy_invaders_1_1_program_aaeacdf27164ac7f783662fe416d12a03}\label{class_p__032___spicy_invaders_1_1_program_aaeacdf27164ac7f783662fe416d12a03}} 
+static \mbox{\hyperlink{class_p__032___spicy_invaders_1_1_hud}{Hud}} {\bfseries \+\_\+hud}
+\item 
+\mbox{\Hypertarget{class_p__032___spicy_invaders_1_1_program_acf3a689311af58ec59cb29e6addfdd4f}\label{class_p__032___spicy_invaders_1_1_program_acf3a689311af58ec59cb29e6addfdd4f}} 
+static \mbox{\hyperlink{class_p__032___spicy_invaders_1_1_menu}{Menu}} {\bfseries \+\_\+menu}
+\item 
+\mbox{\Hypertarget{class_p__032___spicy_invaders_1_1_program_a3a2f16ad08b02270876bd4a0ec362897}\label{class_p__032___spicy_invaders_1_1_program_a3a2f16ad08b02270876bd4a0ec362897}} 
+static bool {\bfseries \+\_\+game\+Over} = false
+\item 
+\mbox{\Hypertarget{class_p__032___spicy_invaders_1_1_program_a89e1628dffff818c5cd8604ad6e18599}\label{class_p__032___spicy_invaders_1_1_program_a89e1628dffff818c5cd8604ad6e18599}} 
+static bool {\bfseries \+\_\+sound\+On} = true
+\item 
+\mbox{\Hypertarget{class_p__032___spicy_invaders_1_1_program_a7471462fa9b4d0cbd75d520fe6c24d3f}\label{class_p__032___spicy_invaders_1_1_program_a7471462fa9b4d0cbd75d520fe6c24d3f}} 
+static int {\bfseries \+\_\+difficulty} = 0
+\item 
+\mbox{\Hypertarget{class_p__032___spicy_invaders_1_1_program_a888ccb08073e23d898c5c49ebb75fe59}\label{class_p__032___spicy_invaders_1_1_program_a888ccb08073e23d898c5c49ebb75fe59}} 
+static \mbox{\hyperlink{class_p__032___spicy_invaders_1_1_enemy}{Enemy}}\mbox{[},\mbox{]} {\bfseries \+\_\+enemies\+Array} = new \mbox{\hyperlink{class_p__032___spicy_invaders_1_1_enemy}{Enemy}}\mbox{[}10, 4\mbox{]}
+\item 
+\mbox{\Hypertarget{class_p__032___spicy_invaders_1_1_program_a3e4d77a42dce1278eb54373d1ab44f2a}\label{class_p__032___spicy_invaders_1_1_program_a3e4d77a42dce1278eb54373d1ab44f2a}} 
+static int\mbox{[}$\,$\mbox{]} {\bfseries \+\_\+enemies\+Spawn\+Point} = \{ \mbox{\hyperlink{class_p__032___spicy_invaders_1_1_program_a500ca983446fc81506320e7e94cf956c}{\+\_\+hud\+SizeX}} / 2 -\/ \+\_\+enemies\+Array.\+Get\+Length(0) / 2, \+\_\+hud\+SizeY / 2 -\/ 5 -\/ \+\_\+enemies\+Array.\+Get\+Length(1) / 2 \}
+\item 
+\mbox{\Hypertarget{class_p__032___spicy_invaders_1_1_program_a03b2d4861b3d3ca00a6c441c0c451da8}\label{class_p__032___spicy_invaders_1_1_program_a03b2d4861b3d3ca00a6c441c0c451da8}} 
+static List$<$ \mbox{\hyperlink{class_p__032___spicy_invaders_1_1_block}{Block}} $>$ {\bfseries \+\_\+block\+List} = new List$<$\mbox{\hyperlink{class_p__032___spicy_invaders_1_1_block}{Block}}$>$()
+\item 
+\mbox{\Hypertarget{class_p__032___spicy_invaders_1_1_program_a13c30548cd801a4a1b9cd1d7e0ed0d0f}\label{class_p__032___spicy_invaders_1_1_program_a13c30548cd801a4a1b9cd1d7e0ed0d0f}} 
+static List$<$ \mbox{\hyperlink{class_p__032___spicy_invaders_1_1_shoot}{Shoot}} $>$ {\bfseries \+\_\+bullets} = new List$<$\mbox{\hyperlink{class_p__032___spicy_invaders_1_1_shoot}{Shoot}}$>$()
+\item 
+\mbox{\Hypertarget{class_p__032___spicy_invaders_1_1_program_a1729858285c206db76c49697e26b26ac}\label{class_p__032___spicy_invaders_1_1_program_a1729858285c206db76c49697e26b26ac}} 
+static bool {\bfseries \+\_\+game\+Paused} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class \mbox{\hyperlink{class_p__032___spicy_invaders_1_1_program}{Program}} 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_p__032___spicy_invaders_1_1_program_afdb50a48ee408ab5d93abd246bbba673}\label{class_p__032___spicy_invaders_1_1_program_afdb50a48ee408ab5d93abd246bbba673}} 
+\index{P\_032\_SpicyInvaders.Program@{P\_032\_SpicyInvaders.Program}!GlobalMoves@{GlobalMoves}}
+\index{GlobalMoves@{GlobalMoves}!P\_032\_SpicyInvaders.Program@{P\_032\_SpicyInvaders.Program}}
+\doxysubsubsection{\texorpdfstring{GlobalMoves()}{GlobalMoves()}}
+{\footnotesize\ttfamily static void P\+\_\+032\+\_\+\+Spicy\+Invaders.\+Program.\+Global\+Moves (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Moves ennemies and do some checks 
+
+\mbox{\Hypertarget{class_p__032___spicy_invaders_1_1_program_abf27cb856dd8ad32ba3560c03a56c27e}\label{class_p__032___spicy_invaders_1_1_program_abf27cb856dd8ad32ba3560c03a56c27e}} 
+\index{P\_032\_SpicyInvaders.Program@{P\_032\_SpicyInvaders.Program}!MoveBullets@{MoveBullets}}
+\index{MoveBullets@{MoveBullets}!P\_032\_SpicyInvaders.Program@{P\_032\_SpicyInvaders.Program}}
+\doxysubsubsection{\texorpdfstring{MoveBullets()}{MoveBullets()}}
+{\footnotesize\ttfamily static void P\+\_\+032\+\_\+\+Spicy\+Invaders.\+Program.\+Move\+Bullets (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Move all bullets at the same time 
+
+\mbox{\Hypertarget{class_p__032___spicy_invaders_1_1_program_ae91c4ed3a1314187440756d24b2e2634}\label{class_p__032___spicy_invaders_1_1_program_ae91c4ed3a1314187440756d24b2e2634}} 
+\index{P\_032\_SpicyInvaders.Program@{P\_032\_SpicyInvaders.Program}!MoveEnnemys@{MoveEnnemys}}
+\index{MoveEnnemys@{MoveEnnemys}!P\_032\_SpicyInvaders.Program@{P\_032\_SpicyInvaders.Program}}
+\doxysubsubsection{\texorpdfstring{MoveEnnemys()}{MoveEnnemys()}}
+{\footnotesize\ttfamily static void P\+\_\+032\+\_\+\+Spicy\+Invaders.\+Program.\+Move\+Ennemys (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Move enemys and control shoot 
+
+\mbox{\Hypertarget{class_p__032___spicy_invaders_1_1_program_a35e1d84bb7ebd10ef9f43994e79a9c25}\label{class_p__032___spicy_invaders_1_1_program_a35e1d84bb7ebd10ef9f43994e79a9c25}} 
+\index{P\_032\_SpicyInvaders.Program@{P\_032\_SpicyInvaders.Program}!PlaySound@{PlaySound}}
+\index{PlaySound@{PlaySound}!P\_032\_SpicyInvaders.Program@{P\_032\_SpicyInvaders.Program}}
+\doxysubsubsection{\texorpdfstring{PlaySound()}{PlaySound()}}
+{\footnotesize\ttfamily static void P\+\_\+032\+\_\+\+Spicy\+Invaders.\+Program.\+Play\+Sound (\begin{DoxyParamCaption}\item[{string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Play a sound effect 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & Sound path to play\\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_p__032___spicy_invaders_1_1_program_a500ca983446fc81506320e7e94cf956c}\label{class_p__032___spicy_invaders_1_1_program_a500ca983446fc81506320e7e94cf956c}} 
+\index{P\_032\_SpicyInvaders.Program@{P\_032\_SpicyInvaders.Program}!\_hudSizeX@{\_hudSizeX}}
+\index{\_hudSizeX@{\_hudSizeX}!P\_032\_SpicyInvaders.Program@{P\_032\_SpicyInvaders.Program}}
+\doxysubsubsection{\texorpdfstring{\_hudSizeX}{\_hudSizeX}}
+{\footnotesize\ttfamily const int P\+\_\+032\+\_\+\+Spicy\+Invaders.\+Program.\+\_\+hud\+SizeX = 80\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Attributes 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Program.\+cs\end{DoxyCompactItemize}
