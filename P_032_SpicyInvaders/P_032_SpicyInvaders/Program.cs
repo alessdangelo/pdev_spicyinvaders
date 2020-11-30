@@ -47,8 +47,8 @@ namespace P_032_SpicyInvaders
         private readonly static string _highscorePath = @"highscore.txt";
 
         // Timer
-        private static DateTime _one;
-        private static DateTime _two;
+        private static DateTime _bulletMove;
+        private static DateTime _moveEnnemyAndControlShoot;
         private static DateTime _timeBeforeShoot;
 
         // Entities arrays and lists
@@ -109,8 +109,8 @@ namespace P_032_SpicyInvaders
             // init some vars
             ConsoleKeyInfo keyEnterred;
             _timeBeforeShoot = new DateTime();
-            _one = new DateTime();
-            _two = new DateTime();
+            _bulletMove = new DateTime();
+            _moveEnnemyAndControlShoot = new DateTime();
 
             // wait some time before start -> don't surprise player
             System.Threading.Thread.Sleep(500);
@@ -257,9 +257,9 @@ namespace P_032_SpicyInvaders
         /// </summary>
         static public void MoveEnnemys()
         {
-            if(DateTime.Now.Ticks > _two.Ticks)
+            if(DateTime.Now.Ticks > _moveEnnemyAndControlShoot.Ticks)
             {
-                _two = DateTime.Now.AddMilliseconds(_enemiesSpeed);
+                _moveEnnemyAndControlShoot = DateTime.Now.AddMilliseconds(_enemiesSpeed);
                 if(_direction[1] == 1)
                 {
                     for (int y = _enemiesArray.GetLength(1)-1; y >= 0; y--)
@@ -316,9 +316,9 @@ namespace P_032_SpicyInvaders
         static public void MoveBullets()
         {
             // wait some time before execute
-            if(DateTime.Now.Ticks > _one.Ticks)
+            if(DateTime.Now.Ticks > _bulletMove.Ticks)
             {
-                _one = DateTime.Now.AddMilliseconds(_bulletSpeed);
+                _bulletMove = DateTime.Now.AddMilliseconds(_bulletSpeed);
                 for (int i = 0; i < _bullets.Count; i++)
                 {
                     // if bullet is in a specific range then move it, else destroy bullet
