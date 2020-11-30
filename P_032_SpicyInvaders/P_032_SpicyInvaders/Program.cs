@@ -113,7 +113,7 @@ namespace P_032_SpicyInvaders
             _two = new DateTime();
 
             // wait some time before start -> don't surprise player
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(500);
 
             // Main while (player input, enemies moves, bullets moves, ...)
             do
