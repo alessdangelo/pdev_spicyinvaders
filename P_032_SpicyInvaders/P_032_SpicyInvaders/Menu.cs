@@ -487,7 +487,6 @@ namespace P_032_SpicyInvaders
 
             //Writing developpers infos
             Console.SetCursorPosition(positionXDeveloppers, positionYDeveloppers);
-
             Console.WriteLine(DEVONE);
             positionYDeveloppers += 2;
             Console.SetCursorPosition(positionXDeveloppers += 7, positionYDeveloppers);
@@ -617,7 +616,7 @@ namespace P_032_SpicyInvaders
             Console.SetCursorPosition(BACKTOMAINMENUXPOSITION, backToMainMenuYPosition);
             for (int i = 0; i < backToMainMenu.Length; i++)
             {
-                Thread.Sleep(20);
+                Thread.Sleep(15);
                 Console.Write(backToMainMenu[i]);
             }
 
