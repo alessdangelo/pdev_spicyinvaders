@@ -208,8 +208,8 @@ namespace P_032_SpicyInvaders
                     _gameOver = false;
                 }
             }
-            MoveEnnemys();
-            MoveBullets();
+            Enemy.MoveEnnemies(ref _moveEnnemyAndControlShoot, ref _enemiesSpeed, ref _direction, ref _enemiesArray, _random, ref _bullets, ref _enemiesLimits);
+            Shoot.MoveBullets(ref _bulletMove, ref _bullets);
             // check if as bullet hit ennemy then detroy ennemy and bullet
             foreach (Enemy ennemy in _enemiesArray)
             {
@@ -264,88 +264,6 @@ namespace P_032_SpicyInvaders
             }
 
             GC.Collect();
-        }
-
-        /// <summary>
-        /// Move enemys and control shoot
-        /// </summary>
-        static public void MoveEnnemys()
-        {
-            if(DateTime.Now.Ticks > _moveEnnemyAndControlShoot.Ticks)
-            {
-                _moveEnnemyAndControlShoot = DateTime.Now.AddMilliseconds(_enemiesSpeed);
-                if(_direction[1] == 1)
-                {
-                    for (int y = _enemiesArray.GetLength(1)-1; y >= 0; y--)
-                    {
-                        for (int x = 0; x < _enemiesArray.GetLength(0); x++)
-                        {
-                            if (_enemiesArray[x, y].IsAlive)
-                            {
-                                if (_random.Next(50) == 1)
-                                {
-                                    _bullets.Add(new Shoot(_enemiesArray[x, y].PosX, _enemiesArray[x, y].PosY + 5, +1));
-                                }
-                            }
-                            _enemiesArray[x, y].Move(_direction);
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (Enemy ennemy in _enemiesArray)
-                    {
-                        if (ennemy.IsAlive)
-                        {
-                            if (_random.Next(50) == 1)
-                            {
-                                _bullets.Add(new Shoot(ennemy.PosX, ennemy.PosY + 5, +1));
-                            }
-                        }
-                        ennemy.Move(_direction);
-                    }
-                }
-              
-                if (_enemiesArray[0, 0].PosX + _direction[0] <= _enemiesLimits[0])
-                {
-                    _direction = new int[] { 0, 1 };
-                }
-                if (_enemiesArray[_enemiesArray.GetLength(0) - 1, 0].PosX + _direction[0] >= _enemiesLimits[1])
-                {
-                    _direction = new int[] { 0, -1 };
-                }
-                if (_enemiesArray[0, 0].PosY + _direction[1] <= _enemiesLimits[2])
-                {
-                    _direction = new int[] { -1, 0 };
-                }
-                if (_enemiesArray[0, _enemiesArray.GetLength(1) - 1].PosY + _direction[1] >= _enemiesLimits[3])
-                {
-                    _direction = new int[] { 1, 0 };
-                }
-            }
-        }
-        /// <summary>
-        /// Move all bullets at the same time
-        /// </summary>
-        static public void MoveBullets()
-        {
-            // wait some time before execute
-            if(DateTime.Now.Ticks > _bulletMove.Ticks)
-            {
-                _bulletMove = DateTime.Now.AddMilliseconds(_bulletSpeed);
-                for (int i = 0; i < _bullets.Count; i++)
-                {
-                    // if bullet is in a specific range then move it, else destroy bullet
-                    if (_bullets[i].PosY > 10 && _bullets[i].PosY < 45)
-                    {
-                        _bullets[i].Move();
-                    }
-                    else
-                    {
-                        _bullets[i].DestroyBullet();
-                    }
-                }                       
-            }
         }
         /// <summary>
         /// Play a sound effect
