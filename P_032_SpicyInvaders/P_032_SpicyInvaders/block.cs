@@ -20,11 +20,11 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Attributes
         /// </summary>
-        private int _sizeX;
-        private int _sizeY;
+        private readonly int _sizeX;
+        private readonly int _sizeY;
 
         private Random _random = new Random();
-        private string[] _barrierSound = new string[2] {"barrier", "barrier2"};
+        private readonly string[] _barrierSound = new string[2] {"Barrier", "Barrier2"};
 
         private LittleBlock[,] _elements;
 
@@ -107,7 +107,7 @@ namespace P_032_SpicyInvaders
             /// <summary>
             /// Attributes
             /// </summary>
-            private char _charDesign = '█';
+            private readonly char _charDesign = '█';
             private bool _isAlive = true;
         
             /// <summary>

@@ -3,7 +3,7 @@
 	Date: 11.09.20
 	Auteur: Manuel Oro
 	Description: Enemy class. Enemy can move, shoot and be destroyed
-	Modifié le: 20.11.20
+	Modifié le: 04.12.20
 */
 using System;
 
@@ -85,14 +85,6 @@ namespace P_032_SpicyInvaders
             Console.Write(" ");
             Program._ship.Score += 100;
             Program._hud.PrintPlayerScore();
-        }
-
-        /// <summary>
-        /// Destructor
-        /// </summary>
-        ~Enemy()
-        {
-
         }
     }
 }

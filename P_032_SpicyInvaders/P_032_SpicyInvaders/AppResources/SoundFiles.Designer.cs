@@ -63,18 +63,18 @@ namespace P_032_SpicyInvaders.AppResources {
         /// <summary>
         ///   Recherche une ressource localisée de type System.IO.UnmanagedMemoryStream semblable à System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream barrier {
+        internal static System.IO.UnmanagedMemoryStream Barrier {
             get {
-                return ResourceManager.GetStream("barrier", resourceCulture);
+                return ResourceManager.GetStream("Barrier", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Recherche une ressource localisée de type System.IO.UnmanagedMemoryStream semblable à System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream barrier2 {
+        internal static System.IO.UnmanagedMemoryStream Barrier2 {
             get {
-                return ResourceManager.GetStream("barrier2", resourceCulture);
+                return ResourceManager.GetStream("Barrier2", resourceCulture);
             }
         }
         
@@ -117,9 +117,9 @@ namespace P_032_SpicyInvaders.AppResources {
         /// <summary>
         ///   Recherche une ressource localisée de type System.IO.UnmanagedMemoryStream semblable à System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream song {
+        internal static System.IO.UnmanagedMemoryStream Song {
             get {
-                return ResourceManager.GetStream("song", resourceCulture);
+                return ResourceManager.GetStream("Song", resourceCulture);
             }
         }
     }

@@ -3,7 +3,7 @@
 	Date: 11.09.20
 	Auteur: Manuel Oro
 	Description: Shoot class. Shoot can move and destroyed.
-	Modifié le: --
+	Modifié le: 04.12.20
 */
 using System;
 using System.Diagnostics;
@@ -54,14 +54,6 @@ namespace P_032_SpicyInvaders
             Console.SetCursorPosition(_posX, _posY);
             Console.Write(" ");
             Program._bullets.Remove(this);
-        }
-
-        /// <summary>
-        /// Destructor
-        /// </summary>
-        ~Shoot()
-        {
-            Debug.WriteLine("Destructor");
         }
     }
 }

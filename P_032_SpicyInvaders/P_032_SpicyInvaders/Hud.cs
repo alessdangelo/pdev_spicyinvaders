@@ -3,7 +3,7 @@
 	Date: 25.09.20
 	Auteur: Manuel Oro
 	Description: Display infos about player: lifes, score and keybinds
-	Modifié le: 20.11.20
+	Modifié le: 04.12.20
 */
 using System;
 
@@ -15,26 +15,11 @@ namespace P_032_SpicyInvaders
     class Hud
     {
         /// <summary>
-        /// Attributes
+        /// Default constructor
         /// </summary>
-        private int _windowXSize = 80;
-        private int _windowYSize = 50;
-
-        /// <summary>
-        /// Custom constructor
-        /// </summary>
-        /// <param name="xConsoleSize">Console x size</param>
-        /// <param name="yConsoleSize">Console y size</param>
-        public Hud(int xConsoleSize, int yConsoleSize)
+        public Hud()
         {
-            this._windowXSize = xConsoleSize;
-            this._windowYSize = yConsoleSize;
 
-            Console.SetWindowSize(_windowXSize, _windowYSize);
-            Console.SetBufferSize(_windowXSize, _windowYSize);
-            Console.CursorVisible = false;
-            Console.ForegroundColor = ConsoleColor.White;
-            PrintAllInfos();
         }
 
         /// <summary>

@@ -2,13 +2,12 @@
 /// 
 ///   Auteur     : Bruno Martins Constantino, Manus
 ///   Date       : 28.08.2020
-///   Modif      : 06.11.2020
+///   Modif      : 04.12.2020
 ///   Descrption : This is the main menu of our Spicy Invaders
 
 using System;
 using System.IO;
 using System.Threading;
-using NAudio.Wave;
 
 namespace P_032_SpicyInvaders
 {
@@ -23,16 +22,23 @@ namespace P_032_SpicyInvaders
         const int _WINDOWSIZEX = 90;
         const int _WINDOWSIZEY = 35;
         private static readonly string _selectSound = "Blip_Select";
+        private readonly string _path = Environment.CurrentDirectory + "/highscore.txt";
 
         /// <summary>
         /// Default Constructor
         /// </summary>
         public Menu()
         {
+            Console.CursorVisible = false;
+        }
+
+        /// <summary>
+        /// Set console window size
+        /// </summary>
+        private void SetConsoleWindowSize()
+        {
             Console.SetWindowSize(_WINDOWSIZEX, _WINDOWSIZEY);
             Console.SetBufferSize(_WINDOWSIZEX, _WINDOWSIZEY);
-
-            Console.CursorVisible = false;
         }
 
         /// <summary>
@@ -151,9 +157,8 @@ namespace P_032_SpicyInvaders
             int spicyYAxeTitle = 1;
             int invadersYAxeTitle = 7;
 
+            SetConsoleWindowSize();
             Console.Clear();
-
-            MenuWindowSize();
 
             Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
 
@@ -213,7 +218,7 @@ namespace P_032_SpicyInvaders
         private void PlayGame()
         {
             Console.Clear();
-            Program.RunAll();
+            Program.RunGame();
         }
 
         /// <summary>
@@ -419,8 +424,18 @@ namespace P_032_SpicyInvaders
                 highscoreYAxeTitle++;
             }
 
-            // read highscore in txt file
-            highscore = $"Votre meilleur score est de: " + File.ReadAllText(Environment.CurrentDirectory + "/highscore.txt");
+            // read highscore in txt file, if file doesn't exist, create it
+            string result = "0";
+            if(!File.Exists(_path))
+            {
+                File.Create(_path).Close();
+            }
+            if(File.ReadAllText(_path) != String.Empty)
+            {
+                result = File.ReadAllText(_path);
+            }
+            highscore = $"Votre meilleur score est de: " + result;
+
             Console.SetCursorPosition((Console.WindowWidth)/2-(highscore.Length/2), 20);
             Console.Write(highscore);
 
@@ -519,6 +534,7 @@ namespace P_032_SpicyInvaders
 ██    ██ ██ ██         ██    ██    ██ ██████    ████\ 
 ██  ██  ██ ██         ██    ██    ██ ██   ██    ██\  
 ████   ██  ██████    ██     ██████  ██   ██    ██";
+
             foreach (char c in victory)
             {
                 Thread.Sleep(1);
@@ -639,15 +655,6 @@ namespace P_032_SpicyInvaders
                         break;
                 }
             }
-        }
-
-        /// <summary>
-        /// Set menu window size
-        /// </summary>
-        private void MenuWindowSize()
-        {
-            Console.SetWindowSize(_WINDOWSIZEX, _WINDOWSIZEY);
-            Console.SetBufferSize(_WINDOWSIZEX, _WINDOWSIZEY);
         }
     }
 }

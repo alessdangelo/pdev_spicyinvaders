@@ -91,13 +91,13 @@
     <None Include="Resources\Laser_Shoot2.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\song.wav" />
+    <None Include="Resources\Song.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\barrier.wav" />
+    <None Include="Resources\Barrier.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\barrier2.wav" />
+    <None Include="Resources\Barrier2.wav" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
