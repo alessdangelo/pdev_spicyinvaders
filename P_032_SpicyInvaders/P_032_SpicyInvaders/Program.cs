@@ -56,7 +56,7 @@ namespace P_032_SpicyInvaders
         private static int[] _direction = new int[] { -1, 0 }; //la direction du pack en [x,y]
         private static Enemy[,] _enemiesArray = new Enemy[10, 4]; //10, 4
         private static readonly int[] _enemiesSpawnPoint = { _windowWidth / 2 - _enemiesArray.GetLength(0) / 2, _windowHeight / 2 - 5 - _enemiesArray.GetLength(1) / 2 };
-        private readonly static int[] _enemiesLimits = { 5, _windowWidth - 5, _enemiesSpawnPoint[1] -3, _enemiesSpawnPoint[1] + 10 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
+        private static int[] _enemiesLimits = { 5, _windowWidth - 5, _enemiesSpawnPoint[1] -3, _enemiesSpawnPoint[1] + 10 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
         private static List<Block> _blockList = new List<Block>();
         public static List<Shoot> _bullets = new List<Shoot>();
         private static int _ennemyAlive = _enemiesArray.Length;  //Take the numbers of ennemy and decrement it each time one dies.
