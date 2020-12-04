@@ -24,7 +24,8 @@ namespace P_032_SpicyInvaders
         private bool _isPosLimitLeft = false;
         private bool _canShoot = true;
         private static DateTime _tempInvincibility = new DateTime();
-        private readonly double _invincibilityTime = 3.0;
+        private static double _invincibilityTime = 3.0;
+        private static bool isInvicible = false;
         
         /// <summary>
         /// Properties

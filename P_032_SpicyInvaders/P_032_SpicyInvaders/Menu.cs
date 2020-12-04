@@ -4,7 +4,6 @@
 ///   Date       : 28.08.2020
 ///   Modif      : 04.12.2020
 ///   Descrption : This is the main menu of our Spicy Invaders
-
 using System;
 using System.IO;
 using System.Threading;
@@ -68,7 +67,6 @@ namespace P_032_SpicyInvaders
 
             int index = 0;
             _continueKey = false;
-
             while (!_continueKey)
             {
                 _keyPressed = Console.ReadKey(true);
@@ -156,13 +154,11 @@ namespace P_032_SpicyInvaders
 
             int spicyYAxeTitle = 1;
             int invadersYAxeTitle = 7;
-
-            SetConsoleWindowSize();
             Console.Clear();
 
-            Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
+            SetConsoleWindowSize();
 
-            Console.CursorVisible = false;
+            Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
 
             Console.ForegroundColor = ConsoleColor.Red;
 
@@ -555,31 +551,30 @@ namespace P_032_SpicyInvaders
                 }
 
             }
-
             //ToDo : Victory Animation..
-            //Console.SetCursorPosition(39, 45);
-            //Player shipAnimation = new Player(Console.WindowWidth / 8, 45, 3);
-            //foreach (char c in victory)
-            //{
-            //    Thread.Sleep(7);
-            //    if (c == '█')
-            //    {
-            //        Shoot shootAnimation = new Shoot(shipAnimation.PosX, shipAnimation.PosY - 1, -1);
-            //    }
-            //    shipAnimation.Move(+1);
-            //    if (c == '\\')
-            //    {
-            //        while (shipAnimation.PosX != Console.WindowWidth / 8)
-            //        {
-            //            Thread.Sleep(7);
-            //            shipAnimation.Move(-1);
-            //        }
-            //    }
-            //}
-            //Console.ReadKey();
-
+            {
+                //Console.SetCursorPosition(39, 45);
+                //Player shipAnimation = new Player(Console.WindowWidth / 8, 45, 3);
+                //foreach (char c in victory)
+                //{
+                //    Thread.Sleep(7);
+                //    if (c == '█')
+                //    {
+                //        Shoot shootAnimation = new Shoot(shipAnimation.PosX, shipAnimation.PosY - 1, -1);
+                //    }
+                //    shipAnimation.Move(+1);
+                //    if (c == '\\')
+                //    {
+                //        while (shipAnimation.PosX != Console.WindowWidth / 8)
+                //        {
+                //            Thread.Sleep(7);
+                //            shipAnimation.Move(-1);
+                //        }
+                //    }
+                //}
+                //Console.ReadKey();
+            }
         }
-
         /// <summary>
         /// GameOver Menu
         /// </summary>
