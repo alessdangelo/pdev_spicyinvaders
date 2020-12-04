@@ -15,21 +15,6 @@ namespace P_032_SpicyInvaders
     public class Enemy : Entity
     {
         /// <summary>
-        /// Attributes
-        /// </summary>
-        private bool _isAlive = true;
-        private static char _ennemyChar = '*';
-
-        /// <summary>
-        /// Properties
-        /// </summary>
-        public bool IsAlive
-        {
-            get { return _isAlive; }
-            set { _isAlive = value; }
-        }
-
-        /// <summary>
         /// Custom constructor
         /// </summary>
         /// <param name="posX">Spawn enemy at position x</param>
@@ -38,6 +23,7 @@ namespace P_032_SpicyInvaders
         {
             _posX = posX;
             _posY = posY;
+            Sprite = '*';
         }
 
         /// <summary>
@@ -46,11 +32,11 @@ namespace P_032_SpicyInvaders
         /// <param name="posX">Spawn enemy at position x</param>
         /// <param name="posY">Spawn enemy at position y</param>
         /// <param name="ennemyCharacter">Character displayed (represent the enemy)</param>
-        public Enemy(int posX, int posY, char ennemyCharacter)
+        public Enemy(int posX, int posY, char ennemyCharacter = '*')
         {
             _posX = posX;
             _posY = posY;
-            _ennemyChar = ennemyCharacter;
+            Sprite = ennemyCharacter;
         }
 
 
@@ -60,14 +46,14 @@ namespace P_032_SpicyInvaders
         /// <param name="direction">Select in which direction enemy goes</param>
         public void Move(int[] direction)
         {
-            if(_isAlive)
+            if (IsAlive)
             {
                 Console.SetCursorPosition(_posX, _posY);
                 Console.Write(" ");
                 _posX += direction[0];
                 _posY += direction[1];
                 Console.SetCursorPosition(_posX, _posY);
-                Console.Write(_ennemyChar);
+                Console.Write(Sprite);
             }
             else
             {
@@ -83,8 +69,8 @@ namespace P_032_SpicyInvaders
         {
             Console.SetCursorPosition(_posX, _posY);
             Console.Write(" ");
-            Program._ship.Score += 100;
-            Program._hud.PrintPlayerScore();
+            //Program._ship.Score += 100;
+            //Program._hud.PrintPlayerScore();
         }
     }
 }

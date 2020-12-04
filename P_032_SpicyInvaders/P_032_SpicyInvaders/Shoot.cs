@@ -26,10 +26,11 @@ namespace P_032_SpicyInvaders
         /// <param name="x">Position x in console</param>
         /// <param name="y">Position y in console</param>
         /// <param name="direction">Direction (-1 Up | 1 Down)</param>
-        public Shoot(int x, int y, int direction)
+        public Shoot(int x, int y, int direction, char sprite = '|')
         {
             this._posX = x;
             this._posY = y;
+            Sprite = sprite;
             this._direction = direction;
         }
 
@@ -42,7 +43,7 @@ namespace P_032_SpicyInvaders
             Console.Write(" ");
             _posY += _direction;
             Console.SetCursorPosition(_posX, _posY);
-            Console.Write("|");
+            Console.Write(Sprite);
 
         }
 

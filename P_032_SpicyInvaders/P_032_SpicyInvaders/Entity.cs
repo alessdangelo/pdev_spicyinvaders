@@ -8,16 +8,19 @@
 
 namespace P_032_SpicyInvaders
 {
-    /// <summary>
+	/// <summary>
 	/// Class Entity, base for Heritage
 	/// </summary>
 	public class Entity
-    {
+	{
 		/// <summary>
 		/// Class Variables
 		/// </summary>
 		protected int _posX;
 		protected int _posY;
+		private char _sprite;
+		private bool _isAlive = true;
+		private bool _canShoot = true;
 
 		/// <summary>
 		/// Properties
@@ -32,6 +35,24 @@ namespace P_032_SpicyInvaders
 		{
 			get { return _posY; }
 			set { _posY = value; }
+		}
+
+		public char Sprite
+		{
+			get { return _sprite; }
+			set { _sprite = value; }
+		}
+
+		public bool IsAlive
+		{
+			get { return _isAlive; }
+			set { _isAlive = value; }
+		}
+
+		public bool CanShoot
+		{
+			get { return _canShoot; }
+			set { _canShoot = value; }
 		}
 
 		/// <summary>

@@ -2,13 +2,12 @@
 /// 
 ///   Auteur     : Bruno Martins Constantino, Manus
 ///   Date       : 28.08.2020
-///   Modif      : 04.12.2020
+///   Modif      : 06.11.2020
 ///   Descrption : This is the main menu of our Spicy Invaders
-
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading;
+using NAudio.Wave;
 
 namespace P_032_SpicyInvaders
 {
@@ -23,23 +22,15 @@ namespace P_032_SpicyInvaders
         const int _WINDOWSIZEX = 90;
         const int _WINDOWSIZEY = 35;
         private static readonly string _selectSound = "Blip_Select";
-        private readonly string _path = Environment.CurrentDirectory + "/highscore.txt";
 
         /// <summary>
         /// Default Constructor
         /// </summary>
         public Menu()
         {
-            Console.CursorVisible = false;
-        }
-
-        /// <summary>
-        /// Set console window size
-        /// </summary>
-        private void SetConsoleWindowSize()
-        {
             Console.SetWindowSize(_WINDOWSIZEX, _WINDOWSIZEY);
             Console.SetBufferSize(_WINDOWSIZEX, _WINDOWSIZEY);
+            Console.CursorVisible = false;
         }
 
         /// <summary>
@@ -69,7 +60,6 @@ namespace P_032_SpicyInvaders
 
             int index = 0;
             _continueKey = false;
-
             while (!_continueKey)
             {
                 _keyPressed = Console.ReadKey(true);
@@ -157,13 +147,10 @@ namespace P_032_SpicyInvaders
 
             int spicyYAxeTitle = 1;
             int invadersYAxeTitle = 7;
-
-            SetConsoleWindowSize();
             Console.Clear();
+            MenuWindowSize();
 
             Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
-
-            Console.CursorVisible = false;
 
             Console.ForegroundColor = ConsoleColor.Red;
 
@@ -219,7 +206,7 @@ namespace P_032_SpicyInvaders
         private void PlayGame()
         {
             Console.Clear();
-            Program.RunGame();
+            Program.RunAll();
         }
 
         /// <summary>
@@ -425,19 +412,8 @@ namespace P_032_SpicyInvaders
                 highscoreYAxeTitle++;
             }
 
-            // read highscore in txt file, if file doesn't exist, create it
-            string result = "0";
-            if(!File.Exists(_path))
-            {
-                File.Create(_path).Close();
-            }
-
-            if(File.ReadAllText(_path) != String.Empty)
-            {
-                result = File.ReadAllText(_path);
-            }
-            highscore = $"Votre meilleur score est de: " + result;
-
+            // read highscore in txt file
+            highscore = $"Votre meilleur score est de: " + File.ReadAllText(Environment.CurrentDirectory + "/highscore.txt");
             Console.SetCursorPosition((Console.WindowWidth)/2-(highscore.Length/2), 20);
             Console.Write(highscore);
 
@@ -504,6 +480,7 @@ namespace P_032_SpicyInvaders
 
             //Writing developpers infos
             Console.SetCursorPosition(positionXDeveloppers, positionYDeveloppers);
+
             Console.WriteLine(DEVONE);
             positionYDeveloppers += 2;
             Console.SetCursorPosition(positionXDeveloppers += 7, positionYDeveloppers);
@@ -536,7 +513,6 @@ namespace P_032_SpicyInvaders
 ██    ██ ██ ██         ██    ██    ██ ██████    ████\ 
 ██  ██  ██ ██         ██    ██    ██ ██   ██    ██\  
 ████   ██  ██████    ██     ██████  ██   ██    ██";
-
             foreach (char c in victory)
             {
                 Thread.Sleep(1);
@@ -557,31 +533,30 @@ namespace P_032_SpicyInvaders
                 }
 
             }
-
             //ToDo : Victory Animation..
-            //Console.SetCursorPosition(39, 45);
-            //Player shipAnimation = new Player(Console.WindowWidth / 8, 45, 3);
-            //foreach (char c in victory)
-            //{
-            //    Thread.Sleep(7);
-            //    if (c == '█')
-            //    {
-            //        Shoot shootAnimation = new Shoot(shipAnimation.PosX, shipAnimation.PosY - 1, -1);
-            //    }
-            //    shipAnimation.Move(+1);
-            //    if (c == '\\')
-            //    {
-            //        while (shipAnimation.PosX != Console.WindowWidth / 8)
-            //        {
-            //            Thread.Sleep(7);
-            //            shipAnimation.Move(-1);
-            //        }
-            //    }
-            //}
-            //Console.ReadKey();
-
+            {
+                //Console.SetCursorPosition(39, 45);
+                //Player shipAnimation = new Player(Console.WindowWidth / 8, 45, 3);
+                //foreach (char c in victory)
+                //{
+                //    Thread.Sleep(7);
+                //    if (c == '█')
+                //    {
+                //        Shoot shootAnimation = new Shoot(shipAnimation.PosX, shipAnimation.PosY - 1, -1);
+                //    }
+                //    shipAnimation.Move(+1);
+                //    if (c == '\\')
+                //    {
+                //        while (shipAnimation.PosX != Console.WindowWidth / 8)
+                //        {
+                //            Thread.Sleep(7);
+                //            shipAnimation.Move(-1);
+                //        }
+                //    }
+                //}
+                //Console.ReadKey();
+            }
         }
-
         /// <summary>
         /// GameOver Menu
         /// </summary>
@@ -634,7 +609,7 @@ namespace P_032_SpicyInvaders
             Console.SetCursorPosition(BACKTOMAINMENUXPOSITION, backToMainMenuYPosition);
             for (int i = 0; i < backToMainMenu.Length; i++)
             {
-                Thread.Sleep(15);
+                Thread.Sleep(20);
                 Console.Write(backToMainMenu[i]);
             }
 
@@ -657,6 +632,15 @@ namespace P_032_SpicyInvaders
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Set menu window size
+        /// </summary>
+        private void MenuWindowSize()
+        {
+            Console.SetWindowSize(_WINDOWSIZEX, _WINDOWSIZEY);
+            Console.SetBufferSize(_WINDOWSIZEX, _WINDOWSIZEY);
         }
     }
 }
