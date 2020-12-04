@@ -2,7 +2,7 @@
 	ETML
 	Date: 06.11.2020
 	Auteur: CSI
-	Description: Basic class for entity (parent of Block.cs, Enemy.cs, Player.cs and Shoot.cs
+	Description: Basic class for entity (parent of Block.cs, Enemy.cs, Player.cs and Shoot.cs).
 	Modifié le: 20.11.20
 */
 

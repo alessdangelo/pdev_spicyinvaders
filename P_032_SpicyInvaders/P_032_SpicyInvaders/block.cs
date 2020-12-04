@@ -6,9 +6,8 @@
  * Modifications:
  * Auteur:      CSI
  * Date:        11.09.2020
- * Description: remplacement de la méthode de test de la localisation pour quelque chose de plus propre.
+ * Description: Test method replaced for something more proper.
  */
-using NAudio.Wave;
 using System;
 
 namespace P_032_SpicyInvaders
@@ -25,9 +24,9 @@ namespace P_032_SpicyInvaders
         private int _sizeY;
 
         private Random _random = new Random();
-        private string[] barrierSound = new string[2] {"barrier", "barrier2"};
+        private string[] _barrierSound = new string[2] {"barrier", "barrier2"};
 
-        private LittleBlock[,] elements;
+        private LittleBlock[,] _elements;
 
         /// <summary>
         /// Properties
@@ -62,13 +61,13 @@ namespace P_032_SpicyInvaders
         /// </summary>
         public void Initialize()
         {
-            elements = new LittleBlock[_sizeX, _sizeY];
+            _elements = new LittleBlock[_sizeX, _sizeY];
 
             for(int y = 0; y < _sizeY; y++)
             {
                 for(int x = 0; x < _sizeX;x++)
                 {
-                    elements[x, y] = new LittleBlock( _posX + x, _posY + y );
+                    _elements[x, y] = new LittleBlock( _posX + x, _posY + y );
                 }
             }
         }
@@ -80,17 +79,17 @@ namespace P_032_SpicyInvaders
         /// <returns>Return true if block is destroyed</returns>
         public bool IsInside(int posX, int posY)
         {
-            foreach(LittleBlock block in elements)
+            foreach(LittleBlock block in _elements)
             {
                 if(posX == block.PosX && posY == block.PosY && block.IsAlive)
                 {
                     if (_random.Next(2) == 1)
                     {
-                        Program.PlaySound(barrierSound[0]);
+                        Program.PlaySound(_barrierSound[0]);
                     }
                     else
                     {
-                        Program.PlaySound(barrierSound[1]);
+                        Program.PlaySound(_barrierSound[1]);
                     }
 
                     block.Delete();
