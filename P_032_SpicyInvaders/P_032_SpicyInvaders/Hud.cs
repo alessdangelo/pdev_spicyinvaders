@@ -12,7 +12,7 @@ namespace P_032_SpicyInvaders
     /// <summary>
     /// Class hud
     /// </summary>
-    class Hud
+    public class Hud
     {
         /// <summary>
         /// Default constructor
