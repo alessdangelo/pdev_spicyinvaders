@@ -12,13 +12,20 @@ namespace P_032_SpicyInvaders
     /// <summary>
     /// Class hud
     /// </summary>
-    public static class Hud
+    public class Hud
     {
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public Hud()
+        {
+
+        }
 
         /// <summary>
         /// Print all Infos
         /// </summary>
-        public static void PrintAllInfos(int score, int lives)
+        public void PrintAllInfos()
         {
             Console.SetCursorPosition(3, 3);
             Console.Write("<: Gauche");
@@ -26,33 +33,31 @@ namespace P_032_SpicyInvaders
             Console.Write(">: Droite");
             Console.SetCursorPosition(3, 5);
             Console.Write("Espace: Tir");
-            Console.SetCursorPosition(3, 6);
-            Console.Write("Escape: Pause");
 
-            PrintPlayerLifes(lives);
-            PrintPlayerScore(score);
+            PrintPlayerLifes();
+            PrintPlayerScore();
         }
 
         /// <summary>
         /// Print player score
         /// </summary>
         /// <param name="score">Player score</param>
-        public static void PrintPlayerScore(int score)
+        public void PrintPlayerScore()
         {
             Console.SetCursorPosition(65, 3);
-            Console.WriteLine("Score: {0}", score);
+            Console.WriteLine("Score: {0}", Program._ship.Score);
         }
 
         /// <summary>
         /// Print player lifes
         /// </summary>
-        public static void PrintPlayerLifes(int lives)
+        public static void PrintPlayerLifes()
         {
             Console.SetCursorPosition(35, 3);
             Console.Write("      ");
             Console.SetCursorPosition(35, 3);
 
-            for (int i = 0; i < lives; i++)
+            for (int i = 0; i < Program._ship.Life; i++)
             {
                 Console.Write("♥ ");
             }
