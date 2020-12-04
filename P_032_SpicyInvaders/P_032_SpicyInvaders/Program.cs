@@ -64,7 +64,6 @@ namespace P_032_SpicyInvaders
         // State
         private static bool _gamePaused = false;
 
-
         // Launch game
         public static void RunAll()
         {
