@@ -31,7 +31,7 @@ namespace P_032_SpicyInvaders
         private static readonly string _shotEffect = "Hit_Hurt";
         
         // Objects from class
-        private static readonly Random _random = new Random();
+        private static Random _random = new Random();
         public static Player _ship;
         public static Hud _hud;
         private static Menu _menu;
