@@ -13,9 +13,10 @@ namespace P_032_SpicyInvadersTests
             int posX = 30;
             int posY = 10;
             int resExpected = 11;
+            Shoot shoot;
 
             // Act 
-            Shoot shoot = new Shoot(posX, posY, 0);
+            shoot = new Shoot(posX, posY, 0);
             shoot.Move();
             int result = posY + 1;
 

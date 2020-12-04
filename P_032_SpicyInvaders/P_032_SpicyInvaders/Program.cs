@@ -70,10 +70,12 @@ namespace P_032_SpicyInvaders
         // Launch game
         public static void RunAll()
         {
-            _menu = new Menu();
-            Console.SetWindowSize(50, 50);
+            Console.SetWindowSize(80, 50);
+            Console.SetBufferSize(80, 50);
+
             _ship = new Player(39, 45, 3);
-            _hud = new Hud(_hudSizeX, _hudSizeY);
+            _hud = new Hud();
+            _hud.PrintAllInfos();
 
             // Enable Music
             if (_soundOn)

@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="EnemyTests.cs" />
     <Compile Include="BlockTests.cs" />
+    <Compile Include="HudTests.cs" />
     <Compile Include="ShootTests.cs" />
     <Compile Include="PlayerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

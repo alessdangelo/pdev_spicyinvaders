@@ -12,29 +12,13 @@ namespace P_032_SpicyInvaders
     /// <summary>
     /// Class hud
     /// </summary>
-    class Hud
+    public class Hud
     {
         /// <summary>
-        /// Attributes
+        /// Default constructor
         /// </summary>
-        private int _windowXSize = 80;
-        private int _windowYSize = 50;
-
-        /// <summary>
-        /// Custom constructor
-        /// </summary>
-        /// <param name="xConsoleSize">Console x size</param>
-        /// <param name="yConsoleSize">Console y size</param>
-        public Hud(int xConsoleSize, int yConsoleSize)
-        {
-            this._windowXSize = xConsoleSize;
-            this._windowYSize = yConsoleSize;
-
-            Console.SetWindowSize(_windowXSize, _windowYSize);
-            Console.SetBufferSize(_windowXSize, _windowYSize);
-            Console.CursorVisible = false;
-            Console.ForegroundColor = ConsoleColor.White;
-            PrintAllInfos();
+        public Hud()
+        { 
         }
 
         /// <summary>

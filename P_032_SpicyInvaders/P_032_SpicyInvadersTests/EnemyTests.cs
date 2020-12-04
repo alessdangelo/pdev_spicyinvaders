@@ -20,9 +20,10 @@ namespace P_032_SpicyInvadersTests
             int posX = 30;
             int posY = 10;
             int resExpected = 11;
+            Enemy enemy;
 
             // Act 
-            Enemy enemy = new Enemy(posX, posY);
+            enemy = new Enemy(posX, posY);
             enemy.Move(new int[2] { 0, 1 });
             int result = posY + 1;
 

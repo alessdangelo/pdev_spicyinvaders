@@ -153,8 +153,6 @@ namespace P_032_SpicyInvaders
 
             Console.Clear();
 
-            MenuWindowSize();
-
             Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
 
             Console.CursorVisible = false;
@@ -640,15 +638,6 @@ namespace P_032_SpicyInvaders
                         break;
                 }
             }
-        }
-
-        /// <summary>
-        /// Set menu window size
-        /// </summary>
-        private void MenuWindowSize()
-        {
-            Console.SetWindowSize(WINDOWSIZEX, WINDOWSIZEY);
-            Console.SetBufferSize(WINDOWSIZEX, WINDOWSIZEY);
         }
     }
 }

@@ -14,9 +14,10 @@ namespace P_032_SpicyInvadersTests
             int sizeY = 3;
             int posX = 30;
             int posY = 10;
+            Block block;
 
             // Act 
-            Block block = new Block(sizeX, sizeY, posX, posY);
+            block = new Block(sizeX, sizeY, posX, posY);
             block.Initialize();
 
             bool result = block.IsInside(30, 10);
