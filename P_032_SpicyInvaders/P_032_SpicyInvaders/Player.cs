@@ -3,7 +3,7 @@
 	Date: 11.09.20
 	Auteur: Manuel Oro, Alessandro D'Angelo
 	Description: Player class. Player can move.
-	Modifié le: 14.12.20
+	Modifié le: --
 */
 using System;
 
@@ -22,8 +22,10 @@ namespace P_032_SpicyInvaders
         private int _score = 0;
         private bool _isPosLimitRight = false;
         private bool _isPosLimitLeft = false;
+        private bool _canShoot = true;
         private static DateTime _tempInvincibility = new DateTime();
-        private readonly double _invincibilityTime;
+        private static double _invincibilityTime = 3.0;
+        private static bool isInvicible = false;
         
         /// <summary>
         /// Properties
@@ -37,6 +39,11 @@ namespace P_032_SpicyInvaders
         {
             get { return _score; }
             set { _score = value; }
+        }
+        public bool CanShoot
+        {
+            get { return _canShoot; }
+            set { _canShoot = value; }
         }
 
         public char PlayerChar
@@ -56,12 +63,11 @@ namespace P_032_SpicyInvaders
         /// <param name="x">X position in console</param>
         /// <param name="y">Y position in console</param>
         /// <param name="life">Player lifes</param>
-        public Player(int x, int y, int life, double invincibilityTime)
+        public Player(int x, int y, int life)
         {
             this._posX = x;
             this._posY = y;
             this._life = life;
-            this._invincibilityTime = invincibilityTime;
 
             Console.SetCursorPosition(_posX, _posY);
             Console.Write(_playerChar);
@@ -120,9 +126,12 @@ namespace P_032_SpicyInvaders
             }
 
             Console.SetCursorPosition(_posX, _posY);
+            if (isInvicible)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+            }
             Console.Write(_playerChar);
-            Console.ForegroundColor = ConsoleColor.White;
-
+            Console.ResetColor();
         }       
     }
 }
