@@ -22,10 +22,8 @@ namespace P_032_SpicyInvaders
         /// </summary>
         private readonly int _sizeX;
         private readonly int _sizeY;
-
+        private readonly string[] _barrierSound = new string[2] { "Barrier", "Barrier2" };
         private Random _random = new Random();
-        private readonly string[] _barrierSound = new string[2] {"Barrier", "Barrier2"};
-
         private LittleBlock[,] _elements;
 
         /// <summary>
@@ -105,38 +103,24 @@ namespace P_032_SpicyInvaders
         class LittleBlock : Entity
         {
             /// <summary>
-            /// Attributes
-            /// </summary>
-            private readonly char _charDesign = '█';
-            private bool _isAlive = true;
-        
-            /// <summary>
-            /// Properties
-            /// </summary>
-            public bool IsAlive
-            {
-                get { return _isAlive; }
-            }
-
-            /// <summary>
             /// Custom constructor
             /// </summary>
             /// <param name="location">Little block location</param>
             public LittleBlock(int posX, int posY)
             {
+                Sprite = '█';
                 _posX = posX;
                 _posY = posY;
 
                 Console.SetCursorPosition(_posX, _posY);
-                Console.Write(_charDesign);
+                Console.Write(Sprite);
             }
-            
             /// <summary>
             /// Destroy little block
             /// </summary>
             public void Delete()
             {
-                _isAlive = false;
+                IsAlive = false;
                 Console.SetCursorPosition(_posX, _posY);
                 Console.Write(' ');
             }

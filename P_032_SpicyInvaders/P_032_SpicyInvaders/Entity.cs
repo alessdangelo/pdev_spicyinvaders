@@ -5,7 +5,6 @@
 	Description: Basic class for entity (parent of Block.cs, Enemy.cs, Player.cs and Shoot.cs).
 	Modifié le: 20.11.20
 */
-
 namespace P_032_SpicyInvaders
 {
 	/// <summary>
@@ -58,9 +57,6 @@ namespace P_032_SpicyInvaders
 		/// <summary>
 		/// Default Constructor
 		/// </summary>
-		public Entity()
-		{
-
-		}
+		public Entity() { }
 	}
 }
