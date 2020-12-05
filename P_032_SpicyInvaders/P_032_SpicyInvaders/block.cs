@@ -22,6 +22,7 @@ namespace P_032_SpicyInvaders
         /// </summary>
         private readonly int _sizeX;
         private readonly int _sizeY;
+        private readonly string[] _barrierSound = new string[2] { "Barrier", "Barrier2" };
         private Random _random = new Random();
         private LittleBlock[,] _elements;
 
@@ -60,11 +61,11 @@ namespace P_032_SpicyInvaders
         {
             _elements = new LittleBlock[_sizeX, _sizeY];
 
-            for (int y = 0; y < _sizeY; y++)
+            for(int y = 0; y < _sizeY; y++)
             {
-                for (int x = 0; x < _sizeX; x++)
+                for(int x = 0; x < _sizeX;x++)
                 {
-                    _elements[x, y] = new LittleBlock(_posX + x, _posY + y);
+                    _elements[x, y] = new LittleBlock( _posX + x, _posY + y );
                 }
             }
         }
@@ -76,17 +77,17 @@ namespace P_032_SpicyInvaders
         /// <returns>Return true if block is destroyed</returns>
         public bool IsInside(int posX, int posY)
         {
-            foreach (LittleBlock block in _elements)
+            foreach(LittleBlock block in _elements)
             {
-                if (posX == block.PosX && posY == block.PosY && block.IsAlive)
+                if(posX == block.PosX && posY == block.PosY && block.IsAlive)
                 {
                     if (_random.Next(2) == 1)
                     {
-                        Sound.PlaySound(Sound.Sounds.Barrier);
+                        Program.PlaySound(_barrierSound[0]);
                     }
                     else
                     {
-                        Sound.PlaySound(Sound.Sounds.Barrier2);
+                        Program.PlaySound(_barrierSound[1]);
                     }
 
                     block.Delete();
@@ -124,5 +125,5 @@ namespace P_032_SpicyInvaders
                 Console.Write(' ');
             }
         }
-    }
+    }   
 }
