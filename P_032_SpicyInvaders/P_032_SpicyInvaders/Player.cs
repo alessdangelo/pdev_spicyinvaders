@@ -40,11 +40,6 @@ namespace P_032_SpicyInvaders
             get { return _score; }
             set { _score = value; }
         }
-        public bool CanShoot
-        {
-            get { return _canShoot; }
-            set { _canShoot = value; }
-        }
 
         public char PlayerChar
         {
