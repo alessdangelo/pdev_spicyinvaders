@@ -125,11 +125,11 @@ namespace P_032_SpicyInvaders
             const int SPICYXAXETITLE = 28;
             const int INVADERSXAXETITLE = 15;
 
-            const string PLAY = "1) JOUER";
-            const string OPTIONS = "2) OPTIONS";
-            const string HIGHSCORE = "3) HIGHSCORE";
-            const string INFOS = "4) INFOS";
-            const string LEAVE = "5) QUITTER";
+            const string PLAY = "JOUER";
+            const string OPTIONS = "OPTIONS";
+            const string HIGHSCORE = "HIGHSCORE";
+            const string INFOS = "INFOS";
+            const string LEAVE = "QUITTER";
 
             const int ENDLEAVEXPOSITION = 49;
             const int LEAVEYPOSITION = 28;
@@ -182,13 +182,16 @@ namespace P_032_SpicyInvaders
             }
             Console.ResetColor();
 
-            Console.SetCursorPosition(10, 16);
-            Console.Write("Appuyez sur '1', '2', '3', '4' ou '5' selon ce que vous voulez accéder.");
-            Console.SetCursorPosition(positionXSubMenu, positionYSubMenu);
+            //Console.SetCursorPosition(10, 16);
+            //Console.Write("Appuyez sur '1', '2', '3', '4' ou '5' selon ce que vous voulez accéder.");
+            //Console.SetCursorPosition(positionXSubMenu, positionYSubMenu);
             //Writing the sub menu
             for (int i = 0; i != 1; i++)
             {
+                Console.SetCursorPosition(positionXSubMenu, positionYSubMenu);
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine(PLAY);
+                Console.ResetColor();
                 positionYSubMenu += 2;
                 Console.SetCursorPosition(positionXSubMenu -= 1, positionYSubMenu);
                 Console.WriteLine(OPTIONS);
@@ -204,7 +207,7 @@ namespace P_032_SpicyInvaders
                 Console.WriteLine(LEAVE);
             }
             Console.SetCursorPosition(ENDLEAVEXPOSITION, LEAVEYPOSITION);
-            MenuSelection();
+            MenuSelection1();
         }
 
         /// <summary>
@@ -572,6 +575,172 @@ namespace P_032_SpicyInvaders
                 Console.Write(backToMainMenu[i]);
             }
             BackToMainMenu();
+        }
+
+        private void MenuSelection1()
+        {
+            const string PLAY = "JOUER";
+            const string OPTIONS = "OPTIONS";
+            const string HIGHSCORE = "HIGHSCORE";
+            const string INFOS = "INFOS";
+            const string LEAVE = "QUITTER";
+
+            int positionXSubMenu = 40;
+            int positionYSubMenu = 20;
+            int posXMenu = 40;
+            int posYMenu = 20;
+
+            int index = 0;
+            while (!_continueKey)
+            {
+                _keyPressed = Console.ReadKey(true);
+                Console.SetCursorPosition(posXMenu, posYMenu);
+                //Sub menu movement
+                switch (_keyPressed.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        Program.PlaySound(_selectSound);
+
+                        Console.SetCursorPosition(positionXSubMenu, positionYSubMenu);
+                        //Writing the sub menu
+                        for (int i = 0; i != 1; i++)
+                        {
+                            Console.WriteLine(PLAY);
+                            positionYSubMenu += 2;
+                            Console.SetCursorPosition(positionXSubMenu -= 1, positionYSubMenu);
+                            Console.WriteLine(OPTIONS);
+                            positionYSubMenu += 2;
+                            Console.SetCursorPosition(positionXSubMenu -= 1, positionYSubMenu);
+                            Console.WriteLine(HIGHSCORE);
+                            Console.SetCursorPosition(positionXSubMenu, positionYSubMenu);
+                            positionYSubMenu += 2;
+                            Console.SetCursorPosition(positionXSubMenu += 2, positionYSubMenu);
+                            Console.WriteLine(INFOS);
+                            positionYSubMenu += 2;
+                            Console.SetCursorPosition(positionXSubMenu -= 1, positionYSubMenu);
+                            Console.WriteLine(LEAVE);
+                        }
+                        positionXSubMenu = 40;
+                        positionYSubMenu = 20;
+                        if (index > 0)
+                        {
+                            index--;
+                            Console.SetCursorPosition(posXMenu, posYMenu -= 2);
+                        }
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        switch (index)
+                        {
+                            case 0:
+                                Console.SetCursorPosition(posXMenu, posYMenu);
+                                Console.Write("JOUER");
+                                break;
+                            case 1:
+                                Console.SetCursorPosition(posXMenu -1 , posYMenu);
+                                Console.Write("OPTIONS");
+                                break;
+                            case 2:
+                                Console.SetCursorPosition(posXMenu -2 , posYMenu);
+                                Console.Write("HIGHSCORE");
+                                break;
+                            case 3:
+                                Console.SetCursorPosition(posXMenu , posYMenu);
+                                Console.Write("INFOS");
+                                break;
+                            case 4:
+                                Console.Write("QUITTER");
+                                break;
+                        }
+                        Console.ForegroundColor = ConsoleColor.White;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        Program.PlaySound(_selectSound);
+
+                        Console.SetCursorPosition(positionXSubMenu, positionYSubMenu);
+                        //Writing the sub menu
+                       for (int i = 0; i != 1; i++)
+                        {
+                            Console.WriteLine(PLAY);
+                            positionYSubMenu += 2;
+                            Console.SetCursorPosition(positionXSubMenu -= 1, positionYSubMenu);
+                            Console.WriteLine(OPTIONS);
+                            positionYSubMenu += 2;
+                            Console.SetCursorPosition(positionXSubMenu -= 1, positionYSubMenu);
+                            Console.WriteLine(HIGHSCORE);
+                            Console.SetCursorPosition(positionXSubMenu, positionYSubMenu);
+                            positionYSubMenu += 2;
+                            Console.SetCursorPosition(positionXSubMenu += 2, positionYSubMenu);
+                            Console.WriteLine(INFOS);
+                            positionYSubMenu += 2;
+                            Console.SetCursorPosition(positionXSubMenu -= 1, positionYSubMenu);
+                            Console.WriteLine(LEAVE);
+                        }
+
+                        positionXSubMenu = 40;
+                        positionYSubMenu = 20;
+                        if (index < 4)
+                        {
+                            index++;
+                            Console.SetCursorPosition(posXMenu, posYMenu += 2);
+                        }
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        switch (index)
+                        {
+                            case 0:
+                                Console.SetCursorPosition(posXMenu, posYMenu);
+                                Console.Write("JOUER");
+                                break;
+                            case 1:
+                                Console.SetCursorPosition(posXMenu -1 , posYMenu);
+                                Console.Write("OPTIONS");
+                                break;
+                            case 2:
+                                Console.SetCursorPosition(posXMenu -2 , posYMenu);
+                                Console.Write("HIGHSCORE");
+                                break;
+                            case 3:
+                                Console.SetCursorPosition(posXMenu, posYMenu);
+                                Console.Write("INFOS");
+                                break;
+                            case 4:
+                                Console.SetCursorPosition(posXMenu - 1, posYMenu);
+                                Console.Write("QUITTER");
+                                break;
+                        }
+                        Console.ForegroundColor = ConsoleColor.White;
+                        break;
+                    case ConsoleKey.Enter:
+                        if (index == 0)
+                        {
+                            PlayGame();
+                        }
+                        if (index == 1)
+                        {
+                            GameOptions();
+                        }
+                        if (index == 2)
+                        {
+                            GameHighscore();
+                        }
+                        if (index == 3)
+                        {
+                            Infos();
+                        }
+                        if (index == 4)
+                        {
+                            Environment.Exit(0);
+                        }
+                        else
+                        {
+                            Program.PlaySound(_selectSound);
+                            _continueKey = true;
+                        }
+                        break;
+                    default:
+                        
+                        break;
+                }
+                posXMenu = 40;
+            }
         }
 
         /// <summary>
