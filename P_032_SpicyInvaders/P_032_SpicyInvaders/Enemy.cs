@@ -133,13 +133,5 @@ namespace P_032_SpicyInvaders
             //Program._ship.Score += 100;
             //Program._hud.PrintPlayerScore();
         }
-
-        /// <summary>
-        /// Destructor
-        /// </summary>
-        ~Enemy()
-        {
-
-        }
     }
 }

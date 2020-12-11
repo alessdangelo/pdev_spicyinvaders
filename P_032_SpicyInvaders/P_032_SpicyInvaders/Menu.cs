@@ -510,9 +510,6 @@ namespace P_032_SpicyInvaders
         {
             // Variables
             const int GAMEOVERXTITLE = 4;
-            const int NEXTTIMEXPOSITION = 27;
-            const int BACKTOMAINMENUXPOSITION = 15;
-            const int SCOREXPOSITION = 30;
 
             int gameOverYTitle = 4;
             int nextTimeYPosition = 28;
@@ -521,6 +518,14 @@ namespace P_032_SpicyInvaders
             string scorePlayer = $"Votre score est de {score}";
             string nextTime = "We'll get them next time...";
             string backToMainMenu = "Appuyez sur ESCAPE pour revenir au menu principal...";
+
+            string[] textToWrite = new string[]
+            {
+                $"Votre score est de {score}",
+                "We'll get them next time...",
+                "Appuyez sur ESCAPE pour revenir au menu principal..."
+            };
+
             string[] optionsArray = new string[5]
             {
                  " ██████   █████  ███    ███ ███████     ██████  ██    ██ ███████ ██████ ",
@@ -542,7 +547,7 @@ namespace P_032_SpicyInvaders
             }
             Console.ForegroundColor = ConsoleColor.White;
 
-            Console.SetCursorPosition(SCOREXPOSITION, scoreYPosition);
+            Console.SetCursorPosition(Console.WindowWidth / 2 - scorePlayer.Length /2,scoreYPosition);
             for (int i = 0; i < scorePlayer.Length; i++)
             {
                 Thread.Sleep(50);
@@ -550,7 +555,7 @@ namespace P_032_SpicyInvaders
             }
 
             //Write The next time text
-            Console.SetCursorPosition(NEXTTIMEXPOSITION, nextTimeYPosition);
+            Console.SetCursorPosition(Console.WindowWidth / 2 - nextTime.Length / 2, nextTimeYPosition);
             for (int i = 0; i < nextTime.Length; i++)
             {
                 Thread.Sleep(50);
@@ -558,7 +563,7 @@ namespace P_032_SpicyInvaders
             }
 
             //Write the return to main menu text
-            Console.SetCursorPosition(BACKTOMAINMENUXPOSITION, backToMainMenuYPosition);
+            Console.SetCursorPosition(Console.WindowWidth / 2 - backToMainMenu.Length / 2, backToMainMenuYPosition);
             for (int i = 0; i < backToMainMenu.Length; i++)
             {
                 Thread.Sleep(15);

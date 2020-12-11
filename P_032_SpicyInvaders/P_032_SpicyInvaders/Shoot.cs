@@ -78,18 +78,9 @@ namespace P_032_SpicyInvaders
                     else
                     {
                         bullets[i].DestroyBullet();
-                        GC.Collect();
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Destructor
-        /// </summary>
-        ~Shoot()
-        {
-            Debug.WriteLine("Destructor");
         }
     }
 }
