@@ -139,7 +139,7 @@ namespace P_032_SpicyInvaders
                 // do if game is not paused
                 if (_gamePaused  == false)
                 {
-                    GlobalMoves();
+                    GlobalMovesAndChecks();
 
                     if (Console.KeyAvailable)
                     {
@@ -198,7 +198,7 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Moves ennemies and do some checks
         /// </summary>
-        public static void GlobalMoves()
+        public static void GlobalMovesAndChecks()
         {
             // check is all ennemy are dead
             foreach (Enemy ennemy in _enemiesArray)
