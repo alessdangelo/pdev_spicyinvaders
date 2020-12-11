@@ -22,7 +22,7 @@ namespace P_032_SpicyInvaders
         const int _WINDOWSIZEX = 90;
         const int _WINDOWSIZEY = 35;
         private static readonly string _selectSound = "Blip_Select";
-        private readonly string _path = Environment.CurrentDirectory + "/highscore.txt";
+        private static readonly string _path = Environment.CurrentDirectory + "/highscore.txt";
 
         /// <summary>
         /// Default Constructor
@@ -487,19 +487,23 @@ namespace P_032_SpicyInvaders
                 //Console.ReadKey();
             }
         }
+
         /// <summary>
         /// GameOver Menu
         /// </summary>
-        public void GameOver()
+        public void GameOver(int score)
         {
             // Variables
             const int GAMEOVERXTITLE = 4;
             const int NEXTTIMEXPOSITION = 27;
             const int BACKTOMAINMENUXPOSITION = 15;
+            const int SCOREXPOSITION = 30;
 
             int gameOverYTitle = 4;
-            int nextTimeYPosition = 18;
-            int backToMainMenuYPosition = 30;
+            int nextTimeYPosition = 28;
+            int backToMainMenuYPosition = 35;
+            int scoreYPosition = 20;
+            string scorePlayer = $"Votre score est de {score}";
             string nextTime = "We'll get them next time...";
             string backToMainMenu = "Appuyez sur ESCAPE pour revenir au menu principal...";
             string[] optionsArray = new string[5]
@@ -516,12 +520,19 @@ namespace P_032_SpicyInvaders
             Console.ForegroundColor = ConsoleColor.Red;
             for (int i = 0; i < optionsArray.Length; i++)
             {
-                Thread.Sleep(500);
+                Thread.Sleep(450);
                 Console.SetCursorPosition(GAMEOVERXTITLE, gameOverYTitle);
                 Console.WriteLine(optionsArray[i]);
                 gameOverYTitle++;
             }
             Console.ForegroundColor = ConsoleColor.White;
+
+            Console.SetCursorPosition(SCOREXPOSITION,scoreYPosition);
+            for (int i = 0; i < scorePlayer.Length; i++)
+            {
+                Thread.Sleep(50);
+                Console.Write(scorePlayer[i]);
+            }
 
             //Write The next time text
             Console.SetCursorPosition(NEXTTIMEXPOSITION, nextTimeYPosition);
@@ -541,7 +552,10 @@ namespace P_032_SpicyInvaders
             BackToMainMenu();
         }
 
-        private void MenuSelection()
+        /// <summary>
+        /// Menu selection
+        /// </summary>
+        private void MenuSelection1()
         {
             int posYMenu = 20;
             string howToMove = "Appuyez sur les flèches directionnels ↑ ↓ pour vous déplacer.";
@@ -655,6 +669,7 @@ namespace P_032_SpicyInvaders
             }
             Console.ForegroundColor = ConsoleColor.White;
         }
+
         /// <summary>
         /// Back to main menu
         /// </summary>
