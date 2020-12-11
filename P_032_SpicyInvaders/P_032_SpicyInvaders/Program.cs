@@ -33,7 +33,6 @@ namespace P_032_SpicyInvaders
         // Objects from class
         private static Random _random = new Random();
         public static Player _ship;
-        public static Hud _hud;
         private static Menu _menu;
 
         // Speed (Delay)
@@ -86,8 +85,7 @@ namespace P_032_SpicyInvaders
             Console.SetBufferSize(_windowWidth, _windowHeight);
 
             _ship = new Player(39, 45, 3);
-            _hud = new Hud();
-            _hud.PrintAllInfos();
+            Hud.PrintAllInfos();
 
             // Enable Music
             if (_soundOn)
@@ -186,7 +184,7 @@ namespace P_032_SpicyInvaders
 
             if (_ship.Life < 1)
             {
-                _menu.GameOver();
+                _menu.GameOver(_ship.Score);
             }
             else
             {
@@ -210,7 +208,7 @@ namespace P_032_SpicyInvaders
             }
             Enemy.MoveEnnemies(ref _moveEnnemyAndControlShoot, ref _enemiesSpeed, ref _direction, ref _enemiesArray, _random, ref _bullets, ref _enemiesLimits);
             Shoot.MoveBullets(ref _bulletMove, ref _bullets);
-            // check if as bullet hit ennemy then detroy ennemy and bullet
+            // check if as bullet hit ennemy then destroy ennemy and bullet
             foreach (Enemy ennemy in _enemiesArray)
             {
                 for (int i = 0; i < _bullets.Count; i++)
@@ -221,6 +219,8 @@ namespace P_032_SpicyInvaders
                         ennemy.IsAlive = false;
                         ennemy.DestroyEnemy();
                         _ennemyAlive--;
+                        _ship.Score += 100;
+                        Hud.PrintPlayerScore();
                     }
                 }
             }
