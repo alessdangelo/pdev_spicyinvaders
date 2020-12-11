@@ -126,7 +126,8 @@ namespace P_032_SpicyInvaders
                 Console.ForegroundColor = ConsoleColor.Red;
             }
             Console.Write(_playerChar);
-            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.White;
+
         }       
     }
 }
