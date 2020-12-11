@@ -23,12 +23,6 @@ namespace P_032_SpicyInvaders
         private const int _windowWidth = 80, _windowHeight = 50;
 
         // Music
-        private static SoundPlayer _music;
-        private static DirectSoundOut _soundPlayer = new DirectSoundOut();
-        private static ResourceManager _resMan = new ResourceManager(typeof(AppResources.SoundFiles));
-        private static readonly string _mainSong = "Song";
-        private static readonly string _shootingEffect = "Laser_Shoot";
-        private static readonly string _shotEffect = "Hit_Hurt";
         
         // Objects from class
         private static Random _random = new Random();
@@ -171,11 +165,6 @@ namespace P_032_SpicyInvaders
             while (_gameOver == false);
 
             WriteHighscore(_highscorePath);
-
-            if (_music != null)
-            {
-                _music.Stop();
-            }
 
             if (_ship.Life < 1)
             {
