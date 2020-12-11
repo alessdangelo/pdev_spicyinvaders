@@ -21,6 +21,7 @@ namespace P_032_SpicyInvaders
         private static bool _continueKey = false;
         const int _WINDOWSIZEX = 90;
         const int _WINDOWSIZEY = 35;
+        private static readonly string _path = Environment.CurrentDirectory + "/highscore.txt";
 
         /// <summary>
         /// Default Constructor
@@ -569,7 +570,7 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Menu selection
         /// </summary>
-        private void MenuSelection1()
+        private void MenuSelection()
         {
             int posYMenu = 20;
             string howToMove = "Appuyez sur les flèches directionnels ↑ ↓ pour vous déplacer.";
