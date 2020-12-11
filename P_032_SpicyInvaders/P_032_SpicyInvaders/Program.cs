@@ -24,7 +24,7 @@ namespace P_032_SpicyInvaders
 
         // Music
         private static SoundPlayer _music;
-        private static DirectSoundOut _soundPlayer = new DirectSoundOut();
+        private static DirectSoundOut _soundPlayer =  new DirectSoundOut();
         private static ResourceManager _resMan = new ResourceManager(typeof(AppResources.SoundFiles));
         private static readonly string _mainSong = "Song";
         private static readonly string _shootingEffect = "Laser_Shoot";
