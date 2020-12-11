@@ -60,11 +60,11 @@ namespace P_032_SpicyInvaders
         {
             _elements = new LittleBlock[_sizeX, _sizeY];
 
-            for(int y = 0; y < _sizeY; y++)
+            for (int y = 0; y < _sizeY; y++)
             {
-                for(int x = 0; x < _sizeX;x++)
+                for (int x = 0; x < _sizeX; x++)
                 {
-                    _elements[x, y] = new LittleBlock( _posX + x, _posY + y );
+                    _elements[x, y] = new LittleBlock(_posX + x, _posY + y);
                 }
             }
         }
@@ -76,9 +76,9 @@ namespace P_032_SpicyInvaders
         /// <returns>Return true if block is destroyed</returns>
         public bool IsInside(int posX, int posY)
         {
-            foreach(LittleBlock block in _elements)
+            foreach (LittleBlock block in _elements)
             {
-                if(posX == block.PosX && posY == block.PosY && block.IsAlive)
+                if (posX == block.PosX && posY == block.PosY && block.IsAlive)
                 {
                     if (_random.Next(2) == 1)
                     {
@@ -124,5 +124,5 @@ namespace P_032_SpicyInvaders
                 Console.Write(' ');
             }
         }
-    }   
+    }
 }
