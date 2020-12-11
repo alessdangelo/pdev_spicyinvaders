@@ -42,7 +42,7 @@ namespace P_032_SpicyInvaders
         private readonly static double _reloadTime = 0.8;
 
         // Settings and score
-        private static bool _gameOver = false;
+        public static bool _gameOver = false;
         public static bool _soundOn = true;
         public static int _difficulty = 0;
         private readonly static string _highscorePath = @"highscore.txt";
@@ -66,7 +66,7 @@ namespace P_032_SpicyInvaders
         private static readonly int _blockYSize = 3;
 
         // State
-        private static bool _gamePaused = false;
+        public static bool _gamePaused = false;
 
         /// <summary>
         /// Main method: Display Menu
@@ -89,15 +89,8 @@ namespace P_032_SpicyInvaders
             _hud = new Hud();
             _hud.PrintAllInfos();
 
-            // Enable Music
-            if (_soundOn)
-            {
-                _music = new SoundPlayer
-                {
-                    Stream = _resMan.GetStream(_mainSong)
-                };
-                _music.PlayLooping();
-            }
+            // Play Music
+            Sound.PlaySound(Sound.Sounds.Song);
 
             // Dificulty system
             if(_difficulty == 0)
@@ -160,7 +153,7 @@ namespace P_032_SpicyInvaders
                                 if (DateTime.Now > _timeBeforeShoot)
                                 {
                                     _timeBeforeShoot = DateTime.Now.AddSeconds(_reloadTime);
-                                    PlaySound(_shootingEffect);
+                                    Sound.PlaySound(Sound.Sounds.Laser_Shoot);
                                     _bullets.Add(new Shoot(_ship.PosX, _ship.PosY - 1, -1));
                                 }
                                 break;
@@ -250,7 +243,7 @@ namespace P_032_SpicyInvaders
                     if (DateTime.Now > _ship.TempInvicibility)
                         {
                             _ship.Invicibility();
-                            PlaySound(_shotEffect);
+                            Sound.PlaySound(Sound.Sounds.Hit_Hurt);
                             _ship.Life--;
                             Hud.PrintPlayerLifes();
                         }
@@ -264,18 +257,6 @@ namespace P_032_SpicyInvaders
             }
 
             GC.Collect();
-        }
-        /// <summary>
-        /// Play a sound effect
-        /// </summary>
-        /// <param name="path">Sound path to play</param>
-        public static void PlaySound(string name)
-        {
-            if (_soundOn)
-            {
-                _soundPlayer.Init(new WaveChannel32(new WaveFileReader(_resMan.GetStream(name))));
-                _soundPlayer.Play();
-            }
         }
 
         /// <summary>

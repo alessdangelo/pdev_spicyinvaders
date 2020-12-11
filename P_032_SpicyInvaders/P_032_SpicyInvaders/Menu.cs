@@ -59,7 +59,7 @@ namespace P_032_SpicyInvaders
             _continueKey = false;
 
             //Sound in the menu
-            Program.PlaySound(_selectSound);
+            Sound.PlaySound(Sound.Sounds.Blip_Select);
 
 
             Console.SetCursorPosition(posX, posY++);
@@ -111,7 +111,7 @@ namespace P_032_SpicyInvaders
                         {
                             case 1:
                                 {
-                                    Program.PlaySound(_selectSound);
+                                    Sound.PlaySound(Sound.Sounds.Blip_Select);
                                     for (int i = 0; i < options.Length + 2; i++)
                                     {
                                         Console.SetCursorPosition(posX, posY + (2 * i));
@@ -122,7 +122,8 @@ namespace P_032_SpicyInvaders
                                 }
                             case 2:
                                 {
-                                    Program.PlaySound(_selectSound);
+                                    Sound.PlaySound(Sound.Sounds.Blip_Select);
+                                    Sound.Music.Stop();
                                     Program._gamePaused = false;
                                     MainMenu();
                                     break;
@@ -279,31 +280,23 @@ namespace P_032_SpicyInvaders
                 switch (_keyPressed.Key)
                 {
                     case ConsoleKey.UpArrow:
-                        Program.PlaySound(_selectSound);
+                        Sound.PlaySound(Sound.Sounds.Blip_Select);
                         index = 0;
                         WriteOptions(index);
                         break;
 
                     case ConsoleKey.DownArrow:
-                        Program.PlaySound(_selectSound);
+                        Sound.PlaySound(Sound.Sounds.Blip_Select);
                         index = 1;
                         WriteOptions(index);
                         break;
 
                     case ConsoleKey.Enter:
-                        Program.PlaySound(_selectSound);
+                        Sound.PlaySound(Sound.Sounds.Blip_Select);
                         if (index == 0)
                         {
-                            if (Program._soundOn)
-                            {
-                                Program._soundOn = false;
-                                WriteOptions(index);
-                            }
-                            else
-                            {
-                                Program._soundOn = true;
-                                WriteOptions(index);
-                            }
+                            Sound.SoundOn = !Sound.SoundOn;
+                            WriteOptions(index);
                         }
                         else if (index == 1)
                         {
@@ -338,7 +331,7 @@ namespace P_032_SpicyInvaders
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
             }
-            if (Program._soundOn)
+            if (Sound.SoundOn)
             {
                 Console.Write("Son actif: Oui");
             }
@@ -621,7 +614,7 @@ namespace P_032_SpicyInvaders
                 switch (_keyPressed.Key)
                 {
                     case ConsoleKey.UpArrow:
-                        Program.PlaySound(_selectSound);
+                        Sound.PlaySound(Sound.Sounds.Blip_Select);
 
                         Console.SetCursorPosition(positionXSubMenu, positionYSubMenu);
                         //Writing the sub menu
@@ -675,7 +668,7 @@ namespace P_032_SpicyInvaders
                         Console.ForegroundColor = ConsoleColor.White;
                         break;
                     case ConsoleKey.DownArrow:
-                        Program.PlaySound(_selectSound);
+                        Sound.PlaySound(Sound.Sounds.Blip_Select);
 
                         Console.SetCursorPosition(positionXSubMenu, positionYSubMenu);
                         //Writing the sub menu
@@ -753,7 +746,7 @@ namespace P_032_SpicyInvaders
                         }
                         else
                         {
-                            Program.PlaySound(_selectSound);
+                            Sound.PlaySound(Sound.Sounds.Blip_Select);
                             _continueKey = true;
                         }
                         break;
@@ -777,27 +770,27 @@ namespace P_032_SpicyInvaders
                 switch (_keyPressed.Key)
                 {
                     case ConsoleKey.D1:
-                        Program.PlaySound(_selectSound);
+                        Sound.PlaySound(Sound.Sounds.Blip_Select);
                         PlayGame();
                         break;
 
                     case ConsoleKey.D2:
-                        Program.PlaySound(_selectSound);
+                        Sound.PlaySound(Sound.Sounds.Blip_Select);
                         GameOptions();
                         break;
 
                     case ConsoleKey.D3:
-                        Program.PlaySound(_selectSound);
+                        Sound.PlaySound(Sound.Sounds.Blip_Select);
                         GameHighscore();
                         break;
 
                     case ConsoleKey.D4:
-                        Program.PlaySound(_selectSound);
+                        Sound.PlaySound(Sound.Sounds.Blip_Select);
                         Infos();
                         break;
 
                     case ConsoleKey.D5:
-                        Program.PlaySound(_selectSound);
+                        Sound.PlaySound(Sound.Sounds.Blip_Select);
                         Environment.Exit(1);
                         break;
 
@@ -823,7 +816,7 @@ namespace P_032_SpicyInvaders
                 switch (_keyPressed.Key)
                 {
                     case ConsoleKey.Escape:
-                        Program.PlaySound(_selectSound);
+                        Sound.PlaySound(Sound.Sounds.Blip_Select);
                         MainMenu();
                         break;
                 }
