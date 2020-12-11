@@ -24,7 +24,6 @@ namespace P_032_SpicyInvaders
         // Objects from class
         private static readonly Random _random = new Random();
         public static Player _ship;
-        public static Hud _hud;
         private static Menu _menu;
 
         // Speed (Delay)
