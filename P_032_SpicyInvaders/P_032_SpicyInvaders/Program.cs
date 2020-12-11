@@ -279,7 +279,8 @@ namespace P_032_SpicyInvaders
         }
 
         /// <summary>
-        /// Write highscore in txt file
+        /// Write 
+        /// in txt file
         /// </summary>
         /// <param name="path">txt file path</param>
         public static void WriteHighscore(string path)
