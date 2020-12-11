@@ -7,6 +7,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
 
 namespace P_032_SpicyInvaders
@@ -430,6 +431,7 @@ namespace P_032_SpicyInvaders
             {
                 File.Create(_path).Close();
             }
+
             if(File.ReadAllText(_path) != String.Empty)
             {
                 result = File.ReadAllText(_path);
