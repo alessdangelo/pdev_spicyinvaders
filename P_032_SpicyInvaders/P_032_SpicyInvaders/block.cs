@@ -83,11 +83,11 @@ namespace P_032_SpicyInvaders
                 {
                     if (_random.Next(2) == 1)
                     {
-                        Program.PlaySound(_barrierSound[0]);
+                        Sound.PlaySound(Sound.Sounds.Barrier);
                     }
                     else
                     {
-                        Program.PlaySound(_barrierSound[1]);
+                        Sound.PlaySound(Sound.Sounds.Barrier2);
                     }
 
                     block.Delete();
