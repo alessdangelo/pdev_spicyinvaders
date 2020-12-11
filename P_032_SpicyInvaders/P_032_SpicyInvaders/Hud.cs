@@ -26,6 +26,8 @@ namespace P_032_SpicyInvaders
             Console.Write(">: Droite");
             Console.SetCursorPosition(3, 5);
             Console.Write("Espace: Tir");
+            Console.SetCursorPosition(3, 6);
+            Console.Write("Escape: Pause");
 
             PrintPlayerLifes();
             PrintPlayerScore();
