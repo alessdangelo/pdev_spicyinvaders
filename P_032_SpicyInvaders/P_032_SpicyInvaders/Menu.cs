@@ -542,7 +542,7 @@ namespace P_032_SpicyInvaders
             }
             Console.ForegroundColor = ConsoleColor.White;
 
-            Console.SetCursorPosition(SCOREXPOSITION,scoreYPosition);
+            Console.SetCursorPosition(SCOREXPOSITION, scoreYPosition);
             for (int i = 0; i < scorePlayer.Length; i++)
             {
                 Thread.Sleep(50);

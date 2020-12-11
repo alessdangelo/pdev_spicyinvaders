@@ -67,7 +67,7 @@ namespace P_032_SpicyInvaders
             }
         }
 
-        public static void MoveEnnemies(ref DateTime moveEnnemyAndControlShoot, ref int ennemiesSpeed, ref int[] direction, ref Enemy[,] ennemiesArray, Random random,ref List<Shoot> bullets, ref int[] ennemiesLimits)
+        public static void MoveEnnemies(ref DateTime moveEnnemyAndControlShoot, ref int ennemiesSpeed, ref int[] direction, ref Enemy[,] ennemiesArray, Random random, ref List<Shoot> bullets, ref int[] ennemiesLimits)
         {
             if (DateTime.Now.Ticks > moveEnnemyAndControlShoot.Ticks)
             {

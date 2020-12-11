@@ -3,12 +3,9 @@
  * Auteurs: Bruno Martins Constantino, Manuel Oro, Alessandro D'Angelo, Clément Sartoni
  * Description: Spicy Invaders program class, contains the overall architecture of the game and the game thread containing the checks. 
  */
-using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Media;
-using System.Resources;
 
 namespace P_032_SpicyInvaders
 {
@@ -23,7 +20,7 @@ namespace P_032_SpicyInvaders
         private const int _windowWidth = 80, _windowHeight = 50;
 
         // Music
-        
+
         // Objects from class
         private static Random _random = new Random();
         public static Player _ship;
@@ -49,7 +46,7 @@ namespace P_032_SpicyInvaders
         private static int[] _direction = new int[] { -1, 0 }; //la direction du pack en [x,y]
         private static Enemy[,] _enemiesArray = new Enemy[10, 4]; //10, 4
         private static readonly int[] _enemiesSpawnPoint = { _windowWidth / 2 - _enemiesArray.GetLength(0) / 2, _windowHeight / 2 - 5 - _enemiesArray.GetLength(1) / 2 };
-        private static int[] _enemiesLimits = { 5, _windowWidth - 5, _enemiesSpawnPoint[1] -3, _enemiesSpawnPoint[1] + 10 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
+        private static int[] _enemiesLimits = { 5, _windowWidth - 5, _enemiesSpawnPoint[1] - 3, _enemiesSpawnPoint[1] + 10 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
         private static List<Block> _blockList = new List<Block>();
         public static List<Shoot> _bullets = new List<Shoot>();
         private static int _ennemyAlive = _enemiesArray.Length;  //Take the numbers of ennemy and decrement it each time one dies.
@@ -85,7 +82,7 @@ namespace P_032_SpicyInvaders
             Sound.PlaySound(Sound.Sounds.Song);
 
             // Dificulty system
-            if(_difficulty == 0)
+            if (_difficulty == 0)
             {
                 _enemiesSpeed = 400;
             }
@@ -122,7 +119,7 @@ namespace P_032_SpicyInvaders
             do
             {
                 // do if game is not paused
-                if (_gamePaused  == false)
+                if (_gamePaused == false)
                 {
                     GlobalMovesAndChecks();
 
@@ -131,15 +128,15 @@ namespace P_032_SpicyInvaders
                         keyEnterred = Console.ReadKey(true);
                         switch (keyEnterred.Key)
                         {
-                                // Move right
+                            // Move right
                             case ConsoleKey.RightArrow:
                                 _ship.Move(1);
                                 break;
-                                // Move left
+                            // Move left
                             case ConsoleKey.LeftArrow:
                                 _ship.Move(-1);
                                 break;
-                                // Shoot
+                            // Shoot
                             case ConsoleKey.Spacebar:
                                 // wait one second before shoot again
                                 if (DateTime.Now > _timeBeforeShoot)
@@ -149,7 +146,7 @@ namespace P_032_SpicyInvaders
                                     _bullets.Add(new Shoot(_ship.PosX, _ship.PosY - 1, -1));
                                 }
                                 break;
-                                // Pause game
+                            // Pause game
                             case ConsoleKey.Escape:
                                 _gamePaused = true;
                                 _menu.PauseMenu();
@@ -212,7 +209,7 @@ namespace P_032_SpicyInvaders
             {
                 for (int i = 0; i < _bullets.Count; i++)
                 {
-                    if (_bullets[i] != null && block.IsInside(_bullets[i].PosX, _bullets[i].PosY ))
+                    if (_bullets[i] != null && block.IsInside(_bullets[i].PosX, _bullets[i].PosY))
                     {
                         _bullets[i].DestroyBullet();
                     }
@@ -230,17 +227,17 @@ namespace P_032_SpicyInvaders
 
                     // invincibility time (when player is hit) & decrement life
                     if (DateTime.Now > _ship.TempInvicibility)
-                        {
-                            _ship.Invicibility();
-                            Sound.PlaySound(Sound.Sounds.Hit_Hurt);
-                            _ship.Life--;
-                            Hud.PrintPlayerLifes();
-                        }
+                    {
+                        _ship.Invicibility();
+                        Sound.PlaySound(Sound.Sounds.Hit_Hurt);
+                        _ship.Life--;
+                        Hud.PrintPlayerLifes();
+                    }
                 }
             }
 
             // if player has no more lives or if the ennemies are dead, stop the game and display gameOver
-            if(_ship.Life < 1 || _ennemyAlive == 0)
+            if (_ship.Life < 1 || _ennemyAlive == 0)
             {
                 _gameOver = true;
             }
