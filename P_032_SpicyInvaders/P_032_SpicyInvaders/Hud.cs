@@ -12,20 +12,13 @@ namespace P_032_SpicyInvaders
     /// <summary>
     /// Class hud
     /// </summary>
-    public class Hud
+    public static class Hud
     {
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public Hud()
-        {
-
-        }
 
         /// <summary>
         /// Print all Infos
         /// </summary>
-        public void PrintAllInfos()
+        public static void PrintAllInfos()
         {
             Console.SetCursorPosition(3, 3);
             Console.Write("<: Gauche");
@@ -33,6 +26,8 @@ namespace P_032_SpicyInvaders
             Console.Write(">: Droite");
             Console.SetCursorPosition(3, 5);
             Console.Write("Espace: Tir");
+            Console.SetCursorPosition(3, 6);
+            Console.Write("Escape: Pause");
 
             PrintPlayerLifes();
             PrintPlayerScore();
@@ -42,7 +37,7 @@ namespace P_032_SpicyInvaders
         /// Print player score
         /// </summary>
         /// <param name="score">Player score</param>
-        public void PrintPlayerScore()
+        public static void PrintPlayerScore()
         {
             Console.SetCursorPosition(65, 3);
             Console.WriteLine("Score: {0}", Program._ship.Score);
