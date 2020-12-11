@@ -742,54 +742,6 @@ namespace P_032_SpicyInvaders
                 posXMenu = 40;
             }
         }
-
-        /// <summary>
-        /// Select where you want to go in the menu
-        /// </summary>
-        private void MenuSelection()
-        {
-            while (!_continueKey)
-            {
-                _keyPressed = Console.ReadKey(true);
-                //Sub menu movement
-                switch (_keyPressed.Key)
-                {
-                    case ConsoleKey.D1:
-                        Program.PlaySound(_selectSound);
-                        PlayGame();
-                        break;
-
-                    case ConsoleKey.D2:
-                        Program.PlaySound(_selectSound);
-                        GameOptions();
-                        break;
-
-                    case ConsoleKey.D3:
-                        Program.PlaySound(_selectSound);
-                        GameHighscore();
-                        break;
-
-                    case ConsoleKey.D4:
-                        Program.PlaySound(_selectSound);
-                        Infos();
-                        break;
-
-                    case ConsoleKey.D5:
-                        Program.PlaySound(_selectSound);
-                        Environment.Exit(1);
-                        break;
-
-                    case ConsoleKey.Escape:
-                        Environment.Exit(1);
-                        break;
-
-                    default:
-                        Console.Write(" ");
-                        _continueKey = false;
-                        break;
-                }
-            }
-        }
         /// <summary>
         /// Back to main menu
         /// </summary>
