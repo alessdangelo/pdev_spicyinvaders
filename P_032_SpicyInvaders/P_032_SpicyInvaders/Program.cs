@@ -3,12 +3,9 @@
  * Auteurs: Bruno Martins Constantino, Manuel Oro, Alessandro D'Angelo, Clément Sartoni
  * Description: Spicy Invaders program class, contains the overall architecture of the game and the game thread containing the checks. 
  */
-using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Media;
-using System.Resources;
 
 namespace P_032_SpicyInvaders
 {
@@ -75,6 +72,7 @@ namespace P_032_SpicyInvaders
         /// </summary>
         public static void RunGame()
         {
+            GC.Collect(); // when game start
             Console.SetWindowSize(_windowWidth, _windowHeight);
             Console.SetBufferSize(_windowWidth, _windowHeight);
 
@@ -244,8 +242,6 @@ namespace P_032_SpicyInvaders
             {
                 _gameOver = true;
             }
-
-            GC.Collect();
         }
 
         /// <summary>
