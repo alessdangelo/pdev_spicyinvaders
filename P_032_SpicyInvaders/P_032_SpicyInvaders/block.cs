@@ -22,7 +22,6 @@ namespace P_032_SpicyInvaders
         /// </summary>
         private readonly int _sizeX;
         private readonly int _sizeY;
-        private readonly string[] _barrierSound = new string[2] { "Barrier", "Barrier2" };
         private Random _random = new Random();
         private LittleBlock[,] _elements;
 
@@ -83,11 +82,11 @@ namespace P_032_SpicyInvaders
                 {
                     if (_random.Next(2) == 1)
                     {
-                        Program.PlaySound(_barrierSound[0]);
+                        Sound.PlaySound(Sound.Sounds.Barrier);
                     }
                     else
                     {
-                        Program.PlaySound(_barrierSound[1]);
+                        Sound.PlaySound(Sound.Sounds.Barrier2);
                     }
 
                     block.Delete();

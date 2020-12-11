@@ -21,7 +21,6 @@ namespace P_032_SpicyInvaders
         private static bool _continueKey = false;
         const int _WINDOWSIZEX = 90;
         const int _WINDOWSIZEY = 35;
-        private static readonly string _selectSound = "Blip_Select";
         private static readonly string _path = Environment.CurrentDirectory + "/highscore.txt";
 
         /// <summary>
@@ -46,74 +45,98 @@ namespace P_032_SpicyInvaders
         /// </summary>
         public void PauseMenu()
         {
-            //Sound in the menu
-            Program.PlaySound(_selectSound);
-
-            Console.SetCursorPosition(28, 22);
-            Console.WriteLine("                      ");
-            Console.SetCursorPosition(28, 23);
-            Console.WriteLine("      GAME PAUSED     ");
-            Console.SetCursorPosition(28, 24);
-            Console.WriteLine("                      ");
-            Console.SetCursorPosition(28, 25);
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("   Retourner au jeu   ");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition(28, 26);
-            Console.WriteLine("                      ");
-            Console.SetCursorPosition(28, 27);
-            Console.WriteLine("        Quitter       ");
-            Console.SetCursorPosition(28, 28);
-            Console.WriteLine("                      ");
-            int index = 0;
+            //variables
+            string[] options = new string[]
+            {
+                "   Retourner au jeu   ",
+                "   Retourner au menu  ",
+                "    Quitter le jeu    "
+            };
+            int posX = 28;
+            int posY = 22;
+            int Y;
+            int index = 1;
             _continueKey = false;
+
+            //Sound in the menu
+            Sound.PlaySound(Sound.Sounds.Blip_Select);
+
+
+            Console.SetCursorPosition(posX, posY++);
+            Console.WriteLine("                      ");
+            Console.SetCursorPosition(posX, posY);
+            Console.WriteLine("      GAME PAUSED     ");
+
             while (!_continueKey)
             {
+                Y = posY + 1;
+
+                for (int i = 0; i < options.Length; i++)
+                {
+                    Console.SetCursorPosition(posX, Y++);
+                    Console.WriteLine("                      ");
+
+                    if (i == index - 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                    }
+
+                    Console.SetCursorPosition(posX, Y++);
+                    Console.WriteLine($"{options[i]}");
+
+                    Console.ResetColor();
+                }
+
+
                 _keyPressed = Console.ReadKey(true);
                 //Sub menu movement
                 switch (_keyPressed.Key)
                 {
                     case ConsoleKey.UpArrow:
-                        Program.PlaySound(_selectSound);
-                        index = 0;
-                        Console.SetCursorPosition(31, 25);
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine("Retourner au jeu");
-
-                        Console.SetCursorPosition(36, 27);
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.WriteLine("Quitter");
+                        index--;
+                        if (index <= 0)
+                        {
+                            index = options.Length;
+                        }
                         break;
                     case ConsoleKey.DownArrow:
-                        Program.PlaySound(_selectSound);
-                        index = 1;
-                        Console.SetCursorPosition(36, 27);
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine("Quitter");
-
-                        Console.SetCursorPosition(31, 25);
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.WriteLine("Retourner au jeu");
+                        index++;
+                        if (index > options.Length)
+                        {
+                            index = 1;
+                        }
                         break;
                     case ConsoleKey.Enter:
-                        if (index == 1)
+                        switch (index)
                         {
-                            Environment.Exit(0);
-                        }
-                        else
-                        {
-                            Program.PlaySound(_selectSound);
-                            _continueKey = true;
+                            case 1:
+                                {
+                                    Sound.PlaySound(Sound.Sounds.Blip_Select);
+                                    for (int i = 0; i < options.Length + 2; i++)
+                                    {
+                                        Console.SetCursorPosition(posX, posY + (2 * i));
+                                        Console.WriteLine("                      ");
+                                    }
+                                    _continueKey = true;
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    Sound.PlaySound(Sound.Sounds.Blip_Select);
+                                    Sound.Music.Stop();
+                                    Program._gamePaused = false;
+                                    MainMenu();
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    Environment.Exit(0);
+                                    break;
+                                }
                         }
                         break;
                 }
             }
-            Console.SetCursorPosition(31, 23);
-            Console.WriteLine("                   ");
-            Console.SetCursorPosition(31, 25);
-            Console.WriteLine("                   ");
-            Console.SetCursorPosition(31, 27);
-            Console.WriteLine("                   ");
         }
         /// <summary>
         /// Prints the main menu
@@ -219,31 +242,23 @@ namespace P_032_SpicyInvaders
                 switch (_keyPressed.Key)
                 {
                     case ConsoleKey.UpArrow:
-                        Program.PlaySound(_selectSound);
+                        Sound.PlaySound(Sound.Sounds.Blip_Select);
                         index = 0;
                         WriteOptions(index);
                         break;
 
                     case ConsoleKey.DownArrow:
-                        Program.PlaySound(_selectSound);
+                        Sound.PlaySound(Sound.Sounds.Blip_Select);
                         index = 1;
                         WriteOptions(index);
                         break;
 
                     case ConsoleKey.Enter:
-                        Program.PlaySound(_selectSound);
+                        Sound.PlaySound(Sound.Sounds.Blip_Select);
                         if (index == 0)
                         {
-                            if (Program._soundOn)
-                            {
-                                Program._soundOn = false;
-                                WriteOptions(index);
-                            }
-                            else
-                            {
-                                Program._soundOn = true;
-                                WriteOptions(index);
-                            }
+                            Sound.SoundOn = !Sound.SoundOn;
+                            WriteOptions(index);
                         }
                         else if (index == 1)
                         {
@@ -280,7 +295,7 @@ namespace P_032_SpicyInvaders
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
             }
-            if (Program._soundOn)
+            if (Sound.SoundOn)
             {
                 Console.Write($"{soundActiveText}Oui");
             }
@@ -591,7 +606,7 @@ namespace P_032_SpicyInvaders
                 switch (_keyPressed.Key)
                 {
                     case ConsoleKey.UpArrow:
-                        Program.PlaySound(_selectSound);
+                        Sound.PlaySound(Sound.Sounds.Blip_Select);
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.SetCursorPosition(Console.WindowWidth / 2 - menuOption[index].Length / 2, posYMenu);
                         Console.Write(menuOption[index]);
@@ -602,7 +617,7 @@ namespace P_032_SpicyInvaders
                         }
                         break;
                     case ConsoleKey.DownArrow:
-                        Program.PlaySound(_selectSound);
+                        Sound.PlaySound(Sound.Sounds.Blip_Select);
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.SetCursorPosition(Console.WindowWidth / 2 - menuOption[index].Length / 2, posYMenu);
                         Console.Write(menuOption[index]);
@@ -636,7 +651,7 @@ namespace P_032_SpicyInvaders
                         }
                         else
                         {
-                            Program.PlaySound(_selectSound);
+                            Sound.PlaySound(Sound.Sounds.Blip_Select);
                             _continueKey = true;
                         }
                         break;
@@ -686,7 +701,7 @@ namespace P_032_SpicyInvaders
                 switch (_keyPressed.Key)
                 {
                     case ConsoleKey.Escape:
-                        Program.PlaySound(_selectSound);
+                        Sound.PlaySound(Sound.Sounds.Blip_Select);
                         MainMenu();
                         break;
                 }
