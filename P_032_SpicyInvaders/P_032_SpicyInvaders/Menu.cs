@@ -20,8 +20,6 @@ namespace P_032_SpicyInvaders
         private static bool _continueKey = false;
         const int _WINDOWSIZEX = 90;
         const int _WINDOWSIZEY = 35;
-        private static readonly string _selectSound = "Blip_Select";
-        private readonly string _path = Environment.CurrentDirectory + "/highscore.txt";
 
         /// <summary>
         /// Default Constructor

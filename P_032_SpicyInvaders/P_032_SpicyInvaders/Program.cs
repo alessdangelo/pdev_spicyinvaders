@@ -23,16 +23,11 @@ namespace P_032_SpicyInvaders
         private const int _windowWidth = 80, _windowHeight = 50;
 
         // Music
-        private static SoundPlayer _music;
-        private static DirectSoundOut _soundPlayer =  new DirectSoundOut();
-        private static ResourceManager _resMan = new ResourceManager(typeof(AppResources.SoundFiles));
-        private static readonly string _mainSong = "Song";
-        private static readonly string _shootingEffect = "Laser_Shoot";
-        private static readonly string _shotEffect = "Hit_Hurt";
         
         // Objects from class
-        private static readonly Random _random = new Random();
+        private static Random _random = new Random();
         public static Player _ship;
+        public static Hud _hud;
         private static Menu _menu;
 
         // Speed (Delay)
@@ -85,7 +80,8 @@ namespace P_032_SpicyInvaders
             Console.SetBufferSize(_windowWidth, _windowHeight);
 
             _ship = new Player(39, 45, 3);
-            Hud.PrintAllInfos();
+            _hud = new Hud();
+            _hud.PrintAllInfos();
 
             // Play Music
             Sound.PlaySound(Sound.Sounds.Song);
@@ -170,14 +166,9 @@ namespace P_032_SpicyInvaders
 
             WriteHighscore(_highscorePath);
 
-            if (_music != null)
-            {
-                _music.Stop();
-            }
-
             if (_ship.Life < 1)
             {
-                _menu.GameOver(_ship.Score);
+                _menu.GameOver();
             }
             else
             {
@@ -201,7 +192,7 @@ namespace P_032_SpicyInvaders
             }
             Enemy.MoveEnnemies(ref _moveEnnemyAndControlShoot, ref _enemiesSpeed, ref _direction, ref _enemiesArray, _random, ref _bullets, ref _enemiesLimits);
             Shoot.MoveBullets(ref _bulletMove, ref _bullets);
-            // check if as bullet hit ennemy then destroy ennemy and bullet
+            // check if as bullet hit ennemy then detroy ennemy and bullet
             foreach (Enemy ennemy in _enemiesArray)
             {
                 for (int i = 0; i < _bullets.Count; i++)
@@ -212,8 +203,6 @@ namespace P_032_SpicyInvaders
                         ennemy.IsAlive = false;
                         ennemy.DestroyEnemy();
                         _ennemyAlive--;
-                        _ship.Score += 100;
-                        Hud.PrintPlayerScore();
                     }
                 }
             }
@@ -260,8 +249,7 @@ namespace P_032_SpicyInvaders
         }
 
         /// <summary>
-        /// Write 
-        /// in txt file
+        /// Write highscore in txt file
         /// </summary>
         /// <param name="path">txt file path</param>
         public static void WriteHighscore(string path)
