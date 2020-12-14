@@ -5,13 +5,8 @@
  * Description: Class Sound qui gère tous les sons et musiques du jeu
  */
 using NAudio.Wave;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Media;
 using System.Resources;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace P_032_SpicyInvaders
 {
@@ -20,7 +15,7 @@ namespace P_032_SpicyInvaders
     /// </summary>
     public static class Sound
     {
-        //Class variables
+        // Class variables
         /// <summary>
         /// The ResourceManager for the sounds
         /// </summary>
