@@ -41,6 +41,31 @@ namespace P_032_SpicyInvaders
         }
 
         /// <summary>
+        /// Write/Read text from txt file
+        /// </summary>
+        /// <param name="path">text file path</param>
+        /// <param name="score">Score to write</param>
+        /// <returns>Return score from text file</returns>
+        public static string WriteOrReadHighscore(string path, int score = 0)
+        {
+            if (File.Exists(path))
+            {
+                Int32.TryParse(File.ReadAllText(path), out int result);
+                if (score > result)
+                {
+                    File.WriteAllText(path, score.ToString());
+                    return score.ToString();
+                }
+                return result.ToString();
+            }
+            else
+            {
+                File.Create(path).Close();
+                return "0";
+            }
+        }
+
+        /// <summary>
         /// Display Pause Menu
         /// </summary>
         public void PauseMenu()
@@ -124,7 +149,7 @@ namespace P_032_SpicyInvaders
                                 {
                                     Sound.PlaySound(Sound.Sounds.Blip_Select);
                                     Sound.Music.Stop();
-                                    Program._gamePaused = false;
+                                    Game._gamePaused = false;
                                     MainMenu();
                                     break;
                                 }
@@ -262,14 +287,14 @@ namespace P_032_SpicyInvaders
                         }
                         else if (index == 1)
                         {
-                            if (Program._difficulty == 0)
+                            if (Game._difficulty == 0)
                             {
-                                Program._difficulty = 1;
+                                Game._difficulty = 1;
                                 WriteOptions(index);
                             }
                             else
                             {
-                                Program._difficulty = 0;
+                                Game._difficulty = 0;
                                 WriteOptions(index);
                             }
                         }
@@ -312,7 +337,7 @@ namespace P_032_SpicyInvaders
             }
             Console.SetCursorPosition(Console.WindowWidth / 2 - difficultyText.Length / 2 - 3, 18);
 
-            if (Program._difficulty == 0)
+            if (Game._difficulty == 0)
             {
                 Console.WriteLine($"{difficultyText}Facile   ");
             }
@@ -352,16 +377,8 @@ namespace P_032_SpicyInvaders
 
             //ToDo : Print the previous score, like in arcade game, with a name
             // read the highscore in txt file, if file doesn't exist, create it
-            string result = "0";
-            if (!File.Exists(_path))
-            {
-                File.Create(_path).Close();
-            }
-            if (File.ReadAllText(_path) != String.Empty)
-            {
-                result = File.ReadAllText(_path);
-            }
-            highscore = $"Votre meilleur score est de: " + result;
+
+            highscore = $"Votre meilleur score est de: " + WriteOrReadHighscore(_path);
 
             Console.SetCursorPosition((Console.WindowWidth) / 2 - (highscore.Length / 2), 20);
             Console.Write(highscore);
@@ -446,19 +463,64 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Win Menu
         /// </summary>
-        public void Win()
+        public void Win(int score)
         {
-            //GC.Collect();
             int posX = Console.WindowWidth / 8;
             int posY = 5;
-            Console.SetCursorPosition(posX, posY);
-            string victory = @"  ██    ██ ██  ██████ ████████  ██████  ██████  ██    ██\
-██    ██ ██ ██         ██    ██    ██ ██   ██  ██  ██\
-██    ██ ██ ██         ██    ██    ██ ██████    ████\ 
-██  ██  ██ ██         ██    ██    ██ ██   ██    ██\  
-████   ██  ██████    ██     ██████  ██   ██    ██";
+            int nextTimeYPosition = 28;
+            int backToMainMenuYPosition = 35;
+            int scoreYPosition = 20;
 
-            foreach (char c in victory)
+
+            string[] victoryArray = new string[5]
+            {
+            "██    ██ ██  ██████ ████████  ██████  ██████  ██    ██",
+            "██    ██ ██ ██         ██    ██    ██ ██   ██  ██  ██",
+            "██    ██ ██ ██         ██    ██    ██ ██████    ████",
+            " ██  ██  ██ ██         ██    ██    ██ ██   ██    ██",
+            "  ████   ██  ██████    ██     ██████  ██   ██    ██"
+            };
+
+            string[] textToWrite = new string[]
+            {
+                $"Votre score est de {score}",
+                "We'll get them next time...",
+                "Appuyez sur ESCAPE pour revenir au menu principal..."
+            };
+
+            // Write victory text
+            for (int i = 0; i < victoryArray.Length; i++)
+            {
+                Console.SetCursorPosition(posX, posY);
+                Console.WriteLine(victoryArray[i]);
+                posY++;
+            }
+
+            Console.SetCursorPosition(Console.WindowWidth / 2 - textToWrite[0].Length / 2, scoreYPosition);
+            for (int i = 0; i < textToWrite[0].Length; i++)
+            {
+                Thread.Sleep(50);
+                Console.Write(textToWrite[0][i]);
+            }
+
+            //Write The next time text
+            Console.SetCursorPosition(Console.WindowWidth / 2 - textToWrite[1].Length / 2, nextTimeYPosition);
+            for (int i = 0; i < textToWrite[1].Length; i++)
+            {
+                Thread.Sleep(50);
+                Console.Write(textToWrite[1][i]);
+            }
+
+            //Write the return to main menu text
+            Console.SetCursorPosition(Console.WindowWidth / 2 - textToWrite[2].Length / 2, backToMainMenuYPosition);
+            for (int i = 0; i < textToWrite[2].Length; i++)
+            {
+                Thread.Sleep(15);
+                Console.Write(textToWrite[2][i]);
+            }
+            BackToMainMenu();
+
+            /*foreach (char c in victory)
             {
                 Thread.Sleep(1);
                 if (c == '█')
@@ -476,8 +538,8 @@ namespace P_032_SpicyInvaders
                 {
                     posX++;
                 }
+            }*/
 
-            }
             //ToDo : Victory Animation..
             {
                 //Console.SetCursorPosition(39, 45);
@@ -515,9 +577,6 @@ namespace P_032_SpicyInvaders
             int nextTimeYPosition = 28;
             int backToMainMenuYPosition = 35;
             int scoreYPosition = 20;
-            string scorePlayer = $"Votre score est de {score}";
-            string nextTime = "We'll get them next time...";
-            string backToMainMenu = "Appuyez sur ESCAPE pour revenir au menu principal...";
 
             string[] textToWrite = new string[]
             {
@@ -547,27 +606,27 @@ namespace P_032_SpicyInvaders
             }
             Console.ForegroundColor = ConsoleColor.White;
 
-            Console.SetCursorPosition(Console.WindowWidth / 2 - scorePlayer.Length /2,scoreYPosition);
-            for (int i = 0; i < scorePlayer.Length; i++)
+            Console.SetCursorPosition(Console.WindowWidth / 2 - textToWrite[0].Length /2, scoreYPosition);
+            for (int i = 0; i < textToWrite[0].Length; i++)
             {
                 Thread.Sleep(50);
-                Console.Write(scorePlayer[i]);
+                Console.Write(textToWrite[0][i]);
             }
 
             //Write The next time text
-            Console.SetCursorPosition(Console.WindowWidth / 2 - nextTime.Length / 2, nextTimeYPosition);
-            for (int i = 0; i < nextTime.Length; i++)
+            Console.SetCursorPosition(Console.WindowWidth / 2 - textToWrite[1].Length / 2, nextTimeYPosition);
+            for (int i = 0; i < textToWrite[1].Length; i++)
             {
                 Thread.Sleep(50);
-                Console.Write(nextTime[i]);
+                Console.Write(textToWrite[1][i]);
             }
 
             //Write the return to main menu text
-            Console.SetCursorPosition(Console.WindowWidth / 2 - backToMainMenu.Length / 2, backToMainMenuYPosition);
-            for (int i = 0; i < backToMainMenu.Length; i++)
+            Console.SetCursorPosition(Console.WindowWidth / 2 - textToWrite[2].Length / 2, backToMainMenuYPosition);
+            for (int i = 0; i < textToWrite[2].Length; i++)
             {
                 Thread.Sleep(15);
-                Console.Write(backToMainMenu[i]);
+                Console.Write(textToWrite[2][i]);
             }
             BackToMainMenu();
         }

@@ -3,7 +3,7 @@
 	Date: 11.09.20
 	Auteur: Manuel Oro, Alessandro D'Angelo
 	Description: Player class. Player can move.
-	Modifié le: 04.12.20
+	Modifié le: 14.12.20
 */
 using System;
 
@@ -22,10 +22,8 @@ namespace P_032_SpicyInvaders
         private int _score = 0;
         private bool _isPosLimitRight = false;
         private bool _isPosLimitLeft = false;
-        private bool _canShoot = true;
         private static DateTime _tempInvincibility = new DateTime();
-        private static double _invincibilityTime = 3.0;
-        private static bool isInvicible = false;
+        private readonly double _invincibilityTime;
         
         /// <summary>
         /// Properties
@@ -58,11 +56,12 @@ namespace P_032_SpicyInvaders
         /// <param name="x">X position in console</param>
         /// <param name="y">Y position in console</param>
         /// <param name="life">Player lifes</param>
-        public Player(int x, int y, int life)
+        public Player(int x, int y, int life, double invincibilityTime)
         {
             this._posX = x;
             this._posY = y;
             this._life = life;
+            this._invincibilityTime = invincibilityTime;
 
             Console.SetCursorPosition(_posX, _posY);
             Console.Write(_playerChar);

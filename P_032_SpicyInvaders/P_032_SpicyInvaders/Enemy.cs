@@ -130,8 +130,6 @@ namespace P_032_SpicyInvaders
         {
             Console.SetCursorPosition(_posX, _posY);
             Console.Write(" ");
-            //Program._ship.Score += 100;
-            //Program._hud.PrintPlayerScore();
         }
     }
 }
