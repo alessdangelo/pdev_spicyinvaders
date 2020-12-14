@@ -32,6 +32,7 @@ namespace P_032_SpicyInvaders
         /// </summary>
         public static void RunGame()
         {
+            System.GC.Collect();
             Game game = new Game(_menu);
             game.RunGame();
         }       
