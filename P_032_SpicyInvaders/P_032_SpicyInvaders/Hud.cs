@@ -18,7 +18,7 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Print all Infos
         /// </summary>
-        public static void PrintAllInfos()
+        public static void PrintAllInfos(int score, int lives)
         {
             Console.SetCursorPosition(3, 3);
             Console.Write("<: Gauche");
@@ -29,30 +29,30 @@ namespace P_032_SpicyInvaders
             Console.SetCursorPosition(3, 6);
             Console.Write("Escape: Pause");
 
-            PrintPlayerLifes();
-            PrintPlayerScore();
+            PrintPlayerLifes(lives);
+            PrintPlayerScore(score);
         }
 
         /// <summary>
         /// Print player score
         /// </summary>
         /// <param name="score">Player score</param>
-        public static void PrintPlayerScore()
+        public static void PrintPlayerScore(int score)
         {
             Console.SetCursorPosition(65, 3);
-            Console.WriteLine("Score: {0}", Program._ship.Score);
+            Console.WriteLine("Score: {0}", score);
         }
 
         /// <summary>
         /// Print player lifes
         /// </summary>
-        public static void PrintPlayerLifes()
+        public static void PrintPlayerLifes(int lives)
         {
             Console.SetCursorPosition(35, 3);
             Console.Write("      ");
             Console.SetCursorPosition(35, 3);
 
-            for (int i = 0; i < Program._ship.Life; i++)
+            for (int i = 0; i < lives; i++)
             {
                 Console.Write("♥ ");
             }
