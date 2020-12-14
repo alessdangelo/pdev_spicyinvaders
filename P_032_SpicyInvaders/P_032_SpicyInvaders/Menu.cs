@@ -484,13 +484,14 @@ namespace P_032_SpicyInvaders
             string[] textToWrite = new string[]
             {
                 $"Votre score est de {score}",
-                "We'll get them next time...",
+                "Bien joué ! Vous avez exterminé la force ennemie",
                 "Appuyez sur ESCAPE pour revenir au menu principal..."
             };
 
             // Write victory text
             for (int i = 0; i < victoryArray.Length; i++)
             {
+                Thread.Sleep(450);
                 Console.SetCursorPosition(posX, posY);
                 Console.WriteLine(victoryArray[i]);
                 posY++;
