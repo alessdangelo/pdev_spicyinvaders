@@ -95,34 +95,5 @@ namespace P_032_SpicyInvaders
             }
             return false;
         }
-
-        /// <summary>
-        /// Class LittleBlock
-        /// </summary>
-        class LittleBlock : Entity
-        {
-            /// <summary>
-            /// Custom constructor
-            /// </summary>
-            /// <param name="location">Little block location</param>
-            public LittleBlock(int posX, int posY)
-            {
-                Sprite = '█';
-                _posX = posX;
-                _posY = posY;
-
-                Console.SetCursorPosition(_posX, _posY);
-                Console.Write(Sprite);
-            }
-            /// <summary>
-            /// Destroy little block
-            /// </summary>
-            public void Delete()
-            {
-                IsAlive = false;
-                Console.SetCursorPosition(_posX, _posY);
-                Console.Write(' ');
-            }
-        }
     }
 }
