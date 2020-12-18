@@ -3,7 +3,7 @@
 	Date: 11.09.20
 	Auteur: Manuel Oro
 	Description: Enemy class. Enemy can move, shoot and be destroyed
-	Modifié le: 04.12.20
+	Modifié le: 18.12.20
 */
 using System;
 using System.Collections.Generic;
@@ -15,10 +15,6 @@ namespace P_032_SpicyInvaders
     /// </summary>
     public class Enemy : Entity
     {
-        /// <summary>
-        /// Attributes
-        /// </summary>
-
         /// <summary>
         /// Custom constructor
         /// </summary>
@@ -67,6 +63,16 @@ namespace P_032_SpicyInvaders
             }
         }
 
+        /// <summary>
+        /// Move all enemies
+        /// </summary>
+        /// <param name="moveEnnemyAndControlShoot">Freq of enemy moves</param>
+        /// <param name="ennemiesSpeed">Ennemies speed</param>
+        /// <param name="direction">Move direction</param>
+        /// <param name="ennemiesArray">Array of ennemies</param>
+        /// <param name="random">Random object</param>
+        /// <param name="bullets">Bullets list</param>
+        /// <param name="ennemiesLimits">Ennemies window limits</param>
         public static void MoveEnnemies(ref DateTime moveEnnemyAndControlShoot, ref int ennemiesSpeed, ref int[] direction, ref Enemy[,] ennemiesArray, Random random, ref List<Shoot> bullets, ref int[] ennemiesLimits)
         {
             if (DateTime.Now.Ticks > moveEnnemyAndControlShoot.Ticks)

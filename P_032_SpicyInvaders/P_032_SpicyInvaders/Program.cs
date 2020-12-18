@@ -1,7 +1,8 @@
 ﻿/*
  * ETML
  * Auteurs: Bruno Martins Constantino, Manuel Oro, Alessandro D'Angelo, Clément Sartoni
- * Description: Spicy Invaders program class, contains the overall architecture of the game and the game thread containing the checks. 
+ * Description: Spicy Invaders program class, contains the overall architecture of the game and the game thread containing the checks.
+ * Modif. Date: 18.12.20
  */
 
 namespace P_032_SpicyInvaders
@@ -14,8 +15,6 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Attributes
         /// </summary>
-        
-        // Objects from class
         private static Menu _menu;
 
         /// <summary>

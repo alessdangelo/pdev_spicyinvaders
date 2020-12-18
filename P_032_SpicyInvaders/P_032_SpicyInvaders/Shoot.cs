@@ -3,7 +3,7 @@
 	Date: 11.09.20
 	Auteur: Manuel Oro
 	Description: Shoot class. Shoot can move and destroyed.
-	Modifié le: --
+	Modifié le: 18.12.20
 */
 using System;
 using System.Collections.Generic;
@@ -24,9 +24,11 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Custom constructor
         /// </summary>
-        /// <param name="x">Position x in console</param>
-        /// <param name="y">Position y in console</param>
-        /// <param name="direction">Direction (-1 Up | 1 Down)</param>
+        /// <param name="x">Bullet x position</param>
+        /// <param name="y">Bullet y position</param>
+        /// <param name="direction">Bullet direction (up = -1 or down = 1)</param>
+        /// <param name="sprite">Bullet sprite (char to display)</param>
+        /// <param name="bulletSpeed">Bullet speed</param>
         public Shoot(int x, int y, int direction, char sprite = '|', int bulletSpeed = 25)
         {
             this._posX = x;
@@ -59,8 +61,10 @@ namespace P_032_SpicyInvaders
         }
 
         /// <summary>
-        /// Move all bullets at the same time
+        /// Move all bullets
         /// </summary>
+        /// <param name="bulletMove">Freq of bullets move</param>
+        /// <param name="bullets">Bullets list</param>
         public static void MoveBullets(ref DateTime bulletMove, ref List<Shoot> bullets)
         {
             // wait some time before execute

@@ -1,12 +1,8 @@
 ﻿/*
  * Auteur:   Clément Sartoni
  * Date:     04.09.2020
- * Description: Class block. Protect player from bullets. Can be destroyed
- * 
- * Modifications:
- * Auteur:      CSI
- * Date:        11.09.2020
- * Description: Test method replaced for something more proper.
+ * Description: Class block. Protect player from bullets. Can be destroyed 
+ * Modif. date: 18.12.20
  */
 using System;
 
@@ -115,6 +111,7 @@ namespace P_032_SpicyInvaders
             Console.SetCursorPosition(_posX, _posY);
             Console.Write(Sprite);
         }
+
         /// <summary>
         /// Destroy little block
         /// </summary>

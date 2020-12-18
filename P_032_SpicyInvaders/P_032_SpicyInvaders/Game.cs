@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+	ETML
+	Date: 14.12.20
+	Auteur: Manuel Oro
+	Description: Game class. Game is managed here.
+	Modifié le: 18.12.20
+*/
+using System;
 using System.Collections.Generic;
 
 namespace P_032_SpicyInvaders
@@ -10,10 +17,8 @@ namespace P_032_SpicyInvaders
         /// </summary>
         private const int _windowWidth = 80, _windowHeight = 50;
 
-        // Music
-
         // Objects from class
-        private Random _random = new Random();
+        private readonly Random _random = new Random();
         public Player _ship;
         private Menu _menu;
 
@@ -33,8 +38,8 @@ namespace P_032_SpicyInvaders
         private DateTime _timeBeforeShoot;
 
         // Entities arrays and lists
-        private int[] _direction = new int[] { -1, 0 }; //la direction du pack en [x,y]
-        private Enemy[,] _enemiesArray = new Enemy[10, 4]; //10, 4
+        private int[] _direction = new int[] { -1, 0 };
+        private Enemy[,] _enemiesArray = new Enemy[10, 4]; // nb of enemies
         private readonly int[] _enemiesSpawnPoint;
         private int[] _enemiesLimits;
         private List<Block> _blockList = new List<Block>();
@@ -48,6 +53,9 @@ namespace P_032_SpicyInvaders
         // State
         public static bool _gamePaused = false;
 
+        /// <summary>
+        /// Properties
+        /// </summary>
         public int Difficulty
         {
             get { return _difficulty; }
@@ -56,13 +64,14 @@ namespace P_032_SpicyInvaders
 
 
         /// <summary>
-        /// Default constructor
+        /// Custom constructor
         /// </summary>
+        /// <param name="menu">Base menu</param>
         public Game(Menu menu)
         {
             this._menu = menu;
             this._enemiesSpawnPoint = new int[] { _windowWidth / 2 - _enemiesArray.GetLength(0) / 2, _windowHeight / 2 - 5 - _enemiesArray.GetLength(1) / 2 };
-            this._enemiesLimits = new int[] { 5, _windowWidth - 5, _enemiesSpawnPoint[1] - 3, _enemiesSpawnPoint[1] + 10 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
+            this._enemiesLimits = new int[] { 5, _windowWidth - 5, _enemiesSpawnPoint[1] - 3, _enemiesSpawnPoint[1] + 10 }; // Moves limits [xMin, xMax, yMin, yMax]
             this._ennemyAlive = _enemiesArray.Length;  //Take the numbers of ennemy and decrement it each time one dies.
             _bullets = new List<Shoot>();
         }
@@ -240,10 +249,6 @@ namespace P_032_SpicyInvaders
             {
                 _gameOver = true;
             }
-        }
-
-        ~Game(){
-            System.Diagnostics.Debug.WriteLine("Game destroyed !");
         }
     }
 }

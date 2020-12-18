@@ -3,7 +3,7 @@
 	Date: 11.09.20
 	Auteur: Manuel Oro, Alessandro D'Angelo
 	Description: Player class. Player can move.
-	Modifié le: 14.12.20
+	Modifié le: 18.12.20
 */
 using System;
 
@@ -24,7 +24,7 @@ namespace P_032_SpicyInvaders
         private bool _isPosLimitLeft = false;
         private static DateTime _tempInvincibility = new DateTime();
         private readonly double _invincibilityTime;
-        
+
         /// <summary>
         /// Properties
         /// </summary>
@@ -46,16 +46,17 @@ namespace P_032_SpicyInvaders
 
         public DateTime TempInvicibility
         {
-            get{ return _tempInvincibility; }
-            set{ _tempInvincibility = value; }
+            get { return _tempInvincibility; }
+            set { _tempInvincibility = value; }
         }
 
         /// <summary>
         /// Custom constructor
         /// </summary>
-        /// <param name="x">X position in console</param>
-        /// <param name="y">Y position in console</param>
-        /// <param name="life">Player lifes</param>
+        /// <param name="x">Player x position</param>
+        /// <param name="y">Player y position</param>
+        /// <param name="life">Player nb of lives</param>
+        /// <param name="invincibilityTime">Player invincibility time</param>
         public Player(int x, int y, int life, double invincibilityTime)
         {
             this._posX = x;
@@ -85,25 +86,25 @@ namespace P_032_SpicyInvaders
             Console.Write(" ");
 
             // Check if player is in the right border
-            if (_posX >= Console.WindowWidth - 1) 
+            if (_posX >= Console.WindowWidth - 1)
             {
-                _isPosLimitRight = true;    
+                _isPosLimitRight = true;
             }
 
             // Check if player is not in the right border
-            else if (_posX == Console.WindowWidth - 2) 
+            else if (_posX == Console.WindowWidth - 2)
             {
                 _isPosLimitRight = false;
             }
 
             // Check if player is in the left border
-            if (_posX <= 0) 
+            if (_posX <= 0)
             {
-                _isPosLimitLeft = true; 
+                _isPosLimitLeft = true;
             }
 
             // Check if player is in the left border
-            else if (_posX == 1)    
+            else if (_posX == 1)
             {
                 _isPosLimitLeft = false;
             }
@@ -122,7 +123,6 @@ namespace P_032_SpicyInvaders
             Console.SetCursorPosition(_posX, _posY);
             Console.Write(_playerChar);
             Console.ForegroundColor = ConsoleColor.White;
-
-        }       
+        }
     }
 }

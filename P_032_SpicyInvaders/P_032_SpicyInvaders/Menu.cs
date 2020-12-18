@@ -2,10 +2,9 @@
 /// 
 ///   Auteur     : Bruno Martins Constantino, Manus
 ///   Date       : 28.08.2020
-///   Modif      : 04.12.2020
+///   Modif      : 18.12.2020
 ///   Descrption : This is the main menu of our Spicy Invaders
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 
@@ -71,7 +70,7 @@ namespace P_032_SpicyInvaders
         /// </summary>
         public void PauseMenu()
         {
-            //variables
+            // Variables
             string[] options = new string[]
             {
                 "   Retourner au jeu   ",
@@ -115,6 +114,7 @@ namespace P_032_SpicyInvaders
 
 
                 _keyPressed = Console.ReadKey(true);
+
                 //Sub menu movement
                 switch (_keyPressed.Key)
                 {
@@ -164,8 +164,9 @@ namespace P_032_SpicyInvaders
                 }
             }
         }
+
         /// <summary>
-        /// Prints the main menu
+        /// Print main menu
         /// </summary>
         public void MainMenu()
         {
@@ -222,7 +223,7 @@ namespace P_032_SpicyInvaders
         }
 
         /// <summary>
-        /// Spacy Invaders game
+        /// Start a game
         /// </summary>
         private void PlayGame()
         {
@@ -232,7 +233,7 @@ namespace P_032_SpicyInvaders
         }
 
         /// <summary>
-        /// Prints the game options
+        /// Print game options
         /// </summary>
         private void GameOptions()
         {
@@ -265,6 +266,7 @@ namespace P_032_SpicyInvaders
             while (!_continueKey)
             {
                 _keyPressed = Console.ReadKey(true);
+
                 // Sub menu movement
                 switch (_keyPressed.Key)
                 {
@@ -339,7 +341,7 @@ namespace P_032_SpicyInvaders
             }
             Console.SetCursorPosition(Console.WindowWidth / 2 - difficultyText.Length / 2 - 3, 18);
 
-            if (_game.Difficulty== 0)
+            if (_game.Difficulty == 0)
             {
                 Console.WriteLine($"{difficultyText}Facile   ");
             }
@@ -377,9 +379,6 @@ namespace P_032_SpicyInvaders
                 highscoreYAxeTitle++;
             }
 
-            //ToDo : Print the previous score, like in arcade game, with a name
-            // read the highscore in txt file, if file doesn't exist, create it
-
             highscore = $"Votre meilleur score est de: " + WriteOrReadHighscore(_path);
 
             Console.SetCursorPosition((Console.WindowWidth) / 2 - (highscore.Length / 2), 20);
@@ -392,7 +391,7 @@ namespace P_032_SpicyInvaders
         }
 
         /// <summary>
-        /// Prints the infos
+        /// Print infos
         /// </summary>
         private void Infos()
         {
@@ -427,7 +426,7 @@ namespace P_032_SpicyInvaders
             };
             Console.Clear();
 
-            //Writing the "DEVELOPPED"
+            // Writing the "DEVELOPPED"
             for (int i = 0; i < developpedArray.Length; i++)
             {
                 Console.SetCursorPosition(DEVELOPPEDXAXETITLE, developpedYAxeTitle);
@@ -443,7 +442,7 @@ namespace P_032_SpicyInvaders
                 byYAxeTitle++;
             }
 
-            //Writing developpers infos
+            // Writing developpers infos
             Console.SetCursorPosition(positionXDeveloppers, positionYDeveloppers);
             Console.WriteLine(DEVONE);
             positionYDeveloppers += 2;
@@ -463,17 +462,11 @@ namespace P_032_SpicyInvaders
         }
 
         /// <summary>
-        /// Win Menu
+        /// Print win
         /// </summary>
+        /// <param name="score">Player score</param>
         public void Win(int score)
         {
-            int posX = Console.WindowWidth / 8;
-            int posY = 5;
-            int nextTimeYPosition = 28;
-            int backToMainMenuYPosition = 35;
-            int scoreYPosition = 20;
-
-
             string[] victoryArray = new string[5]
             {
             "██    ██ ██  ██████ ████████  ██████  ██████  ██    ██",
@@ -489,6 +482,12 @@ namespace P_032_SpicyInvaders
                 "Bien joué ! Vous avez exterminé la force ennemie",
                 "Appuyez sur ESCAPE pour revenir au menu principal..."
             };
+
+            int posX = Console.WindowWidth / 2 - victoryArray[0].Length / 2;
+            int posY = 5;
+            int nextTimeYPosition = 28;
+            int backToMainMenuYPosition = 35;
+            int scoreYPosition = 20;
 
             // Write victory text
             for (int i = 0; i < victoryArray.Length; i++)
@@ -506,7 +505,7 @@ namespace P_032_SpicyInvaders
                 Console.Write(textToWrite[0][i]);
             }
 
-            //Write The next time text
+            // Write The next time text
             Console.SetCursorPosition(Console.WindowWidth / 2 - textToWrite[1].Length / 2, nextTimeYPosition);
             for (int i = 0; i < textToWrite[1].Length; i++)
             {
@@ -514,7 +513,7 @@ namespace P_032_SpicyInvaders
                 Console.Write(textToWrite[1][i]);
             }
 
-            //Write the return to main menu text
+            // Write the return to main menu text
             Console.SetCursorPosition(Console.WindowWidth / 2 - textToWrite[2].Length / 2, backToMainMenuYPosition);
             for (int i = 0; i < textToWrite[2].Length; i++)
             {
@@ -525,8 +524,9 @@ namespace P_032_SpicyInvaders
         }
 
         /// <summary>
-        /// GameOver Menu
+        /// Print GameOver
         /// </summary>
+        /// <param name="score">Player score</param>
         public void GameOver(int score)
         {
             // Variables
@@ -554,7 +554,7 @@ namespace P_032_SpicyInvaders
             };
             Console.Clear();
 
-            //Write the GameOver Text
+            // Write the GameOver Text
             Console.ForegroundColor = ConsoleColor.Red;
             for (int i = 0; i < optionsArray.Length; i++)
             {
@@ -565,14 +565,14 @@ namespace P_032_SpicyInvaders
             }
             Console.ForegroundColor = ConsoleColor.White;
 
-            Console.SetCursorPosition(Console.WindowWidth / 2 - textToWrite[0].Length /2, scoreYPosition);
+            Console.SetCursorPosition(Console.WindowWidth / 2 - textToWrite[0].Length / 2, scoreYPosition);
             for (int i = 0; i < textToWrite[0].Length; i++)
             {
                 Thread.Sleep(50);
                 Console.Write(textToWrite[0][i]);
             }
 
-            //Write The next time text
+            // Write The next time text
             Console.SetCursorPosition(Console.WindowWidth / 2 - textToWrite[1].Length / 2, nextTimeYPosition);
             for (int i = 0; i < textToWrite[1].Length; i++)
             {
@@ -580,7 +580,7 @@ namespace P_032_SpicyInvaders
                 Console.Write(textToWrite[1][i]);
             }
 
-            //Write the return to main menu text
+            // Write the return to main menu text
             Console.SetCursorPosition(Console.WindowWidth / 2 - textToWrite[2].Length / 2, backToMainMenuYPosition);
             for (int i = 0; i < textToWrite[2].Length; i++)
             {
@@ -607,6 +607,7 @@ namespace P_032_SpicyInvaders
                 "INFOS",
                 "QUITTER"
             };
+
             Console.ForegroundColor = ConsoleColor.Yellow;
             for (int i = 0; i < menuOption.Length; i++)
             {
@@ -615,12 +616,14 @@ namespace P_032_SpicyInvaders
                 posYMenu += 2;
                 Console.ForegroundColor = ConsoleColor.White;
             }
+
             posYMenu = 20;
             int index = 0;
             while (!_continueKey)
             {
                 _keyPressed = Console.ReadKey(true);
-                //Sub menu movement
+
+                // Sub menu movement
                 switch (_keyPressed.Key)
                 {
                     case ConsoleKey.UpArrow:
@@ -680,6 +683,7 @@ namespace P_032_SpicyInvaders
 
                         break;
                 }
+
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 switch (index)
                 {

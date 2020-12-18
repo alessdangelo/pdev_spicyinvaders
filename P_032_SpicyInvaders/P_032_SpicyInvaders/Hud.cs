@@ -3,7 +3,7 @@
 	Date: 25.09.20
 	Auteur: Manuel Oro
 	Description: Display infos about player: lifes, score and keybinds
-	Modifié le: 04.12.20
+	Modifié le: 18.12.20
 */
 using System;
 
@@ -14,10 +14,11 @@ namespace P_032_SpicyInvaders
     /// </summary>
     public static class Hud
     {
-
         /// <summary>
-        /// Print all Infos
+        /// Print all hud infos
         /// </summary>
+        /// <param name="score">Score to print</param>
+        /// <param name="lives">Lives to print</param>
         public static void PrintAllInfos(int score, int lives)
         {
             Console.SetCursorPosition(3, 3);
@@ -44,17 +45,18 @@ namespace P_032_SpicyInvaders
         }
 
         /// <summary>
-        /// Print player lifes
+        /// Print player lives
         /// </summary>
+        /// <param name="lives">Nb of lives to print</param>
         public static void PrintPlayerLifes(int lives)
         {
-            Console.SetCursorPosition(35, 3);
-            Console.Write("      ");
-            Console.SetCursorPosition(35, 3);
+            Console.SetCursorPosition(Console.WindowWidth/2 - lives, 3);
+            Console.Write("            ");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - lives, 3);
 
             for (int i = 0; i < lives; i++)
             {
-                Console.Write("♥ ");
+                Console.Write(" ♥");
             }
         }
     }
