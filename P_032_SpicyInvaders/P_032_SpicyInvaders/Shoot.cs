@@ -3,11 +3,10 @@
 	Date: 11.09.20
 	Auteur: Manuel Oro
 	Description: Shoot class. Shoot can move and destroyed.
-	Modifié le: 04.12.20
+	Modifié le: --
 */
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace P_032_SpicyInvaders
 {
@@ -19,8 +18,8 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Attributes
         /// </summary>
-        private int _direction;
-        private readonly static int _bulletSpeed = 25;
+        private readonly int _direction;
+        private static int _bulletSpeed;
 
         /// <summary>
         /// Custom constructor
@@ -28,11 +27,12 @@ namespace P_032_SpicyInvaders
         /// <param name="x">Position x in console</param>
         /// <param name="y">Position y in console</param>
         /// <param name="direction">Direction (-1 Up | 1 Down)</param>
-        public Shoot(int x, int y, int direction, char sprite = '|')
+        public Shoot(int x, int y, int direction, char sprite = '|', int bulletSpeed = 25)
         {
             this._posX = x;
             this._posY = y;
-            Sprite = sprite;
+            _bulletSpeed = bulletSpeed;
+            this.Sprite = sprite;
             this._direction = direction;
         }
 
@@ -46,7 +46,6 @@ namespace P_032_SpicyInvaders
             _posY += _direction;
             Console.SetCursorPosition(_posX, _posY);
             Console.Write(Sprite);
-
         }
 
         /// <summary>
@@ -56,7 +55,7 @@ namespace P_032_SpicyInvaders
         {
             Console.SetCursorPosition(_posX, _posY);
             Console.Write(" ");
-            Program._bullets.Remove(this);
+            Game._bullets.Remove(this);
         }
 
         /// <summary>
