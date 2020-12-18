@@ -67,6 +67,16 @@ namespace P_032_SpicyInvaders
             }
         }
 
+        /// <summary>
+        /// Move all ennemies, code used in the game and placed here for better structure
+        /// </summary>
+        /// <param name="moveEnnemyAndControlShoot">the timing to move the ennemies</param>
+        /// <param name="ennemiesSpeed">the speed of the ennemies</param>
+        /// <param name="direction">the ennemies direction</param>
+        /// <param name="ennemiesArray">the ennemies to move</param>
+        /// <param name="random">a random Random</param>
+        /// <param name="bullets">all the game bullets</param>
+        /// <param name="ennemiesLimits">the limits of the ennemies</param>
         public static void MoveEnnemies(ref DateTime moveEnnemyAndControlShoot, ref int ennemiesSpeed, ref int[] direction, ref Enemy[,] ennemiesArray, Random random, ref List<Shoot> bullets, ref int[] ennemiesLimits)
         {
             if(Console.ForegroundColor != ConsoleColor.White)
