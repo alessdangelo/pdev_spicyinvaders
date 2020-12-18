@@ -34,12 +34,12 @@ namespace P_032_SpicyInvaders
 
         // Entities arrays and lists
         private int[] _direction = new int[] { -1, 0 }; //la direction du pack en [x,y]
-        private static Enemy[,] _enemiesArray = new Enemy[10, 4]; //10, 4
-        private static readonly int[] _enemiesSpawnPoint = { _windowWidth / 2 - _enemiesArray.GetLength(0) / 2, _windowHeight / 2 - 5 - _enemiesArray.GetLength(1) / 2 };
-        private int[] _enemiesLimits = { 5, _windowWidth - 5, _enemiesSpawnPoint[1] - 3, _enemiesSpawnPoint[1] + 10 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
+        private Enemy[,] _enemiesArray = new Enemy[10, 4]; //10, 4
+        private readonly int[] _enemiesSpawnPoint;
+        private int[] _enemiesLimits;
         private List<Block> _blockList = new List<Block>();
-        public static List<Shoot> _bullets = new List<Shoot>();
-        private int _ennemyAlive = _enemiesArray.Length;  //Take the numbers of ennemy and decrement it each time one dies.
+        public static List<Shoot> _bullets;
+        private int _ennemyAlive;
 
         // Block Size
         private readonly int _blockXSize = 7;
@@ -48,12 +48,23 @@ namespace P_032_SpicyInvaders
         // State
         public static bool _gamePaused = false;
 
+        public int Difficulty
+        {
+            get { return _difficulty; }
+            set { _difficulty = value; }
+        }
+
+
         /// <summary>
         /// Default constructor
         /// </summary>
         public Game(Menu menu)
         {
             this._menu = menu;
+            this._enemiesSpawnPoint = new int[] { _windowWidth / 2 - _enemiesArray.GetLength(0) / 2, _windowHeight / 2 - 5 - _enemiesArray.GetLength(1) / 2 };
+            this._enemiesLimits = new int[] { 5, _windowWidth - 5, _enemiesSpawnPoint[1] - 3, _enemiesSpawnPoint[1] + 10 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
+            this._ennemyAlive = _enemiesArray.Length;  //Take the numbers of ennemy and decrement it each time one dies.
+            _bullets = new List<Shoot>();
         }
 
         /// <summary>
@@ -229,6 +240,10 @@ namespace P_032_SpicyInvaders
             {
                 _gameOver = true;
             }
+        }
+
+        ~Game(){
+            System.Diagnostics.Debug.WriteLine("Game destroyed !");
         }
     }
 }

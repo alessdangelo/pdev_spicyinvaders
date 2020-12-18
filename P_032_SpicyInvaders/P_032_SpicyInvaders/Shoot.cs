@@ -61,7 +61,7 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Move all bullets at the same time
         /// </summary>
-        static public void MoveBullets(ref DateTime bulletMove, ref List<Shoot> bullets)
+        public static void MoveBullets(ref DateTime bulletMove, ref List<Shoot> bullets)
         {
             // wait some time before execute
             if (DateTime.Now.Ticks > bulletMove.Ticks)

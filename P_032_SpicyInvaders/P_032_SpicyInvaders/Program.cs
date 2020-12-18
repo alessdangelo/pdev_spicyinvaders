@@ -25,16 +25,6 @@ namespace P_032_SpicyInvaders
         {
             _menu = new Menu();
             _menu.MainMenu();
-        }
-
-        /// <summary>
-        /// Run game
-        /// </summary>
-        public static void RunGame()
-        {
-            System.GC.Collect();
-            Game game = new Game(_menu);
-            game.RunGame();
-        }       
+        } 
     }
 }

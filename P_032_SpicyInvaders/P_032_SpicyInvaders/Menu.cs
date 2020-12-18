@@ -17,6 +17,7 @@ namespace P_032_SpicyInvaders
     public class Menu
     {
         // Variables
+        private Game _game;
         private static ConsoleKeyInfo _keyPressed;
         private static bool _continueKey = false;
         const int _WINDOWSIZEX = 90;
@@ -191,6 +192,7 @@ namespace P_032_SpicyInvaders
             int invadersYAxeTitle = 7;
             Console.Clear();
 
+            _game = new Game(this);
             SetConsoleWindowSize();
 
             Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
@@ -226,7 +228,7 @@ namespace P_032_SpicyInvaders
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.White;
-            Program.RunGame();
+            _game.RunGame();
         }
 
         /// <summary>
@@ -287,14 +289,14 @@ namespace P_032_SpicyInvaders
                         }
                         else if (index == 1)
                         {
-                            if (Game._difficulty == 0)
+                            if (_game.Difficulty == 0)
                             {
-                                Game._difficulty = 1;
+                                _game.Difficulty = 1;
                                 WriteOptions(index);
                             }
                             else
                             {
-                                Game._difficulty = 0;
+                                _game.Difficulty = 0;
                                 WriteOptions(index);
                             }
                         }
@@ -311,7 +313,7 @@ namespace P_032_SpicyInvaders
         /// Write sound and difficulty options
         /// </summary>
         /// <param name="index">Get selected options (sound or difficulty)</param>
-        private static void WriteOptions(int index)
+        private void WriteOptions(int index)
         {
             string soundActiveText = "Son actif: ";
             string difficultyText = "Difficulté: ";
@@ -337,7 +339,7 @@ namespace P_032_SpicyInvaders
             }
             Console.SetCursorPosition(Console.WindowWidth / 2 - difficultyText.Length / 2 - 3, 18);
 
-            if (Game._difficulty == 0)
+            if (_game.Difficulty== 0)
             {
                 Console.WriteLine($"{difficultyText}Facile   ");
             }
@@ -520,50 +522,6 @@ namespace P_032_SpicyInvaders
                 Console.Write(textToWrite[2][i]);
             }
             BackToMainMenu();
-
-            /*foreach (char c in victory)
-            {
-                Thread.Sleep(1);
-                if (c == '█')
-                {
-                    Console.SetCursorPosition(posX, posY);
-                    Enemy victoryBlock = new Enemy(posX, posY, '█');
-                    Console.Write('█');
-                }
-                if (c == '\\')
-                {
-                    posY++;
-                    posX = Console.WindowWidth / 8;
-                }
-                else
-                {
-                    posX++;
-                }
-            }*/
-
-            //ToDo : Victory Animation..
-            {
-                //Console.SetCursorPosition(39, 45);
-                //Player shipAnimation = new Player(Console.WindowWidth / 8, 45, 3);
-                //foreach (char c in victory)
-                //{
-                //    Thread.Sleep(7);
-                //    if (c == '█')
-                //    {
-                //        Shoot shootAnimation = new Shoot(shipAnimation.PosX, shipAnimation.PosY - 1, -1);
-                //    }
-                //    shipAnimation.Move(+1);
-                //    if (c == '\\')
-                //    {
-                //        while (shipAnimation.PosX != Console.WindowWidth / 8)
-                //        {
-                //            Thread.Sleep(7);
-                //            shipAnimation.Move(-1);
-                //        }
-                //    }
-                //}
-                //Console.ReadKey();
-            }
         }
 
         /// <summary>
