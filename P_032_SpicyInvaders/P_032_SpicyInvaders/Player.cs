@@ -17,7 +17,6 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Attributes
         /// </summary>
-        private readonly char _playerChar = '♠';
         private int _life = 3;
         private int _score = 0;
         private bool _isPosLimitRight = false;
@@ -39,11 +38,6 @@ namespace P_032_SpicyInvaders
             set { _score = value; }
         }
 
-        public char PlayerChar
-        {
-            get { return _playerChar; }
-        }
-
         public DateTime TempInvicibility
         {
             get{ return _tempInvincibility; }
@@ -62,9 +56,10 @@ namespace P_032_SpicyInvaders
             this._posY = y;
             this._life = life;
             this._invincibilityTime = invincibilityTime;
+            Sprite = '♠';
 
             Console.SetCursorPosition(_posX, _posY);
-            Console.Write(_playerChar);
+            Console.Write(Sprite);
         }
 
         /// <summary>
@@ -108,21 +103,23 @@ namespace P_032_SpicyInvaders
                 _isPosLimitLeft = false;
             }
 
-            // Player move to the right or left if he's not in the limits
-            if (direction == 1 && _isPosLimitRight == false)
-            {
-                _posX += direction;
-            }
-
-            else if (direction == -1 && _isPosLimitLeft == false)
+            // Player can move to the right or left if he's not in the limits
+            if ((direction == 1 && _isPosLimitRight == false) || (direction == -1 && _isPosLimitLeft == false))
             {
                 _posX += direction;
             }
 
             Console.SetCursorPosition(_posX, _posY);
-            Console.Write(_playerChar);
-            Console.ForegroundColor = ConsoleColor.White;
 
-        }       
+            if (DateTime.Now < TempInvicibility)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            Console.Write(Sprite);
+        }
     }
 }

@@ -10,8 +10,6 @@ namespace P_032_SpicyInvaders
         /// </summary>
         private const int _windowWidth = 80, _windowHeight = 50;
 
-        // Music
-
         // Objects from class
         private Random _random = new Random();
         public Player _ship;
@@ -21,22 +19,22 @@ namespace P_032_SpicyInvaders
         private int _enemiesSpeed;
         private readonly double _reloadTime = 0.8;
 
-        // Settings and score
+        // Default settings and score
         public bool _gameOver = false;
         public bool _soundOn = true;
         public static int _difficulty = 0;
         private readonly string _highscorePath = @"highscore.txt";
 
-        // Timer
+        // Timers
         private DateTime _bulletMove;
         private DateTime _moveEnnemyAndControlShoot;
         private DateTime _timeBeforeShoot;
 
         // Entities arrays and lists
-        private int[] _direction = new int[] { -1, 0 }; //la direction du pack en [x,y]
-        private static Enemy[,] _enemiesArray = new Enemy[10, 4]; //10, 4
-        private static readonly int[] _enemiesSpawnPoint = { _windowWidth / 2 - _enemiesArray.GetLength(0) / 2, _windowHeight / 2 - 5 - _enemiesArray.GetLength(1) / 2 };
-        private int[] _enemiesLimits = { 5, _windowWidth - 5, _enemiesSpawnPoint[1] - 3, _enemiesSpawnPoint[1] + 10 }; //les limites du déplacemenmt, en [xMin, xMax, yMin, yMax]
+        private int[] _direction = new int[] { -1, 0 }; //direction of the group of ennemies by axis [x,y]
+        private static Enemy[,] _enemiesArray = new Enemy[10, 4]; // Default : 10, 4 Number of ennemies in the group by [row,col]
+        private static readonly int[] _enemiesSpawnPoint = { _windowWidth / 2 - _enemiesArray.GetLength(0) / 2, _windowHeight / 2 - 5 - _enemiesArray.GetLength(1) / 2 }; //Define the spawnpoint of the ennemies
+        private int[] _enemiesLimits = { 5, _windowWidth - 5, _enemiesSpawnPoint[1] - 3, _enemiesSpawnPoint[1] + 10 }; //ennemies movements wall limit by [xMin, xMax, yMin, yMax] (Ennemies can't go further than that)
         private List<Block> _blockList = new List<Block>();
         public static List<Shoot> _bullets = new List<Shoot>();
         private int _ennemyAlive = _enemiesArray.Length;  //Take the numbers of ennemy and decrement it each time one dies.
@@ -81,7 +79,7 @@ namespace P_032_SpicyInvaders
                 _enemiesSpeed = 150;
             }
 
-            // Ini/Spawn enemies
+            // Init/Spawn enemies
             for (int y = 0; y < _enemiesArray.GetLength(1); y++)
             {
                 for (int x = 0; x < _enemiesArray.GetLength(0); x++)
@@ -170,6 +168,13 @@ namespace P_032_SpicyInvaders
             Enemy.MoveEnnemies(ref _moveEnnemyAndControlShoot, ref _enemiesSpeed, ref _direction, ref _enemiesArray, _random, ref _bullets, ref _enemiesLimits);
             Shoot.MoveBullets(ref _bulletMove, ref _bullets);
 
+            if (DateTime.Now > _ship.TempInvicibility)
+            {
+                Console.SetCursorPosition(_ship.PosX, _ship.PosY);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(_ship.Sprite);
+            }
+
             // check if as bullet hit ennemy then destroy ennemy and bullet
             foreach (Enemy ennemy in _enemiesArray)
             {
@@ -211,7 +216,9 @@ namespace P_032_SpicyInvaders
                 {
                     _bullets[i].DestroyBullet();
                     Console.SetCursorPosition(_ship.PosX, _ship.PosY);
-                    Console.Write(_ship.PlayerChar);
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(_ship.Sprite);
+                    Console.ForegroundColor = ConsoleColor.White;
 
                     // invincibility time (when player is hit) & decrement life
                     if (DateTime.Now > _ship.TempInvicibility)

@@ -69,6 +69,10 @@ namespace P_032_SpicyInvaders
 
         public static void MoveEnnemies(ref DateTime moveEnnemyAndControlShoot, ref int ennemiesSpeed, ref int[] direction, ref Enemy[,] ennemiesArray, Random random, ref List<Shoot> bullets, ref int[] ennemiesLimits)
         {
+            if(Console.ForegroundColor != ConsoleColor.White)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+            }
             if (DateTime.Now.Ticks > moveEnnemyAndControlShoot.Ticks)
             {
                 moveEnnemyAndControlShoot = DateTime.Now.AddMilliseconds(ennemiesSpeed);

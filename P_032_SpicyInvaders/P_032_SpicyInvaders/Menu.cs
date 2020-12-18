@@ -5,7 +5,6 @@
 ///   Modif      : 04.12.2020
 ///   Descrption : This is the main menu of our Spicy Invaders
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 

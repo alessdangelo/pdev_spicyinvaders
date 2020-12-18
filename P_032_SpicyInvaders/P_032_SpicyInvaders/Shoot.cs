@@ -2,7 +2,7 @@
 	ETML
 	Date: 11.09.20
 	Auteur: Manuel Oro
-	Description: Shoot class. Shoot can move and destroyed.
+	Description: Shoot class. Shoot can move and destroy ennemies.
 	Modifié le: --
 */
 using System;
