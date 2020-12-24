@@ -6,6 +6,8 @@
 ///   Descrption : This is the main menu of our Spicy Invaders
 using System;
 using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace P_032_SpicyInvaders
@@ -353,7 +355,6 @@ namespace P_032_SpicyInvaders
         private void GameHighscore()
         {
             //Variables
-            string highscore;
             const int HIGHSCOREXAXETITLE = 11;
             int highscoreYAxeTitle = 1;
             string[] highscoreArray = new string[5]
@@ -374,14 +375,8 @@ namespace P_032_SpicyInvaders
                 highscoreYAxeTitle++;
             }
 
-            //ToDo : Print the previous score, like in arcade game, with a name
-            // read the highscore in txt file, if file doesn't exist, create it
-
-            highscore = $"Votre meilleur score est de: " + WriteOrReadHighscore(_path);
-
-            Console.SetCursorPosition((Console.WindowWidth) / 2 - (highscore.Length / 2), 20);
-            Console.Write(highscore);
-
+            // Print the previous score, like in arcade game, with a name
+            ShowScore();
             Console.SetCursorPosition(21, 30);
             Console.Write("Appuyez sur ESC pour revenir au menu principal...");
 
@@ -459,26 +454,99 @@ namespace P_032_SpicyInvaders
             BackToMainMenu();
         }
 
+        private void WriteScore(int score)
+        {
+            Console.Write("Entrez votre nom : ");
+            string username = Console.ReadLine();
+
+            // This text is always added, making the file longer over time
+            // if it is not deleted.
+            using (StreamWriter sw = File.AppendText(@"highscore.txt"))
+            {
+                sw.WriteLine($"{username},{score}.");
+            }
+        }
+
+        private void ShowScore()
+        {
+            using (StreamReader sr = File.OpenText(@"highscore.txt"))
+            {
+                string s = "";
+                int i = 0;
+                int posY = Console.WindowHeight / 2;
+                string highscore = "Highscore";
+                Console.SetCursorPosition(Console.WindowWidth / 2 - highscore.Length / 2, posY - 2);
+                Console.Write(highscore);
+                Console.SetCursorPosition(Console.WindowWidth / 4 - (sr.ReadLine().Split(',').Length) / 2, posY);
+                int highestScore = 0;
+                while ((s = sr.ReadLine()) != null)
+                {
+                    // Match only digits 
+                    string pattern = @"\d";
+
+                    StringBuilder sb = new StringBuilder();
+
+                    foreach (Match m in Regex.Matches(s, pattern))
+                    {
+                        sb.Append(m);
+                    }
+                    if (Int32.Parse(sb.ToString()) > highestScore)
+                    {
+                        highestScore = Int32.Parse(sb.ToString());
+                    }
+                    //Console.WriteLine("{0} {1}", sb.ToString());
+
+                    foreach (char c in s)
+                    {
+                        if (c == ',')
+                        {
+                            //Console.Write($"\t\t\t\t");
+                            string scoreOnly = s.Substring(s.IndexOf('.') + 1);
+                            Console.SetCursorPosition(Console.WindowWidth - (Console.WindowWidth / 4) - (scoreOnly.Length) / 2, posY);
+                        }
+                        else if (c == '.')
+                        {
+                            //Console.WriteLine();
+                            Console.SetCursorPosition(Console.WindowWidth / 4 - (s.Split(',').Length) / 2, posY++);
+                            // Console.SetCursorPosition(Console.WindowWidth / 2 - 15, posY++);
+                        }
+                        else
+                        {
+                            Console.Write(c);
+                        }
+                    }
+                    //Console.WriteLine(s);
+                    if (i == 9)
+                    {
+                        break;
+                    }
+                    i++;
+                }
+                string highestScoreToWrite = $"Meilleur score : {highestScore}";
+                Console.SetCursorPosition((Console.WindowWidth / 2) - (highestScoreToWrite.Length / 2), posY++);
+                Console.WriteLine(highestScoreToWrite);
+            }
+        }
+
+
         /// <summary>
         /// Win Menu
         /// </summary>
         public void Win(int score)
         {
-            int posX = Console.WindowWidth / 8;
             int posY = 5;
-            int nextTimeYPosition = 28;
-            int backToMainMenuYPosition = 35;
             int scoreYPosition = 20;
 
 
             string[] victoryArray = new string[5]
             {
-            "██    ██ ██  ██████ ████████  ██████  ██████  ██    ██",
+            " ██    ██ ██  ██████ ████████  ██████  ██████  ██    ██",
             "██    ██ ██ ██         ██    ██    ██ ██   ██  ██  ██",
             "██    ██ ██ ██         ██    ██    ██ ██████    ████",
-            " ██  ██  ██ ██         ██    ██    ██ ██   ██    ██",
-            "  ████   ██  ██████    ██     ██████  ██   ██    ██"
+            "██  ██  ██ ██         ██    ██    ██ ██   ██    ██",
+            "████   ██  ██████    ██     ██████  ██   ██    ██"
             };
+
 
             string[] textToWrite = new string[]
             {
@@ -491,78 +559,22 @@ namespace P_032_SpicyInvaders
             for (int i = 0; i < victoryArray.Length; i++)
             {
                 Thread.Sleep(450);
-                Console.SetCursorPosition(posX, posY);
+                Console.SetCursorPosition(Console.WindowWidth / 2 - victoryArray[i].Length / 2, posY);
                 Console.WriteLine(victoryArray[i]);
                 posY++;
             }
-
             Console.SetCursorPosition(Console.WindowWidth / 2 - textToWrite[0].Length / 2, scoreYPosition);
-            for (int i = 0; i < textToWrite[0].Length; i++)
-            {
-                Thread.Sleep(50);
-                Console.Write(textToWrite[0][i]);
-            }
-
-            //Write The next time text
-            Console.SetCursorPosition(Console.WindowWidth / 2 - textToWrite[1].Length / 2, nextTimeYPosition);
-            for (int i = 0; i < textToWrite[1].Length; i++)
-            {
-                Thread.Sleep(50);
-                Console.Write(textToWrite[1][i]);
-            }
-
+            WriteScore(score);
+            ShowScore();
             //Write the return to main menu text
-            Console.SetCursorPosition(Console.WindowWidth / 2 - textToWrite[2].Length / 2, backToMainMenuYPosition);
-            for (int i = 0; i < textToWrite[2].Length; i++)
-            {
-                Thread.Sleep(15);
-                Console.Write(textToWrite[2][i]);
-            }
+            //Console.SetCursorPosition(Console.WindowWidth / 2 - textToWrite[2].Length / 2, backToMainMenuYPosition);
+            //for (int i = 0; i < textToWrite[2].Length; i++)
+            //{
+            //    Thread.Sleep(15);
+            //    Console.Write(textToWrite[2][i]);
+            //}
             BackToMainMenu();
 
-            /*foreach (char c in victory)
-            {
-                Thread.Sleep(1);
-                if (c == '█')
-                {
-                    Console.SetCursorPosition(posX, posY);
-                    Enemy victoryBlock = new Enemy(posX, posY, '█');
-                    Console.Write('█');
-                }
-                if (c == '\\')
-                {
-                    posY++;
-                    posX = Console.WindowWidth / 8;
-                }
-                else
-                {
-                    posX++;
-                }
-            }*/
-
-            //ToDo : Victory Animation..
-            {
-                //Console.SetCursorPosition(39, 45);
-                //Player shipAnimation = new Player(Console.WindowWidth / 8, 45, 3);
-                //foreach (char c in victory)
-                //{
-                //    Thread.Sleep(7);
-                //    if (c == '█')
-                //    {
-                //        Shoot shootAnimation = new Shoot(shipAnimation.PosX, shipAnimation.PosY - 1, -1);
-                //    }
-                //    shipAnimation.Move(+1);
-                //    if (c == '\\')
-                //    {
-                //        while (shipAnimation.PosX != Console.WindowWidth / 8)
-                //        {
-                //            Thread.Sleep(7);
-                //            shipAnimation.Move(-1);
-                //        }
-                //    }
-                //}
-                //Console.ReadKey();
-            }
         }
 
         /// <summary>
@@ -571,12 +583,9 @@ namespace P_032_SpicyInvaders
         public void GameOver(int score)
         {
             // Variables
-            const int GAMEOVERXTITLE = 4;
-
             int gameOverYTitle = 4;
             int nextTimeYPosition = 28;
             int backToMainMenuYPosition = 35;
-            int scoreYPosition = 20;
 
             string[] textToWrite = new string[]
             {
@@ -584,7 +593,6 @@ namespace P_032_SpicyInvaders
                 "We'll get them next time...",
                 "Appuyez sur ESCAPE pour revenir au menu principal..."
             };
-
             string[] optionsArray = new string[5]
             {
                  " ██████   █████  ███    ███ ███████     ██████  ██    ██ ███████ ██████ ",
@@ -600,29 +608,25 @@ namespace P_032_SpicyInvaders
             for (int i = 0; i < optionsArray.Length; i++)
             {
                 Thread.Sleep(450);
-                Console.SetCursorPosition(GAMEOVERXTITLE, gameOverYTitle);
+                Console.SetCursorPosition(Console.WindowWidth / 2 - optionsArray[i].Length / 2, gameOverYTitle);
                 Console.WriteLine(optionsArray[i]);
                 gameOverYTitle++;
             }
             Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition((Console.WindowWidth / 2) - Console.WindowWidth / 7, Console.WindowHeight / 3);
+            WriteScore(score);
+            ShowScore();
 
-            Console.SetCursorPosition(Console.WindowWidth / 2 - textToWrite[0].Length /2, scoreYPosition);
-            for (int i = 0; i < textToWrite[0].Length; i++)
-            {
-                Thread.Sleep(50);
-                Console.Write(textToWrite[0][i]);
-            }
-
-            //Write The next time text
-            Console.SetCursorPosition(Console.WindowWidth / 2 - textToWrite[1].Length / 2, nextTimeYPosition);
-            for (int i = 0; i < textToWrite[1].Length; i++)
-            {
-                Thread.Sleep(50);
-                Console.Write(textToWrite[1][i]);
-            }
+            ////Write The next time text
+            //Console.SetCursorPosition(Console.WindowWidth / 2 - textToWrite[1].Length / 2, nextTimeYPosition);
+            //for (int i = 0; i < textToWrite[1].Length; i++)
+            //{
+            //    Thread.Sleep(50);
+            //    Console.Write(textToWrite[1][i]);
+            //}
 
             //Write the return to main menu text
-            Console.SetCursorPosition(Console.WindowWidth / 2 - textToWrite[2].Length / 2, backToMainMenuYPosition);
+            Console.SetCursorPosition(Console.WindowWidth / 2 - textToWrite[2].Length / 2, backToMainMenuYPosition + 2);
             for (int i = 0; i < textToWrite[2].Length; i++)
             {
                 Thread.Sleep(15);
