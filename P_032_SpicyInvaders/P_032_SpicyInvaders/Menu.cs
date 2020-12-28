@@ -84,6 +84,7 @@ namespace P_032_SpicyInvaders
             _continueKey = false;
 
             //Sound in the menu
+            Sound.Music.Stop();
             Sound.PlaySound(Sound.Sounds.Blip_Select);
 
 
@@ -124,13 +125,16 @@ namespace P_032_SpicyInvaders
                         {
                             index = options.Length;
                         }
+                        Sound.PlaySound(Sound.Sounds.Blip_Select);
                         break;
+
                     case ConsoleKey.DownArrow:
                         index++;
                         if (index > options.Length)
                         {
                             index = 1;
                         }
+                        Sound.PlaySound(Sound.Sounds.Blip_Select);
                         break;
                     case ConsoleKey.Enter:
                         switch (index)
@@ -144,12 +148,12 @@ namespace P_032_SpicyInvaders
                                         Console.WriteLine("                      ");
                                     }
                                     _continueKey = true;
+                                    Sound.Music.PlayLooping();
                                     break;
                                 }
                             case 2:
                                 {
                                     Sound.PlaySound(Sound.Sounds.Blip_Select);
-                                    Sound.Music.Stop();
                                     Game._gamePaused = false;
                                     MainMenu();
                                     break;
@@ -195,6 +199,7 @@ namespace P_032_SpicyInvaders
 
             _game = new Game(this);
             SetConsoleWindowSize();
+            Sound.Music.Stop();
 
             Console.SetCursorPosition(SPICYXAXETITLE, spicyYAxeTitle);
 
