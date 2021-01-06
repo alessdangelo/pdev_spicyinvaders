@@ -9,7 +9,7 @@ namespace P_032_SpicyInvaders
         /// Attributes
         /// </summary>
         private const int _windowWidth = 80, _windowHeight = 50;
-
+        private int _level = 1;
         // Objects from class
         private Random _random = new Random();
         public Player _ship;
@@ -101,7 +101,7 @@ namespace P_032_SpicyInvaders
             _moveEnnemyAndControlShoot = new DateTime();
 
             // wait some time before start -> don't surprise player
-            System.Threading.Thread.Sleep(500);
+            System.Threading.Thread.Sleep(400);
 
             // Main while (player input, enemies moves, bullets moves, ...)
             do
@@ -145,9 +145,10 @@ namespace P_032_SpicyInvaders
                 }
 
             }
-            while (_gameOver == false);
+            while (_gameOver != false);
 
             Menu.WriteOrReadHighscore(_highscorePath, _ship.Score);
+            
 
             if (_ship.Life < 1)
             {
@@ -188,6 +189,7 @@ namespace P_032_SpicyInvaders
                         _ennemyAlive--;
                         _ship.Score += 100;
                         Hud.PrintPlayerScore(_ship.Score);
+                        _enemiesSpeed -= 4;
                     }
                 }
 

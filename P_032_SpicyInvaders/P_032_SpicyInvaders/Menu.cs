@@ -453,10 +453,10 @@ namespace P_032_SpicyInvaders
             Console.Write("Appuyez sur ESC pour revenir au menu principal...");
             BackToMainMenu();
         }
-
+        //ToDo : Use regex to make sure no number is used
         private void WriteScore(int score)
         {
-            Console.Write("Entrez votre nom : ");
+            Console.Write($"Score : {score}. Entrez votre nom : ");
             string username = Console.ReadLine();
 
             // This text is always added, making the file longer over time
@@ -467,6 +467,9 @@ namespace P_032_SpicyInvaders
             }
         }
 
+        /// <summary>
+        /// Print the last 10 scores stored in the file, the highest score and the current score
+        /// </summary>
         private void ShowScore()
         {
             using (StreamReader sr = File.OpenText(@"highscore.txt"))
@@ -477,10 +480,30 @@ namespace P_032_SpicyInvaders
                 string highscore = "Highscore";
                 Console.SetCursorPosition(Console.WindowWidth / 2 - highscore.Length / 2, posY - 2);
                 Console.Write(highscore);
-                Console.SetCursorPosition(Console.WindowWidth / 4 - (sr.ReadLine().Split(',').Length) / 2, posY);
                 int highestScore = 0;
+                int lastTenLines = 0;
+                StreamReader totalLines = File.OpenText(@"highscore.txt");
+                
+                while ((totalLines.ReadLine()) != null)
+                {
+                    ++lastTenLines;
+                }
+
+                if(lastTenLines - 10 > 0)
+                {
+                    lastTenLines -= 10;
+                }
+
+                if (lastTenLines > 10)
+                {
+                    for (int j = 0; j < lastTenLines; j++)
+                    {
+                        sr.ReadLine();
+                    }
+                }
                 while ((s = sr.ReadLine()) != null)
                 {
+                    Console.SetCursorPosition(Console.WindowWidth / 4 - (s.Split(',').Length) / 2, posY);
                     // Match only digits 
                     string pattern = @"\d";
 
@@ -507,7 +530,7 @@ namespace P_032_SpicyInvaders
                         else if (c == '.')
                         {
                             //Console.WriteLine();
-                            Console.SetCursorPosition(Console.WindowWidth / 4 - (s.Split(',').Length) / 2, posY++);
+                            Console.SetCursorPosition(Console.WindowWidth / 4 - (s.Split(',').Length) / 2, ++posY);
                             // Console.SetCursorPosition(Console.WindowWidth / 2 - 15, posY++);
                         }
                         else
