@@ -14,36 +14,66 @@ namespace P_032_SpicyInvaders
     /// </summary>
     public class Player : Entity
     {
+        //private class fields
         /// <summary>
-        /// Attributes
+        /// Player's Life
         /// </summary>
         private int _life = 3;
+
+        /// <summary>
+        /// Player's score
+        /// </summary>
         private int _score = 0;
+
+        /// <summary>
+        /// Bool used to know if we are at the right limit
+        /// </summary>
         private bool _isPosLimitRight = false;
+
+        /// <summary>
+        /// Bool used to know if we are at the left limit
+        /// </summary>
         private bool _isPosLimitLeft = false;
+
+        /// <summary>
+        /// DateTime used to allow a temporal invincibility to the player when he's hit
+        /// </summary>
         private static DateTime _tempInvincibility = new DateTime();
+
+        /// <summary>
+        /// the duration of the temporal invincibility 
+        /// </summary>
         private readonly double _invincibilityTime;
         
+        //Properties
         /// <summary>
-        /// Properties
+        /// Player Life's Property
         /// </summary>
         public int Life
         {
             get { return _life; }
             set { _life = value; }
         }
+
+        /// <summary>
+        /// Player's score property
+        /// </summary>
         public int Score
         {
             get { return _score; }
             set { _score = value; }
         }
 
+        /// <summary>
+        /// Player's temp invincibility property
+        /// </summary>
         public DateTime TempInvicibility
         {
             get{ return _tempInvincibility; }
             set{ _tempInvincibility = value; }
         }
 
+        //methods
         /// <summary>
         /// Custom constructor
         /// </summary>

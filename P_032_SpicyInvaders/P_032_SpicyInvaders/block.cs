@@ -17,27 +17,45 @@ namespace P_032_SpicyInvaders
     /// </summary>
     public class Block : Entity
     {
+        //private class field
         /// <summary>
-        /// Attributes
+        /// Block's size X
         /// </summary>
         private readonly int _sizeX;
-        private readonly int _sizeY;
-        private Random _random = new Random();
-        private LittleBlock[,] _elements;
 
         /// <summary>
-        /// Properties
+        /// Block's size Y
+        /// </summary>
+        private readonly int _sizeY;
+
+        /// <summary>
+        /// A usefull random
+        /// </summary>
+        private Random _random = new Random();
+
+        /// <summary>
+        /// Block's littleBlocks (composes the block)
+        /// </summary>
+        private LittleBlock[,] _elements;
+
+        //properties
+        /// <summary>
+        /// Property for SizeX
         /// </summary>
         public int SizeX
         {
             get { return _sizeX; }
         }
 
+        /// <summary>
+        /// Property for SizeY
+        /// </summary>
         public int SizeY
         {
             get { return _sizeY; }
         }
 
+        //methods
         /// <summary>
         /// Custom constructor
         /// </summary>

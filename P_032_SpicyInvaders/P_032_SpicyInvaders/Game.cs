@@ -57,8 +57,9 @@ namespace P_032_SpicyInvaders
         public static bool _gamePaused = false;
 
         /// <summary>
-        /// Default constructor
+        /// Custom Constructor
         /// </summary>
+        /// <param name="menu">menu that launches the game</param>
         public Game(Menu menu)
         {
             this._menu = menu;
