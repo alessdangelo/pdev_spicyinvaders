@@ -19,12 +19,12 @@ namespace P_032_SpicyInvaders
     {
         //private class field
         /// <summary>
-        /// Block's size X
+        /// Block's size X (width)
         /// </summary>
         private readonly int _sizeX;
 
         /// <summary>
-        /// Block's size Y
+        /// Block's size Y (height)
         /// </summary>
         private readonly int _sizeY;
 

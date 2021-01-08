@@ -386,7 +386,6 @@ namespace P_032_SpicyInvaders
             // Variables
             const int DEVELOPPEDXAXETITLE = 5;
             const int BYXAXETITLE = 38;
-            int positionXDeveloppers = 33;
             int positionYDeveloppers = 16;
             int developpedYAxeTitle = 1;
             int byYAxeTitle = 8;
@@ -449,7 +448,7 @@ namespace P_032_SpicyInvaders
         private void WriteScore(int score)
         {
             Console.SetCursorPosition((Console.WindowWidth / 2) - Console.WindowWidth / 7 + 5, Console.WindowHeight / 3);
-            Console.Write($"Score : {score}.");
+            Console.Write($"Score : {score}");
             Console.SetCursorPosition((Console.WindowWidth / 2) - Console.WindowWidth / 7, Console.WindowHeight / 3 + 2);
             Console.Write("Entrez votre nom : ");
             string username = Console.ReadLine();
@@ -485,7 +484,7 @@ namespace P_032_SpicyInvaders
                     ++lastTenLines;
                 }
 
-                if(lastTenLines - 10 > 0)
+                if (lastTenLines - 10 > 0)
                 {
                     lastTenLines -= 10;
                 }
@@ -513,28 +512,22 @@ namespace P_032_SpicyInvaders
                     {
                         highestScore = Int32.Parse(sb.ToString());
                     }
-                    //Console.WriteLine("{0} {1}", sb.ToString());
-
                     foreach (char c in s)
                     {
                         if (c == ',')
                         {
-                            //Console.Write($"\t\t\t\t");
-                            string scoreOnly = s.Substring(s.IndexOf('.') + 1);
+                            string scoreOnly = s.Substring(s.IndexOf(',') + 1);
                             Console.SetCursorPosition(Console.WindowWidth - (Console.WindowWidth / 4) - (scoreOnly.Length) / 2, posY);
                         }
                         else if (c == '.')
                         {
-                            //Console.WriteLine();
-                            Console.SetCursorPosition(Console.WindowWidth / 4 - (s.Split(',').Length) / 2, ++posY);
-                            // Console.SetCursorPosition(Console.WindowWidth / 2 - 15, posY++);
+                            Console.SetCursorPosition(Console.WindowWidth / 4 - (s.Split('.').Length) / 2, ++posY);
                         }
                         else
                         {
                             Console.Write(c);
                         }
                     }
-                    //Console.WriteLine(s);
                     if (i == 9)
                     {
                         break;

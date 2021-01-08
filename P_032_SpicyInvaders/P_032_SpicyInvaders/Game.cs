@@ -75,7 +75,6 @@ namespace P_032_SpicyInvaders
             Console.SetBufferSize(_windowWidth, _windowHeight);
 
             _ship = new Player(39, 45, 3, 3.0);
-            Hud.PrintAllInfos(_ship.Score, _ship.Life);
 
             // Play Music
             Sound.PlaySound(Sound.Sounds.Song);
@@ -87,9 +86,9 @@ namespace P_032_SpicyInvaders
             }
             else
             {
-                _enemiesSpeed = 150;
+                _enemiesSpeed = 300;
             }
-
+            Hud.PrintAllInfos(_ship.Score, _ship.Life);
             // Init/Spawn enemies
             for (int y = 0; y < _enemiesArray.GetLength(1); y++)
             {
@@ -196,9 +195,17 @@ namespace P_032_SpicyInvaders
                         ennemy.IsAlive = false;
                         ennemy.DestroyEnemy();
                         _ennemyAlive--;
-                        _ship.Score += 100;
+                        if(_difficulty == 0)
+                        {
+                            _ship.Score += 100;
+                            _enemiesSpeed -= (_enemiesArray.Length - _ennemyAlive) / 5;
+                        }
+                        else
+                        {
+                            _ship.Score += 300;
+                            _enemiesSpeed -= (_enemiesArray.Length - _ennemyAlive) / 5;
+                        }
                         Hud.PrintPlayerScore(_ship.Score);
-                        _enemiesSpeed -= 4;
                     }
                 }
 
