@@ -15,10 +15,7 @@ namespace P_032_SpicyInvaders
     /// </summary>
     public class Enemy : Entity
     {
-        /// <summary>
-        /// Attributes
-        /// </summary>
-
+        //methods
         /// <summary>
         /// Custom constructor
         /// </summary>
@@ -43,7 +40,6 @@ namespace P_032_SpicyInvaders
             _posY = posY;
             Sprite = ennemyCharacter;
         }
-
 
         /// <summary>
         /// Move enemy

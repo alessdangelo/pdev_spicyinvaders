@@ -12,48 +12,126 @@ using System.Collections.Generic;
 namespace P_032_SpicyInvaders
 {
     /// <summary>
-    /// Class game
+    /// Class Game
     /// </summary>
     public class Game
     {
+        //Consts
         /// <summary>
-        /// Attributes
+        /// the constants used to set the size of the window
         /// </summary>
         private const int _windowWidth = 80, _windowHeight = 50;
+
         // Objects from class
+        /// <summary>
+        /// A Usefull random
+        /// </summary>
         private Random _random = new Random();
+
+        /// <summary>
+        /// The Game's Player
+        /// </summary>
         public Player _ship;
+
+        /// <summary>
+        /// The Menu that launched the game
+        /// </summary>
         private Menu _menu;
 
         // Speed (Delay)
+        /// <summary>
+        /// Game ennemies Speed
+        /// </summary>
         private int _enemiesSpeed;
+
+        /// <summary>
+        /// the Game's player reaload time
+        /// </summary>
         private readonly double _reloadTime = 0.8;
 
         // Default settings and score
+        /// <summary>
+        /// Game's game over state
+        /// </summary>
         public bool _gameOver = false;
+
+        /// <summary>
+        /// Game's parameter for the music
+        /// </summary>
         public bool _soundOn = true;
+
+        /// <summary>
+        /// Game's difficulty parameter
+        /// </summary>
         public static int _difficulty = 0;
-        private readonly string _highscorePath = @"highscore.txt";
 
         // Timers
+        /// <summary>
+        /// Game's Timer for the bullet's speed
+        /// </summary>
         private DateTime _bulletMove;
+
+        /// <summary>
+        /// Game's timer that sets the speed of ennemies and the frequency of checks
+        /// </summary>
         private DateTime _moveEnnemyAndControlShoot;
+
+        /// <summary>
+        /// Game's timer to limit the shoot speed of the player
+        /// </summary>
         private DateTime _timeBeforeShoot;
 
         // Entities arrays and lists
-        private int[] _direction = new int[] { -1, 0 }; //direction of the group of ennemies by axis [x,y]
-        private static Enemy[,] _enemiesArray = new Enemy[10, 4]; // Default : 10, 4 Number of ennemies in the group by [row,col]
-        private static readonly int[] _enemiesSpawnPoint = { _windowWidth / 2 - _enemiesArray.GetLength(0) / 2, _windowHeight / 2 - 5 - _enemiesArray.GetLength(1) / 2 }; //Define the spawnpoint of the ennemies
-        private int[] _enemiesLimits = { 5, _windowWidth - 5, _enemiesSpawnPoint[1] - 3, _enemiesSpawnPoint[1] + 10 }; //ennemies movements wall limit by [xMin, xMax, yMin, yMax] (Ennemies can't go further than that)
+        /// <summary>
+        /// Game's ennemies direction by axis [x,y]
+        /// </summary>
+        private int[] _direction = new int[] { -1, 0 };
+
+        /// <summary>
+        /// Game's array of ennemies. Default : 10, 4 Number of ennemies in the group by [row,col]
+        /// </summary>
+        private static Enemy[,] _enemiesArray = new Enemy[10, 4];
+
+        /// <summary>
+        /// Define the spawnpoint of the ennemies, calculated relatively to the window size
+        /// </summary>
+        private static readonly int[] _enemiesSpawnPoint = { _windowWidth / 2 - _enemiesArray.GetLength(0) / 2, _windowHeight / 2 - 5 - _enemiesArray.GetLength(1) / 2 };
+
+        /// <summary>
+        /// Game's ennemies movements wall limit by [xMin, xMax, yMin, yMax] (Ennemies can't go further than that)
+        /// </summary>
+        private int[] _enemiesLimits = { 5, _windowWidth - 5, _enemiesSpawnPoint[1] - 3, _enemiesSpawnPoint[1] + 10 }; 
+
+        /// <summary>
+        /// Game's block List
+        /// </summary>
         private List<Block> _blockList = new List<Block>();
+
+        /// <summary>
+        /// Game's Shoot List
+        /// </summary>
         public static List<Shoot> _bullets = new List<Shoot>();
-        private int _ennemyAlive = _enemiesArray.Length;  //Take the numbers of ennemy and decrement it each time one dies.
+
+        /// <summary>
+        /// Game's counter of ennemies still alive, at start ake the numbers of ennemy and then decrement it each time one dies.
+        /// </summary>
+        private int _ennemyAlive = _enemiesArray.Length; 
 
         // Block Size
+        /// <summary>
+        /// Game Block's size in X
+        /// </summary>
         private readonly int _blockXSize = 7;
+
+        /// <summary>
+        /// Game Block's size in Y
+        /// </summary>
         private readonly int _blockYSize = 3;
 
         // State
+        /// <summary>
+        /// Game's state to set a break in the game
+        /// </summary>
         public static bool _gamePaused = false;
 
         /// <summary>
