@@ -1,8 +1,19 @@
-﻿using System;
+﻿/*
+	ETML
+	Date: 11.12.2020
+	Auteur: ADO, MOO
+	Description: Class game that contains the game loop.
+	Modifié le: 08.01.201
+*/
+
+using System;
 using System.Collections.Generic;
 
 namespace P_032_SpicyInvaders
 {
+    /// <summary>
+    /// Class game
+    /// </summary>
     public class Game
     {
         /// <summary>
@@ -146,6 +157,7 @@ namespace P_032_SpicyInvaders
             }
             while (_gameOver == false);
 
+            //Calls the methods according if you won or lost
             if (_ship.Life < 1)
             {
                 _menu.GameOver(_ship.Score);

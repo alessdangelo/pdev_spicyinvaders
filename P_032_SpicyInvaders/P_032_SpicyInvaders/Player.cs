@@ -111,6 +111,7 @@ namespace P_032_SpicyInvaders
 
             Console.SetCursorPosition(_posX, _posY);
 
+            //invicibility system
             if (DateTime.Now < TempInvicibility)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
