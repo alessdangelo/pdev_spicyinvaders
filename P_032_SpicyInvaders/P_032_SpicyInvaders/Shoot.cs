@@ -16,9 +16,13 @@ namespace P_032_SpicyInvaders
     public class Shoot : Entity
     {
         /// <summary>
-        /// Attributes
+        /// Shoot's direction, (-1/+1)
         /// </summary>
         private readonly int _direction;
+
+        /// <summary>
+        /// Shoot's Speed (lower it is set, faster the shoot will go)
+        /// </summary>
         private static int _bulletSpeed;
 
         /// <summary>
