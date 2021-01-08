@@ -9,7 +9,6 @@ namespace P_032_SpicyInvaders
         /// Attributes
         /// </summary>
         private const int _windowWidth = 80, _windowHeight = 50;
-        private int _level = 1;
         // Objects from class
         private Random _random = new Random();
         public Player _ship;
@@ -145,10 +144,7 @@ namespace P_032_SpicyInvaders
                 }
 
             }
-            while (_gameOver != false);
-
-            Menu.WriteOrReadHighscore(_highscorePath, _ship.Score);
-            
+            while (_gameOver == false);
 
             if (_ship.Life < 1)
             {

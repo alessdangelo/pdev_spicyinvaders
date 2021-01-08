@@ -456,7 +456,10 @@ namespace P_032_SpicyInvaders
         //ToDo : Use regex to make sure no number is used
         private void WriteScore(int score)
         {
-            Console.Write($"Score : {score}. Entrez votre nom : ");
+            Console.SetCursorPosition((Console.WindowWidth / 2) - Console.WindowWidth / 7 + 5, Console.WindowHeight / 3);
+            Console.Write($"Score : {score}.");
+            Console.SetCursorPosition((Console.WindowWidth / 2) - Console.WindowWidth / 7, Console.WindowHeight / 3 + 2);
+            Console.Write("Entrez votre nom : ");
             string username = Console.ReadLine();
 
             // This text is always added, making the file longer over time
