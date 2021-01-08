@@ -29,12 +29,12 @@ namespace P_032_SpicyInvaders
         private readonly int _sizeY;
 
         /// <summary>
-        /// A usefull random
+        /// Random object, allows us to pick a random number
         /// </summary>
         private Random _random = new Random();
 
         /// <summary>
-        /// Block's littleBlocks (composes the block)
+        /// Block's littleBlocks (cells that composes the block)
         /// </summary>
         private LittleBlock[,] _elements;
 
@@ -56,11 +56,14 @@ namespace P_032_SpicyInvaders
         }
 
         //methods
+
         /// <summary>
         /// Custom constructor
         /// </summary>
-        /// <param name="size">Block size</param>
-        /// <param name="location">Block location</param>
+        /// <param name="sizeX">Block's width</param>
+        /// <param name="sizeY">Block's height</param>
+        /// <param name="posX">position x of the block</param>
+        /// <param name="posY">position y of the block</param>
         public Block(int sizeX, int sizeY, int posX, int posY)
         {
             _sizeX = sizeX;
@@ -90,7 +93,8 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Destroy little block when hit by bullet
         /// </summary>
-        /// <param name="location">Block location</param>
+        /// <param name="posX">position x of the block</param>
+        /// <param name="posY">position y of the block</param>
         /// <returns>Return true if block is destroyed</returns>
         public bool IsInside(int posX, int posY)
         {

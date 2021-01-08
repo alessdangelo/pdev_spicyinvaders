@@ -75,7 +75,7 @@ namespace P_032_SpicyInvaders
         /// <param name="ennemiesLimits">the limits of the ennemies</param>
         public static void MoveEnnemies(ref DateTime moveEnnemyAndControlShoot, ref int ennemiesSpeed, ref int[] direction, ref Enemy[,] ennemiesArray, Random random, ref List<Shoot> bullets, ref int[] ennemiesLimits)
         {
-            if(Console.ForegroundColor != ConsoleColor.White)
+            if (Console.ForegroundColor != ConsoleColor.White)
             {
                 Console.ForegroundColor = ConsoleColor.White;
             }

@@ -100,7 +100,7 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Game's ennemies movements wall limit by [xMin, xMax, yMin, yMax] (Ennemies can't go further than that)
         /// </summary>
-        private int[] _enemiesLimits = { 5, _windowWidth - 5, _enemiesSpawnPoint[1] - 3, _enemiesSpawnPoint[1] + 10 }; 
+        private int[] _enemiesLimits = { 5, _windowWidth - 5, _enemiesSpawnPoint[1] - 3, _enemiesSpawnPoint[1] + 10 };
 
         /// <summary>
         /// Game's block List
@@ -115,7 +115,7 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Game's counter of ennemies still alive, at start ake the numbers of ennemy and then decrement it each time one dies.
         /// </summary>
-        private int _ennemyAlive = _enemiesArray.Length; 
+        private int _ennemyAlive = _enemiesArray.Length;
 
         // Block Size
         /// <summary>
@@ -273,7 +273,7 @@ namespace P_032_SpicyInvaders
                         ennemy.IsAlive = false;
                         ennemy.DestroyEnemy();
                         _ennemyAlive--;
-                        if(_difficulty == 0)
+                        if (_difficulty == 0)
                         {
                             _ship.Score += 100;
                             _enemiesSpeed -= (_enemiesArray.Length - _ennemyAlive) / 5;

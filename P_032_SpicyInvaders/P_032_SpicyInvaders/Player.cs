@@ -44,7 +44,7 @@ namespace P_032_SpicyInvaders
         /// the duration of the temporal invincibility 
         /// </summary>
         private readonly double _invincibilityTime;
-        
+
         //Properties
         /// <summary>
         /// Player Life's Property
@@ -69,8 +69,8 @@ namespace P_032_SpicyInvaders
         /// </summary>
         public DateTime TempInvicibility
         {
-            get{ return _tempInvincibility; }
-            set{ _tempInvincibility = value; }
+            get { return _tempInvincibility; }
+            set { _tempInvincibility = value; }
         }
 
         //methods
@@ -110,25 +110,25 @@ namespace P_032_SpicyInvaders
             Console.Write(" ");
 
             // Check if player is in the right border
-            if (_posX >= Console.WindowWidth - 1) 
+            if (_posX >= Console.WindowWidth - 1)
             {
-                _isPosLimitRight = true;    
+                _isPosLimitRight = true;
             }
 
             // Check if player is not in the right border
-            else if (_posX == Console.WindowWidth - 2) 
+            else if (_posX == Console.WindowWidth - 2)
             {
                 _isPosLimitRight = false;
             }
 
             // Check if player is in the left border
-            if (_posX <= 0) 
+            if (_posX <= 0)
             {
-                _isPosLimitLeft = true; 
+                _isPosLimitLeft = true;
             }
 
             // Check if player is in the left border
-            else if (_posX == 1)    
+            else if (_posX == 1)
             {
                 _isPosLimitLeft = false;
             }

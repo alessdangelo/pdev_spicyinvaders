@@ -14,7 +14,7 @@ namespace P_032_SpicyInvaders
         /// <summary>
         /// Attributes
         /// </summary>
-        
+
         // Objects from class
         private static Menu _menu;
 
@@ -35,6 +35,6 @@ namespace P_032_SpicyInvaders
             System.GC.Collect();
             Game game = new Game(_menu);
             game.RunGame();
-        }       
+        }
     }
 }

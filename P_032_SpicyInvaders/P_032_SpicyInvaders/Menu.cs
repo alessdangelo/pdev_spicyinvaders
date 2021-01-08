@@ -478,7 +478,7 @@ namespace P_032_SpicyInvaders
                 int highestScore = 0;
                 int lastTenLines = 0;
                 StreamReader totalLines = File.OpenText(@"highscore.txt");
-                
+
                 while ((totalLines.ReadLine()) != null)
                 {
                     ++lastTenLines;

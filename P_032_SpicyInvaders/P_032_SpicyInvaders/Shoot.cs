@@ -31,6 +31,8 @@ namespace P_032_SpicyInvaders
         /// <param name="x">Position x in console</param>
         /// <param name="y">Position y in console</param>
         /// <param name="direction">Direction (-1 Up | 1 Down)</param>
+        /// <param name="sprite">The bullet's sprite</param>
+        /// <param name="bulletSpeed">The bullet's speed</param>
         public Shoot(int x, int y, int direction, char sprite = '|', int bulletSpeed = 25)
         {
             this._posX = x;

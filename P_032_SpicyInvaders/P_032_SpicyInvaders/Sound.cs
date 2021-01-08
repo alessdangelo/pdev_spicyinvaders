@@ -20,13 +20,13 @@ namespace P_032_SpicyInvaders
         /// The ResourceManager for the sounds
         /// </summary>
         private static readonly ResourceManager _resMan = new ResourceManager(typeof(AppResources.SoundFiles));
-        
+
         /// <summary>
         /// The name of all the sounds in the rRessouceManager
         /// </summary>
         public enum Sounds
         {
-            Barrier, 
+            Barrier,
             Barrier2,
             Blip_Select,
             Hit_Hurt,
@@ -54,10 +54,10 @@ namespace P_032_SpicyInvaders
         public static bool SoundOn
         {
             get { return _soundOn; }
-            set 
+            set
             {
-                _soundOn = value; 
-                if(!_soundOn)
+                _soundOn = value;
+                if (!_soundOn)
                 {
                     _music.Stop();
                 }
