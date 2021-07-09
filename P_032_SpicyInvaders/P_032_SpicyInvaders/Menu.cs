@@ -1,9 +1,9 @@
 ﻿///   ETML 
-/// 
-///   Auteur     : Bruno Martins Constantino, Manus
+///   Author     : Bruno Martins Constantino
+///   Modified by: Bruno Martins Constantino, Manuel Oro, Alessandro D'Angelo
 ///   Date       : 28.08.2020
-///   Modif      : 04.12.2020
-///   Descrption : This is the main menu of our Spicy Invaders
+///   Last modified : 10.07.2021
+///   Descrption : The main menu of the spicy invaders
 using System;
 using System.IO;
 using System.Text;
@@ -17,11 +17,29 @@ namespace P_032_SpicyInvaders
     /// </summary>
     public class Menu
     {
-        // Variables
-        private static ConsoleKeyInfo _keyPressed;
-        private static bool _continueKey = false;
+        /// <summary>
+        /// X size of the window
+        /// </summary>
         const int _WINDOWSIZEX = 90;
+
+        /// <summary>
+        /// Y size of the window
+        /// </summary>
         const int _WINDOWSIZEY = 35;
+
+        /// <summary>
+        /// store the key currently pressed
+        /// </summary>
+        private static ConsoleKeyInfo _keyPressed;
+
+        /// <summary>
+        /// false if the continue button has not been pressed, allow the user to get back to play
+        /// </summary>
+        private static bool _continueKey = false;
+
+        /// <summary>
+        /// Path to store the highscore to
+        /// </summary>
         private static readonly string _path = Environment.CurrentDirectory + "/highscore.txt";
 
         /// <summary>

@@ -260,3 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 /D-032-JMY-P_Dev-CahierDesCharges2021.pdf
+P_032_SpicyInvaders/log.txt
+P_032_SpicyInvaders.backup/P_032_SpicyInvaders/upgrade.backup

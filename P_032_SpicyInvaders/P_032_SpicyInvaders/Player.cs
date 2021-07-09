@@ -1,9 +1,10 @@
 ﻿/*
 	ETML
 	Date: 11.09.20
-	Auteur: Manuel Oro, Alessandro D'Angelo
+	Auteur: Alessandro D'Angelo
 	Description: Player class. Player can move.
-	Modifié le: 14.12.20
+    Modifié par : Manuel Oro, Alessandro D'Angelo
+	Modifié le: 10.07.2021
 */
 using System;
 
@@ -141,7 +142,7 @@ namespace P_032_SpicyInvaders
 
             Console.SetCursorPosition(_posX, _posY);
 
-            //invicibility system
+            //invicibility system, turn the player red for a short period of time when hit
             if (DateTime.Now < TempInvicibility)
             {
                 Console.ForegroundColor = ConsoleColor.Red;

@@ -2,7 +2,7 @@
  * ETML
  * Auteur: Clément Sartoni
  * Date: 11.12.2020
- * Description: Class Sound qui gère tous les sons et musiques du jeu
+ * Description: Class Sound to manage the sound effects and music of the game
  */
 using NAudio.Wave;
 using System.Media;
