@@ -2,11 +2,11 @@
 	ETML
 	Date: 11.09.20
 	Auteur: Manuel Oro
-	Description: Shoot class. Shoot can moove and destroyed
+	Description: Shoot class. Shoot can move and destroy ennemies.
 	Modifié le: --
 */
 using System;
-using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace P_032_SpicyInvaders
 {
@@ -16,9 +16,14 @@ namespace P_032_SpicyInvaders
     public class Shoot : Entity
     {
         /// <summary>
-        /// Attributes
+        /// Shoot's direction, (-1/+1)
         /// </summary>
-        private int _direction;
+        private readonly int _direction;
+
+        /// <summary>
+        /// Shoot's Speed (lower it is set, faster the shoot will go)
+        /// </summary>
+        private static int _bulletSpeed;
 
         /// <summary>
         /// Custom constructor
@@ -26,10 +31,14 @@ namespace P_032_SpicyInvaders
         /// <param name="x">Position x in console</param>
         /// <param name="y">Position y in console</param>
         /// <param name="direction">Direction (-1 Up | 1 Down)</param>
-        public Shoot(int x, int y, int direction)
+        /// <param name="sprite">The bullet's sprite</param>
+        /// <param name="bulletSpeed">The bullet's speed</param>
+        public Shoot(int x, int y, int direction, char sprite = '|', int bulletSpeed = 25)
         {
             this._posX = x;
             this._posY = y;
+            _bulletSpeed = bulletSpeed;
+            this.Sprite = sprite;
             this._direction = direction;
         }
 
@@ -42,8 +51,7 @@ namespace P_032_SpicyInvaders
             Console.Write(" ");
             _posY += _direction;
             Console.SetCursorPosition(_posX, _posY);
-            Console.Write("■");
-
+            Console.Write(Sprite);
         }
 
         /// <summary>
@@ -53,15 +61,31 @@ namespace P_032_SpicyInvaders
         {
             Console.SetCursorPosition(_posX, _posY);
             Console.Write(" ");
-            Program.bullets.Remove(this);
+            Game._bullets.Remove(this);
         }
 
         /// <summary>
-        /// Destructor
+        /// Move all bullets at the same time
         /// </summary>
-        ~Shoot()
+        static public void MoveBullets(ref DateTime bulletMove, ref List<Shoot> bullets)
         {
-            Debug.WriteLine("Destructor");
+            // wait some time before execute
+            if (DateTime.Now.Ticks > bulletMove.Ticks)
+            {
+                bulletMove = DateTime.Now.AddMilliseconds(_bulletSpeed);
+                for (int i = 0; i < bullets.Count; i++)
+                {
+                    // if bullet is in a specific range then move it, else destroy bullet
+                    if (bullets[i].PosY > 10 && bullets[i].PosY < 45)
+                    {
+                        bullets[i].Move();
+                    }
+                    else
+                    {
+                        bullets[i].DestroyBullet();
+                    }
+                }
+            }
         }
     }
 }

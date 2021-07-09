@@ -1,49 +1,69 @@
 ﻿/*
  * Auteur:   Clément Sartoni
  * Date:     04.09.2020
- * Description: Classe "block" du projet Spicy Invaders, représente les bunkers derrière lesquels le vaisseau peut se cacher
+ * Description: Class block. Protect player from bullets. Can be destroyed
  * 
  * Modifications:
  * Auteur:      CSI
  * Date:        11.09.2020
- * Description: remplacement de la méthode de test de la localisation pour quelque chose de plus propre.
+ * Description: Test method replaced for something more proper.
  */
 using System;
-using System.Linq;
 
 namespace P_032_SpicyInvaders
 {
     /// <summary>
-    /// class Block, représente les blocs derrière lesquels le joueur peut s'abriter
+    /// Class Block
     /// </summary>
     public class Block : Entity
     {
+        //private class field
         /// <summary>
-        /// attributs
+        /// Block's size X (width)
         /// </summary>
-        private int _sizeX;
-        private int _sizeY;
-
-        private LittleBlock[,] elements;
+        private readonly int _sizeX;
 
         /// <summary>
-        /// properties
+        /// Block's size Y (height)
+        /// </summary>
+        private readonly int _sizeY;
+
+        /// <summary>
+        /// Random object, allows us to pick a random number
+        /// </summary>
+        private Random _random = new Random();
+
+        /// <summary>
+        /// Block's littleBlocks (cells that composes the block)
+        /// </summary>
+        private LittleBlock[,] _elements;
+
+        //properties
+        /// <summary>
+        /// Property for SizeX
         /// </summary>
         public int SizeX
         {
             get { return _sizeX; }
         }
 
+        /// <summary>
+        /// Property for SizeY
+        /// </summary>
         public int SizeY
         {
             get { return _sizeY; }
         }
 
+        //methods
+
         /// <summary>
-        /// Constructeur renseigné
+        /// Custom constructor
         /// </summary>
-        /// <param name="size">La taille du bloc</param>
-        /// <param name="location"></param>
+        /// <param name="sizeX">Block's width</param>
+        /// <param name="sizeY">Block's height</param>
+        /// <param name="posX">position x of the block</param>
+        /// <param name="posY">position y of the block</param>
         public Block(int sizeX, int sizeY, int posX, int posY)
         {
             _sizeX = sizeX;
@@ -55,83 +75,47 @@ namespace P_032_SpicyInvaders
         }
 
         /// <summary>
-        /// Initialiseur du bloc, le réinitialise si il est déja créé
+        /// Initialize the block (by creating little blocks)
         /// </summary>
         public void Initialize()
         {
-            elements = new LittleBlock[_sizeX, _sizeY];
+            _elements = new LittleBlock[_sizeX, _sizeY];
 
-            for(int y = 0; y < _sizeY; y++)
+            for (int y = 0; y < _sizeY; y++)
             {
-                for(int x = 0; x < _sizeX;x++)
+                for (int x = 0; x < _sizeX; x++)
                 {
-                    elements[x, y] = new LittleBlock( _posX + x, _posY + y );
+                    _elements[x, y] = new LittleBlock(_posX + x, _posY + y);
                 }
             }
         }
 
         /// <summary>
-        /// méthode qui supprime le bloc à la position spécifiée si il n'est pas déja mort
+        /// Destroy little block when hit by bullet
         /// </summary>
-        /// <param name="location"></param>
-        /// <returns></returns>
+        /// <param name="posX">position x of the block</param>
+        /// <param name="posY">position y of the block</param>
+        /// <returns>Return true if block is destroyed</returns>
         public bool IsInside(int posX, int posY)
         {
-            foreach(LittleBlock block in elements)
+            foreach (LittleBlock block in _elements)
             {
-                if(posX == block.PosX && posY == block.PosY && block.IsAlive)
+                if (posX == block.PosX && posY == block.PosY && block.IsAlive)
                 {
+                    if (_random.Next(2) == 1)
+                    {
+                        Sound.PlaySound(Sound.Sounds.Barrier);
+                    }
+                    else
+                    {
+                        Sound.PlaySound(Sound.Sounds.Barrier2);
+                    }
+
                     block.Delete();
                     return true;
                 }
             }
             return false;
         }
-
-        /// <summary>
-        /// sous classe représentant chaque élément du gros bloc
-        /// </summary>
-        class LittleBlock : Entity
-        {
-            /// <summary>
-            /// attributs
-            /// </summary>
-            private char _charDesign = '█';            //le caractère utilisé pour dessiner le bloc
-
-            private bool _isAlive = true;              //si le block est vivant
-
-            /// <summary>
-            /// properties
-            /// </summary>
-            public bool IsAlive
-            {
-                get { return _isAlive; }
-            }
-
-            /// <summary>
-            /// Constructeur renseigné
-            /// </summary>
-            /// <param name="location">la position à laquelle créer le mini-bloc</param>
-            public LittleBlock(int posX, int posY)
-            {
-                _posX = posX;
-                _posY = posY;
-
-                Console.SetCursorPosition(_posX, _posY);
-                Console.Write(_charDesign);
-            }
-            
-            /// <summary>
-            /// méthode pour supprimer le bloc
-            /// </summary>
-            public void Delete()
-            {
-                _isAlive = false;
-                Console.SetCursorPosition(_posX, _posY);
-                Console.Write(' ');
-            }
-
-        }
     }
-    
 }

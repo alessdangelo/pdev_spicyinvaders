@@ -1,65 +1,104 @@
 ﻿/*
 	ETML
 	Date: 11.09.20
-	Auteur: Manuel Oro
-	Description: Player class. Player can moove
-	Modifié le: --
+	Auteur: Alessandro D'Angelo
+	Description: Player class. Player can move.
+    Modifié par : Manuel Oro, Alessandro D'Angelo
+	Modifié le: 10.07.2021
 */
 using System;
 
 namespace P_032_SpicyInvaders
 {
+    /// <summary>
+    /// Class Player
+    /// </summary>
     public class Player : Entity
     {
+        //private class fields
         /// <summary>
-        /// Attributs
+        /// Player's Life
         /// </summary>
-        private readonly char _playerChar = 'x';
         private int _life = 3;
-        private int _score = 0;
-        private bool _isPosLimitRight = false;
-        private bool _isPosLimitLeft = false;
-        private bool _canShoot = true;
-        
+
         /// <summary>
-        /// Properties
+        /// Player's score
+        /// </summary>
+        private int _score = 0;
+
+        /// <summary>
+        /// Bool used to know if we are at the right limit
+        /// </summary>
+        private bool _isPosLimitRight = false;
+
+        /// <summary>
+        /// Bool used to know if we are at the left limit
+        /// </summary>
+        private bool _isPosLimitLeft = false;
+
+        /// <summary>
+        /// DateTime used to allow a temporal invincibility to the player when he's hit
+        /// </summary>
+        private static DateTime _tempInvincibility = new DateTime();
+
+        /// <summary>
+        /// the duration of the temporal invincibility 
+        /// </summary>
+        private readonly double _invincibilityTime;
+
+        //Properties
+        /// <summary>
+        /// Player Life's Property
         /// </summary>
         public int Life
         {
             get { return _life; }
             set { _life = value; }
         }
+
+        /// <summary>
+        /// Player's score property
+        /// </summary>
         public int Score
         {
             get { return _score; }
             set { _score = value; }
         }
-        public bool CanShoot
+
+        /// <summary>
+        /// Player's temp invincibility property
+        /// </summary>
+        public DateTime TempInvicibility
         {
-            get { return _canShoot; }
-            set { _canShoot = value; }
+            get { return _tempInvincibility; }
+            set { _tempInvincibility = value; }
         }
 
-        public char PlayerChar
-        {
-            get { return _playerChar; }
-        }
-
-
+        //methods
         /// <summary>
         /// Custom constructor
         /// </summary>
         /// <param name="x">X position in console</param>
         /// <param name="y">Y position in console</param>
         /// <param name="life">Player lifes</param>
-        public Player(int x, int y, int life)
+        public Player(int x, int y, int life, double invincibilityTime)
         {
             this._posX = x;
             this._posY = y;
             this._life = life;
+            this._invincibilityTime = invincibilityTime;
+            Sprite = '♠';
 
             Console.SetCursorPosition(_posX, _posY);
-            Console.Write(_playerChar);
+            Console.Write(Sprite);
+        }
+
+        /// <summary>
+        /// Procure invincibility to player
+        /// </summary>
+        public void Invicibility()
+        {
+            _tempInvincibility = DateTime.Now.AddSeconds(_invincibilityTime);
         }
 
         /// <summary>
@@ -70,36 +109,49 @@ namespace P_032_SpicyInvaders
         {
             Console.SetCursorPosition(_posX, _posY);
             Console.Write(" ");
-            if (_posX >= Console.WindowWidth - 1) //Check if player is in the right border
+
+            // Check if player is in the right border
+            if (_posX >= Console.WindowWidth - 1)
             {
-                _isPosLimitRight = true;    //Player can't move to the right
-                //_posX = Console.WindowWidth - 2;
-            }
-            else if (_posX == Console.WindowWidth - 2) //Check if player is not in the right border
-            {
-                _isPosLimitRight = false;   //Player can move to the right
-            }
-            if (_posX <= 0) //Check if player is in the left border
-            {
-                _isPosLimitLeft = true; //Player can't move to the left
-                //_posX = 1;
-            }
-            else if (_posX == 1)    //Check if player is in the left border
-            {
-                _isPosLimitLeft = false;    //Player can move to the left
+                _isPosLimitRight = true;
             }
 
-            //Player move to the right or left if he's not in the limits
-            if (direction == 1 && _isPosLimitRight == false)
+            // Check if player is not in the right border
+            else if (_posX == Console.WindowWidth - 2)
+            {
+                _isPosLimitRight = false;
+            }
+
+            // Check if player is in the left border
+            if (_posX <= 0)
+            {
+                _isPosLimitLeft = true;
+            }
+
+            // Check if player is in the left border
+            else if (_posX == 1)
+            {
+                _isPosLimitLeft = false;
+            }
+
+            // Player can move to the right or left if he's not in the limits
+            if ((direction == 1 && _isPosLimitRight == false) || (direction == -1 && _isPosLimitLeft == false))
             {
                 _posX += direction;
             }
-            if (direction == -1 && _isPosLimitLeft == false)
-            {
-                _posX += direction;
-            }
+
             Console.SetCursorPosition(_posX, _posY);
-            Console.Write(_playerChar);
-        }       
+
+            //invicibility system, turn the player red for a short period of time when hit
+            if (DateTime.Now < TempInvicibility)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            Console.Write(Sprite);
+        }
     }
 }

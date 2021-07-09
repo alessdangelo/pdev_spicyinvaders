@@ -2,10 +2,11 @@
 	ETML
 	Date: 11.09.20
 	Auteur: Manuel Oro
-	Description: Enemy class. Enemy can moove and be destroyed
-	Modifié le: --
+	Description: Enemy class. Enemy can move, shoot and be destroyed
+	Modifié le: 04.12.20
 */
 using System;
+using System.Collections.Generic;
 
 namespace P_032_SpicyInvaders
 {
@@ -14,18 +15,17 @@ namespace P_032_SpicyInvaders
     /// </summary>
     public class Enemy : Entity
     {
+        //methods
         /// <summary>
-        /// Attributes
+        /// Custom constructor
         /// </summary>
-        private bool _isAlive = true;
-
-        /// <summary>
-        /// Properties
-        /// </summary>
-        public bool IsAlive
+        /// <param name="posX">Spawn enemy at position x</param>
+        /// <param name="posY">Spawn enemy at position y</param>
+        public Enemy(int posX, int posY)
         {
-            get { return _isAlive; }
-            set { _isAlive = value; }
+            _posX = posX;
+            _posY = posY;
+            Sprite = '*';
         }
 
         /// <summary>
@@ -33,11 +33,12 @@ namespace P_032_SpicyInvaders
         /// </summary>
         /// <param name="posX">Spawn enemy at position x</param>
         /// <param name="posY">Spawn enemy at position y</param>
-        /// <param name="speed">Set enemy speed</param>
-        public Enemy(int posX, int posY)
+        /// <param name="ennemyCharacter">Character displayed (represent the enemy)</param>
+        public Enemy(int posX, int posY, char ennemyCharacter = '*')
         {
             _posX = posX;
             _posY = posY;
+            Sprite = ennemyCharacter;
         }
 
         /// <summary>
@@ -46,19 +47,89 @@ namespace P_032_SpicyInvaders
         /// <param name="direction">Select in which direction enemy goes</param>
         public void Move(int[] direction)
         {
-            if(_isAlive)
+            if (IsAlive)
             {
                 Console.SetCursorPosition(_posX, _posY);
                 Console.Write(" ");
                 _posX += direction[0];
                 _posY += direction[1];
                 Console.SetCursorPosition(_posX, _posY);
-                Console.Write("*");
+                Console.Write(Sprite);
             }
             else
             {
                 _posX += direction[0];
                 _posY += direction[1];
+            }
+        }
+
+        /// <summary>
+        /// Move all ennemies, code used in the game and placed here for better structure
+        /// </summary>
+        /// <param name="moveEnnemyAndControlShoot">the timing to move the ennemies</param>
+        /// <param name="ennemiesSpeed">the speed of the ennemies</param>
+        /// <param name="direction">the ennemies direction</param>
+        /// <param name="ennemiesArray">the ennemies to move</param>
+        /// <param name="random">a random Random</param>
+        /// <param name="bullets">all the game bullets</param>
+        /// <param name="ennemiesLimits">the limits of the ennemies</param>
+        public static void MoveEnnemies(ref DateTime moveEnnemyAndControlShoot, ref int ennemiesSpeed, ref int[] direction, ref Enemy[,] ennemiesArray, Random random, ref List<Shoot> bullets, ref int[] ennemiesLimits)
+        {
+            if (Console.ForegroundColor != ConsoleColor.White)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            if (DateTime.Now.Ticks > moveEnnemyAndControlShoot.Ticks)
+            {
+                moveEnnemyAndControlShoot = DateTime.Now.AddMilliseconds(ennemiesSpeed);
+                if (direction[1] == 1)
+                {
+                    for (int y = ennemiesArray.GetLength(1) - 1; y >= 0; y--)
+                    {
+                        for (int x = 0; x < ennemiesArray.GetLength(0); x++)
+                        {
+                            if (ennemiesArray[x, y].IsAlive)
+                            {
+                                if (random.Next(50) == 1)
+                                {
+                                    bullets.Add(new Shoot(ennemiesArray[x, y].PosX, ennemiesArray[x, y].PosY + 5, +1));
+                                }
+                            }
+                            ennemiesArray[x, y].Move(direction);
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (Enemy ennemy in ennemiesArray)
+                    {
+                        if (ennemy.IsAlive)
+                        {
+                            if (random.Next(50) == 1)
+                            {
+                                bullets.Add(new Shoot(ennemy.PosX, ennemy.PosY + 5, +1));
+                            }
+                        }
+                        ennemy.Move(direction);
+                    }
+                }
+
+                if (ennemiesArray[0, 0].PosX + direction[0] <= ennemiesLimits[0])
+                {
+                    direction = new int[] { 0, 1 };
+                }
+                if (ennemiesArray[ennemiesArray.GetLength(0) - 1, 0].PosX + direction[0] >= ennemiesLimits[1])
+                {
+                    direction = new int[] { 0, -1 };
+                }
+                if (ennemiesArray[0, 0].PosY + direction[1] <= ennemiesLimits[2])
+                {
+                    direction = new int[] { -1, 0 };
+                }
+                if (ennemiesArray[0, ennemiesArray.GetLength(1) - 1].PosY + direction[1] >= ennemiesLimits[3])
+                {
+                    direction = new int[] { 1, 0 };
+                }
             }
         }
 
@@ -69,16 +140,6 @@ namespace P_032_SpicyInvaders
         {
             Console.SetCursorPosition(_posX, _posY);
             Console.Write(" ");
-            Program.ship.Score += 100;
-            Program.hud.PrintPlayerScore();
-        }
-
-        /// <summary>
-        /// Destructor
-        /// </summary>
-        ~Enemy()
-        {
-
         }
     }
 }
